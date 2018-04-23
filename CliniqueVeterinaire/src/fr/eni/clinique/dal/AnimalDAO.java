@@ -32,11 +32,12 @@ public interface AnimalDAO extends DAO<Animal>{
 	 * @param animal non null
 	 */
 	public abstract void modifier(Animal animal);
+	
 	/**
 	 * 
 	 * @param animal non null
 	 */
-	public abstract void supprimer(Animal animal);
+	public abstract boolean supprimer(Animal animal);
 	
 	
 	
