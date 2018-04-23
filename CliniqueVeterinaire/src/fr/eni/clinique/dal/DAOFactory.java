@@ -5,7 +5,7 @@ import fr.eni.clinique.dal.jdbc.AnimalDAOJdbcImpl;
 
 public abstract class DAOFactory {
 	
-	public static AnimalDAO getArticleDAO()
+	public static AnimalDAO getAnimalDAO()
 	{
 		switch (Parametres.getValue("typeSauvegarde")) {
 		case "jdbc":

@@ -36,7 +36,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		}catch (SQLException e) {
 			
 		}
-		return null;
+		return animaux;
 	}
 
 	private Animal itemBuilder(ResultSet rs) throws SQLException {
