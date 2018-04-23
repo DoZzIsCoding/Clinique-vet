@@ -1,5 +1,8 @@
 package fr.eni.clinique.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Personnel {
 
 	private int codePers;
@@ -7,6 +10,8 @@ public class Personnel {
 	private String motDePasse;
 	private String role;
 	private boolean archive;
+	
+	private List<Agenda> planning;
 	
 	public Personnel() {
 		// TODO Auto-generated constructor stub
@@ -19,8 +24,23 @@ public class Personnel {
 		this.motDePasse = motDePasse;
 		this.role = role;
 		this.archive = false;
+		this.planning = new ArrayList<>();
 	}
 
+	// METHODES
+
+	public void ajouterRdv (Agenda rdv){
+		this.planning.add(rdv);
+	}
+	
+	public void supprimerRdv(Agenda rdv){
+		this.planning.remove(rdv);
+	}
+	
+	public void modifierRdv (){
+		
+	}
+	// GETTERS AND SETTERS
 	public int getCodePers() {
 		return codePers;
 	}
