@@ -8,5 +8,5 @@ public class Animal {
 	private String sexe;
 	private String couleur;
 	private String race;
-	
+	private String espece;
 }
