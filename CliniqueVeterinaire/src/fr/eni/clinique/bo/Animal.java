@@ -19,6 +19,24 @@ public class Animal {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+	public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, String espece,
+			long codeClient, String tatouage) {
+		super();
+		this.codeAnimal = codeAnimal;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.couleur = couleur;
+		this.race = race;
+		this.espece = espece;
+		this.codeClient = codeClient;
+		this.tatouage = tatouage;
+		this.antecedents = "";
+		this.archive = false;
+	}
+
+
 
 	public int getCodeAnimal() {
 		return codeAnimal;
