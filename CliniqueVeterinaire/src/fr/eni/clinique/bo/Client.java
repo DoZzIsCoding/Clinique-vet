@@ -17,12 +17,6 @@ public class Client {
 	private Boolean archive;
 	
 	//CONSTRUCTEUR
-	
-	
-	//GETTERS SETTERS
-	public int getCodeClient() {
-		return codeClient;
-	}
 	public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2,
 			String codePostal, String ville, String numTel, String assurance, String email, String remarque) {
 		super();
@@ -39,6 +33,12 @@ public class Client {
 		this.remarque = remarque;
 		this.archive = false;
 	}
+	
+	//GETTERS SETTERS
+	public int getCodeClient() {
+		return codeClient;
+	}
+	
 	public void setCodeClient(int codeClient) {
 		this.codeClient = codeClient;
 	}
