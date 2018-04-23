@@ -14,6 +14,7 @@ public class Animal {
 	private String antecedents;
 	private boolean archive;
 	
+	private Agenda rdv;
 	
 	public Animal() {
 		// TODO Auto-generated constructor stub
@@ -34,6 +35,8 @@ public class Animal {
 		this.tatouage = tatouage;
 		this.antecedents = "";
 		this.archive = false;
+		this.rdv = new Agenda();
+		
 	}
 
 
