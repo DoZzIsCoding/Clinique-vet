@@ -7,5 +7,6 @@ public class Animal {
 	private String nomAnimal;
 	private String sexe;
 	private String couleur;
+	private String race;
 	
 }
