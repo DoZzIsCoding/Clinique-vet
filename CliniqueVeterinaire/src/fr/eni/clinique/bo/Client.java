@@ -41,7 +41,25 @@ public class Client {
 		this.animaux = new ArrayList<>();
 	}
 	
+	//METHODES 
+	public void ajouterAnimal(Animal animal){
+		this.animaux.add(animal);
+	}
+	
+	public void supprimerAnimal(Animal animal){
+		this.animaux.remove(animal);
+	}
+	
+	public void modifierAnimal(Animal animal){
+		this.animaux.set(this.animaux.indexOf(animal) ,animal);
+	}
+	
 	//GETTERS SETTERS
+	public List<Animal> getAnimaux(){
+		return animaux;
+	}
+	
+	
 	public int getCodeClient() {
 		return codeClient;
 	}
