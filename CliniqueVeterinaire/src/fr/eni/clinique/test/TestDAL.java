@@ -17,7 +17,8 @@ public class TestDAL {
 				System.out.println(a);
 			}
 			
-			
+			System.out.println("Seléction par id");
+			System.out.println(animalDAO.selectionnerUn(1));
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
