@@ -1,5 +1,8 @@
 package fr.eni.clinique.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client {
 
 	// VARIABLES
@@ -15,6 +18,9 @@ public class Client {
 	private String email;
 	private String remarque;
 	private Boolean archive;
+	
+	private List<Animal> animaux;
+	
 	
 	//CONSTRUCTEUR
 	public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2,
@@ -32,6 +38,7 @@ public class Client {
 		this.email = email;
 		this.remarque = remarque;
 		this.archive = false;
+		this.animaux = new ArrayList<>();
 	}
 	
 	//GETTERS SETTERS

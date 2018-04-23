@@ -12,6 +12,10 @@ public class Agenda {
 	
 
 	//CONSTRUCTEUR
+	public Agenda() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Agenda(int codeVeto, Date dateRDV, int codeAnimal) {
 		super();
 		this.codeVeto = codeVeto;
