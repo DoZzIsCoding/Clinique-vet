@@ -20,7 +20,7 @@ public class Animal {
 	}
 
 	public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, String espece,
-			long codeClient, String tatouage) {
+			long codeClient, String tatouage, String antecedents) {
 		super();
 		this.codeAnimal = codeAnimal;
 		this.nomAnimal = nomAnimal;
@@ -30,7 +30,7 @@ public class Animal {
 		this.espece = espece;
 		this.codeClient = codeClient;
 		this.tatouage = tatouage;
-		this.antecedents = "";
+		this.antecedents = antecedents;
 		this.archive = false;
 		this.rdv = new Agenda();
 

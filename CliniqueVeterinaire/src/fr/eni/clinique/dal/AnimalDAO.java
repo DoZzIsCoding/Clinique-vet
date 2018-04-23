@@ -17,8 +17,9 @@ public interface AnimalDAO extends DAO<Animal>{
 	/**
 	 * 
 	 * @return la liste des animaux jamais null
+	 * @throws DalException 
 	 */
-	public abstract List<Animal> selectionnerTout();
+	public abstract List<Animal> selectionnerTout() throws DalException;
 	
 	
 	/**
