@@ -9,4 +9,5 @@ public class Animal {
 	private String couleur;
 	private String race;
 	private String espece;
+	private long codeClient;
 }
