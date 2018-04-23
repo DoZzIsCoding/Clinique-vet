@@ -71,6 +71,23 @@ public class Personnel {
 	public void setArchive(boolean archive) {
 		this.archive = archive;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Personnel [getCodePers()=");
+		builder.append(getCodePers());
+		builder.append(", getNom()=");
+		builder.append(getNom());
+		builder.append(", getMotDePasse()=");
+		builder.append(getMotDePasse());
+		builder.append(", getRole()=");
+		builder.append(getRole());
+		builder.append(", isArchive()=");
+		builder.append(isArchive());
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 	

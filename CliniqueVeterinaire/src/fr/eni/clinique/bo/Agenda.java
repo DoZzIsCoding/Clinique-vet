@@ -1,13 +1,14 @@
 package fr.eni.clinique.bo;
 
-import java.util.Date;
+
+import java.util.GregorianCalendar;
 
 public class Agenda {
 	
 	
 	//VARIABLES
 	private int codeVeto;
-	private Date dateRDV;
+	private GregorianCalendar dateRDV;
 	private int codeAnimal;
 	
 
@@ -16,7 +17,7 @@ public class Agenda {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Agenda(int codeVeto, Date dateRDV, int codeAnimal) {
+	public Agenda(int codeVeto, GregorianCalendar dateRDV, int codeAnimal) {
 		super();
 		this.codeVeto = codeVeto;
 		this.dateRDV = dateRDV;
@@ -31,10 +32,10 @@ public class Agenda {
 	public void setCodeVeto(int codeVeto) {
 		this.codeVeto = codeVeto;
 	}
-	public Date getDateRDV() {
+	public GregorianCalendar getDateRDV() {
 		return dateRDV;
 	}
-	public void setDateRDV(Date dateRDV) {
+	public void setDateRDV(GregorianCalendar dateRDV) {
 		this.dateRDV = dateRDV;
 	}
 	public int getCodeAnimal() {
@@ -43,6 +44,20 @@ public class Agenda {
 	public void setCodeAnimal(int codeAnimal) {
 		this.codeAnimal = codeAnimal;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Agenda [getCodeVeto()=");
+		builder.append(getCodeVeto());
+		builder.append(", getDateRDV()=");
+		builder.append(getDateRDV().getTime());
+		builder.append(", getCodeAnimal()=");
+		builder.append(getCodeAnimal());
+		builder.append("]");
+		return builder.toString();
+	}
 	
 
+	
 }

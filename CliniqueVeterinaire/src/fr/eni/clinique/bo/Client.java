@@ -133,6 +133,39 @@ public class Client {
 	public void setArchive(Boolean archive) {
 		this.archive = archive;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Client [getAnimaux()=");
+		builder.append(getAnimaux());
+		builder.append(", getCodeClient()=");
+		builder.append(getCodeClient());
+		builder.append(", getNomClient()=");
+		builder.append(getNomClient());
+		builder.append(", getPrenomClient()=");
+		builder.append(getPrenomClient());
+		builder.append(", getAdresse1()=");
+		builder.append(getAdresse1());
+		builder.append(", getAdresse2()=");
+		builder.append(getAdresse2());
+		builder.append(", getCodePostal()=");
+		builder.append(getCodePostal());
+		builder.append(", getVille()=");
+		builder.append(getVille());
+		builder.append(", getNumTel()=");
+		builder.append(getNumTel());
+		builder.append(", getAssurance()=");
+		builder.append(getAssurance());
+		builder.append(", getEmail()=");
+		builder.append(getEmail());
+		builder.append(", getRemarque()=");
+		builder.append(getRemarque());
+		builder.append(", getArchive()=");
+		builder.append(getArchive());
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 	

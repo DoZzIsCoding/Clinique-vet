@@ -127,4 +127,32 @@ public class Animal {
 		this.archive = archive;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Animal [getCodeAnimal()=");
+		builder.append(getCodeAnimal());
+		builder.append(", getNomAnimal()=");
+		builder.append(getNomAnimal());
+		builder.append(", getSexe()=");
+		builder.append(getSexe());
+		builder.append(", getCouleur()=");
+		builder.append(getCouleur());
+		builder.append(", getRace()=");
+		builder.append(getRace());
+		builder.append(", getEspece()=");
+		builder.append(getEspece());
+		builder.append(", getCodeClient()=");
+		builder.append(getCodeClient());
+		builder.append(", getTatouage()=");
+		builder.append(getTatouage());
+		builder.append(", getAntecedents()=");
+		builder.append(getAntecedents());
+		builder.append(", isArchive()=");
+		builder.append(isArchive());
+		builder.append("]");
+		return builder.toString();
+	}
+
+	
 }
