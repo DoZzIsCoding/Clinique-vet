@@ -78,11 +78,11 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				if(rs.getInt("codeclient") != cliEnCours){
 					cliEnCours = rs.getInt("codeclient");
 					clients.add(this.itemBuilder(rs));
-					clients.get(indexListeClient).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
 					indexListeClient++;
 				}
 				else{
-					clients.get(indexListeClient).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
 				}
 			}
 		} catch (SQLException e) {

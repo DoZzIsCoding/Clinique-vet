@@ -44,9 +44,9 @@ private static CliniqueManager instance;
 	 */
 	public List<Client> getClients() throws BLLException {
 		try {
-			return clientDAO.selectionnerTout();
+			return clientDAO.selectionnerAvecAnimaux();
 		} catch (DalException e) {
-			throw new BLLException("Erreur accès aux clients.");
+			throw new BLLException("Erreur accès aux clients (avec animaux).");
 		}
 	}
 

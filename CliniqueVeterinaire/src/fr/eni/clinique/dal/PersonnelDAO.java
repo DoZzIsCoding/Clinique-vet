@@ -16,7 +16,8 @@ public interface PersonnelDAO extends DAO<Personnel>{
 	
 	/**
 	 * 
-	 * @return la liste des personnel jamais null
+	 * @return la liste du personnel (non Archivé) jamais null
+	 * 
 	 */
 	public abstract List<Personnel> selectionnerTout();
 	
