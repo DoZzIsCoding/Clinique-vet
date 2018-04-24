@@ -128,7 +128,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		}
 	}
 
-	private Animal itemBuilder(ResultSet rs) throws SQLException {
+	public static Animal itemBuilder(ResultSet rs) throws SQLException {
 		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe"),
 				rs.getString("Couleur"), rs.getString("Race"), rs.getString("Espece"), rs.getInt("CodeClient"),
 				rs.getString("Tatouage"), rs.getString("Antecedents"));

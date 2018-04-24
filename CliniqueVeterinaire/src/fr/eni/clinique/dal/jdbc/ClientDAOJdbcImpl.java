@@ -24,6 +24,12 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			+ "codePostal=?" + "ville=?" + "numtel=?" + "assurance=?" + "email=?" + "remarque=?" + "archive=?"
 			+ "where codeclient=?";
 	private static final String DELETE = "delete from clients where codeClient=?";
+	
+	private static final String SELECT_WITH_ANIMALS =  "SELECT * FROM clients cli join animaux ani on ani.CodeClient = cli.CodeClient where cli.archive=0 and Ani.Archive=0";
+	
+	/**
+	 * selectionne un client sans ses animaux
+	 */
 	public Client selectionnerUn(int id) throws DalException {
 		Client client = null;
 
@@ -58,6 +64,42 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		}
 		return clients;
 	}
+	
+	public List<Client> selectionnerAvecAnimaux() throws DalException {
+		List<Client> clients = new ArrayList<>();
+
+		try (Connection cnx = ConnectionDAO.getConnection()) {
+			Statement stmt = cnx.createStatement();
+			ResultSet rs = stmt.executeQuery(SELECT_WITH_ANIMALS);
+			//TODO modifier la boucle pour ajouter les animaux a la liste de chaque client
+			int cliEnCours = -1;
+			int indexListeClient = 0;
+			while (rs.next()) {
+				if(rs.getInt("codeclient") != cliEnCours){
+					cliEnCours = rs.getInt("codeclient");
+					clients.add(this.itemBuilder(rs));
+					clients.get(indexListeClient).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					indexListeClient++;
+				}
+				else{
+					clients.get(indexListeClient).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+				}
+			}
+		} catch (SQLException e) {
+
+		}
+		return clients;
+	}
+
+//	private Client fullItemBuilder(ResultSet rs) throws SQLException {
+//		
+//		Client client = new Client(rs.getInt("codeClient"), rs.getString("nomclient"), rs.getString("prenomClient"),
+//				rs.getString("adresse1"), rs.getString("adresse2"), rs.getString("codePostal"),
+//				rs.getString("codeClient"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
+//				rs.getString("remarque"));
+//
+//		return client;
+//	}
 
 	private Client itemBuilder(ResultSet rs) throws SQLException {
 		Client client = new Client(rs.getInt("codeClient"), rs.getString("nomclient"), rs.getString("prenomClient"),

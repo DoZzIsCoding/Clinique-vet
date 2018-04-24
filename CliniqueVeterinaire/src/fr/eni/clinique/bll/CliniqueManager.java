@@ -9,21 +9,21 @@ import fr.eni.clinique.dal.ClientDAO;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DalException;
 
-public class Manager {
+public class CliniqueManager {
 	
-private static Manager instance;
+private static CliniqueManager instance;
 	
 	private AnimalDAO animalDAO;
 	private ClientDAO clientDAO;
 	
-	private Manager() { 
+	private CliniqueManager() { 
 		animalDAO = DAOFactory.getAnimalDAO();
 		clientDAO = DAOFactory.getClientDAO();
 	}
 	
-	public static Manager getInstance() {
+	public static CliniqueManager getInstance() {
 		if(instance == null) {
-			instance = new Manager();
+			instance = new CliniqueManager();
 		}
 		return instance;
 	}
@@ -36,6 +36,12 @@ private static Manager instance;
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @return la liste des clients avec leurs animaux
+	 * @throws BLLException
+	 */
 	public List<Client> getClients() throws BLLException {
 		try {
 			return clientDAO.selectionnerTout();
@@ -43,6 +49,5 @@ private static Manager instance;
 			throw new BLLException("Erreur accès aux clients.");
 		}
 	}
-	
 
 }

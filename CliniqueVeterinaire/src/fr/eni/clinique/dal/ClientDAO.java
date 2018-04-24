@@ -42,5 +42,12 @@ public interface ClientDAO extends DAO<Client>{
 	 * @param client non null
 	 */
 	public abstract boolean supprimer(Client client);
+	
+	/**
+	 * selectionne les clients avec leur liste d'animaux respective
+	 * @return
+	 * @throws DalException
+	 */
+	public List<Client> selectionnerAvecAnimaux() throws DalException;
 
 }
