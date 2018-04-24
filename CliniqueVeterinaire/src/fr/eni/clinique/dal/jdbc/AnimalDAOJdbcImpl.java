@@ -14,17 +14,28 @@ import fr.eni.clinique.dal.DalException;
 
 public class AnimalDAOJdbcImpl implements AnimalDAO {
 
-	private static final String SELECT = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux;";
-	
-	private static final String SELECT_ALL = SELECT + " WHERE archive = 0;";
+	private static final String SELECT_ALL = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux WHERE archive = 0;";
 
-	private static final String SELECT_BY_ID = SELECT + " WHERE codeAnimal =?";
+	private static final String SELECT_BY_ID = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux WHERE codeAnimal =?";
 
 	private static final String INSERT = "INSERT INTO ANIMAUX(nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive ) "
 											+ "VALUES(?,?,?,?,?,?,?,?,?)";;
 	
-	private static final String UPDATE = "UPDATE ANIMAL SET nomAnimal=?, sexe=?, couleur=?, race=?, espece=?, codeClient=?, tatouage=?, antecedents=?, archive=? WHERE codeAnimal=? ;";										
-											
+	private static final String UPDATE = "UPDATE ANIMAUX SET "
+			+ "nomAnimal=?, "
+			+ "sexe=?, "
+			+ "couleur=?, "
+			+ "race=?, "
+			+ "espece=?, "
+			+ "codeClient=?, "
+			+ "tatouage=?, "
+			+ "antecedents=?, "
+			+ "archive=? "
+			+ "WHERE codeAnimal=? ;";		
+	
+	private static final String DELETE = "UPDATE ANIMAUX SET archive=? WHERE codeAnimal=? ;";
+										
+		
 	@Override
 	public Animal selectionnerUn(int id) {
 		Animal animal = null;
@@ -51,8 +62,8 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		List<Animal> animaux = new ArrayList<>();
 
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
-			ResultSet rs = pstmt.executeQuery();
+			Statement stmt = cnx.createStatement();
+			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
 			while (rs.next()) {
 				animaux.add(this.itemBuilder(rs));
@@ -88,8 +99,11 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	public void modifier(Animal animal) throws DalException {
 		try(Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
+			preparerStatement(animal, pstmt);
 			
-			
+			pstmt.setInt(10,animal.getCodeAnimal());
+			pstmt.executeUpdate();
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DalException("update");
@@ -98,8 +112,19 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	}
 
 	@Override
-	public boolean supprimer(Animal animal) {
-		// TODO Auto-generated method stub
+	/**
+	 * change le status de l'animal à archivé
+	 */
+	public boolean supprimer(Animal animal) throws DalException {
+		try(Connection cnx = ConnectionDAO.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
+			pstmt.setBoolean(9, animal.isArchive());
+			pstmt.executeUpdate();
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DalException("delete");
+		}
 		return false;
 	}
 
