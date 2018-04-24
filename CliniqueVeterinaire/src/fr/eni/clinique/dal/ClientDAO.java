@@ -33,8 +33,9 @@ public interface ClientDAO extends DAO<Client>{
 	/**
 	 * 
 	 * @param client non null
+	 * @throws DalException 
 	 */
-	public abstract void modifier(Client client);
+	public abstract void modifier(Client client) throws DalException;
 	
 	/**
 	 * 
