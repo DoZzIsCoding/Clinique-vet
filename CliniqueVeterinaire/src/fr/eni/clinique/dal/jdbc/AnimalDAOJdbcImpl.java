@@ -14,9 +14,11 @@ import fr.eni.clinique.dal.DalException;
 
 public class AnimalDAOJdbcImpl implements AnimalDAO {
 
-	private static final String SELECT_ALL = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux";
+	private static final String SELECT = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux;";
+	
+	private static final String SELECT_ALL = SELECT + " WHERE archive = 0;";
 
-	private static final String SELECT_BY_ID = SELECT_ALL + " WHERE codeAnimal =?";
+	private static final String SELECT_BY_ID = SELECT + " WHERE codeAnimal =?";
 
 	private static final String INSERT = "INSERT INTO ANIMAUX(nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive ) "
 											+ "VALUES(?,?,?,?,?,?,?,?,?)";;
@@ -42,12 +44,15 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	}
 
 	@Override
+	/**
+	 * séléctionne tous les animaux non archivés
+	 */
 	public List<Animal> selectionnerTout() throws DalException {
 		List<Animal> animaux = new ArrayList<>();
 
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			Statement stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ALL);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
+			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				animaux.add(this.itemBuilder(rs));
