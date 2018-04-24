@@ -118,14 +118,14 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	public boolean supprimer(Animal animal) throws DalException {
 		try(Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
-			pstmt.setBoolean(9, animal.isArchive());
+			pstmt.setInt(1, (animal.isArchive()? 1 : 0));
+			pstmt.setInt(2, animal.getCodeAnimal());
 			pstmt.executeUpdate();
-						
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DalException("delete");
 		}
-		return false;
 	}
 
 	private Animal itemBuilder(ResultSet rs) throws SQLException {
