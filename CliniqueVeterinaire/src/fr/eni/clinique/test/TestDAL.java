@@ -16,9 +16,16 @@ public class TestDAL {
 			{
 				System.out.println(a);
 			}
-			
+			Animal animal = new Animal(50, "toto", "F", "blouage", "Batard", "Chien", 7, "KHP98R", "");
 			System.out.println("Seléction par id");
 			System.out.println(animalDAO.selectionnerUn(1));
+			
+			System.out.println("Liste après ajout");
+			animalDAO.ajouter(animal);
+			for(Animal a:animalDAO.selectionnerTout()){
+				
+				System.out.println(a);
+			}
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -25,14 +25,16 @@ public interface AnimalDAO extends DAO<Animal>{
 	/**
 	 * 
 	 * @param animal non null
+	 * @throws DalException 
 	 */
-	public abstract void ajouter(Animal animal);
+	public abstract void ajouter(Animal animal) throws DalException;
 	
 	/**
 	 * 
 	 * @param animal non null
+	 * @throws DalException 
 	 */
-	public abstract void modifier(Animal animal);
+	public abstract void modifier(Animal animal) throws DalException;
 	
 	/**
 	 * 
