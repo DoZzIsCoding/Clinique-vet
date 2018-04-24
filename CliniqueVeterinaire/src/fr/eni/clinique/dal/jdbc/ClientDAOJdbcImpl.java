@@ -15,7 +15,7 @@ import fr.eni.clinique.dal.jdbc.ConnectionDAO;
 
 public class ClientDAOJdbcImpl implements ClientDAO {
 
-	private static final String SELECT_ALL = "SELECT codeClient, nom, prenomClient, adresse1, adresse2, codePostal, ville, numTel, assurance, email, archive FROM clients where archive=0";
+	private static final String SELECT_ALL = "SELECT codeClient, NomClient, prenomClient, adresse1, adresse2, codePostal, ville, numTel, assurance, email, remarque FROM clients where archive=0";
 	private static final String SELECT_BY_ID = SELECT_ALL + "and codeClient=?";
 	private static final String INSERT = "INSERT INTO Clients(codeClient, nom, prenomClient, "
 			+ "adresse1, adresse2, codePostal, " + "ville, numTel, assurance, email, archive ) "
@@ -60,7 +60,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	}
 
 	private Client itemBuilder(ResultSet rs) throws SQLException {
-		Client client = new Client(rs.getInt("codeClient"), rs.getString("nom"), rs.getString("prenomClient"),
+		Client client = new Client(rs.getInt("codeClient"), rs.getString("nomclient"), rs.getString("prenomClient"),
 				rs.getString("adresse1"), rs.getString("adresse2"), rs.getString("codePostal"),
 				rs.getString("codeClient"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
 				rs.getString("remarque"));
