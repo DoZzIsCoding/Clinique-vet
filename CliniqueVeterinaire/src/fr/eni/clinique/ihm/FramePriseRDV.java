@@ -31,41 +31,6 @@ public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
 
-	// PANEL POUR
-	private JPanel pourPanel;
-	private JLabel lblClient;
-	private JComboBox<String> cbbClient;
-	private JButton btnAjouterClient;
-	private JLabel lblAnimal;
-	private JComboBox<String> cbbAnimal;
-	private JButton btnAjouterAnimal;
-
-	// PANEL PAR
-	private JPanel parPanel;
-	private JLabel lblVeterinaire;
-	private JComboBox<String> cbbVeterinaire;
-
-	// PANEL QUAND
-	private JPanel quandPanel;
-	private JLabel lblDate;
-	private UtilDateModel model;
-	private JDatePanelImpl datePanel;
-	private JDatePickerImpl datePicker;
-
-	private JLabel lblHeure;
-	private JComboBox<Integer> cbbHeure;
-	private JLabel lblH;
-	private JComboBox<Integer> cbbMinute;
-
-	// PANEL LISTE RDV
-	private JScrollPane tablePanel;
-	private JTable tableRDV;
-	private RDVTableModel tableModel;
-
-	// BOUTONS
-	private JButton btnSupprimer;
-	private JButton btnValider;
-
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
 		setTitle("Prise de rendez-vous");
@@ -97,6 +62,15 @@ public class FramePriseRDV extends JFrame {
 			gbc.gridx = 0;
 			gbc.gridwidth = 3;
 			mainPanel.add(getTablePanel(), gbc);
+			
+			gbc.gridy = 2;
+			gbc.gridx = 1;
+			mainPanel.add(getBtnSupprimer(),gbc);
+			
+			gbc.gridx = 2;
+			mainPanel.add(getBtnValider(),gbc);
+			
+			
 
 		}
 
@@ -106,6 +80,15 @@ public class FramePriseRDV extends JFrame {
 	////////////////////////////////////
 	// PANEL POUR
 	////////////////////////////////////
+	
+	private JPanel pourPanel;
+	private JLabel lblClient;
+	private JComboBox<String> cbbClient;
+	private JButton btnAjouterClient;
+	private JLabel lblAnimal;
+	private JComboBox<String> cbbAnimal;
+	private JButton btnAjouterAnimal;
+	
 
 	public JPanel getPourPanel() {
 		if (pourPanel == null) {
@@ -118,7 +101,8 @@ public class FramePriseRDV extends JFrame {
 
 			// Options graphiques
 			pourPanel.setBorder(border);
-			// pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
+			pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
+			pourPanel.setSize(300, 300);
 			pourPanel.setBackground(Color.WHITE);
 			// pourPanel.s
 			// encours
@@ -150,7 +134,7 @@ public class FramePriseRDV extends JFrame {
 	public JLabel getLblClient() {
 		if (lblClient == null) {
 			lblClient = new JLabel("Client");
-			lblClient.setHorizontalAlignment(SwingConstants.CENTER);
+			lblClient.setHorizontalAlignment(JLabel.LEFT);
 		}
 		return lblClient;
 	}
@@ -223,6 +207,11 @@ public class FramePriseRDV extends JFrame {
 	////////////////////////////////////
 	// PANEL PAR
 	////////////////////////////////////
+	
+	private JPanel parPanel;
+	private JLabel lblVeterinaire;
+	private JComboBox<String> cbbVeterinaire;
+	
 	public JPanel getParPanel() {
 		// ajouter le titledborder
 		if (parPanel == null) {
@@ -265,6 +254,18 @@ public class FramePriseRDV extends JFrame {
 	// PANEL QUAND
 	////////////////////////////////////
 
+	private JPanel quandPanel;
+	private JLabel lblDate;
+	private UtilDateModel model;
+	private JDatePanelImpl datePanel;
+	private JDatePickerImpl datePicker;
+
+	private JLabel lblHeure;
+	private JComboBox<Integer> cbbHeure;
+	private JLabel lblH;
+	private JComboBox<Integer> cbbMinute;
+	
+	
 	public JPanel getQuandPanel() {
 		// ajouter le titledborder
 		if (quandPanel == null) {
@@ -322,6 +323,15 @@ public class FramePriseRDV extends JFrame {
 	public JDatePickerImpl getDatePicker() {
 		if (datePicker == null) {
 			datePicker = new JDatePickerImpl(getDatePanel(), new DateComponentFormatter());
+			
+			datePicker.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+	
+					
+				}
+			});
 		}
 		return datePicker;
 	}
@@ -369,6 +379,12 @@ public class FramePriseRDV extends JFrame {
 	// LISTE DE RENDEZ VOUS
 	/////////////////////////////////
 
+	
+		private JScrollPane tablePanel;
+		private JTable tableRDV;
+		private RDVTableModel tableModel;
+	
+	
 	public JScrollPane getTablePanel() {
 		if (tablePanel == null) {
 			tablePanel = new JScrollPane();
@@ -385,6 +401,15 @@ public class FramePriseRDV extends JFrame {
 		return tableRDV;
 	}
 
+	/////////////////////////////////
+	// BOUTONS BAS DE PAGE
+	/////////////////////////////////
+	
+
+	private JButton btnSupprimer;
+	private JButton btnValider;
+	
+	
 	public JButton getBtnSupprimer() {
 		if (btnSupprimer == null) {
 			btnSupprimer = new JButton("Supprimer");

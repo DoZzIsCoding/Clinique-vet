@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.RDV;
 
 public class RDVTableModel extends AbstractTableModel {
@@ -16,7 +17,9 @@ public class RDVTableModel extends AbstractTableModel {
 	private List<RDV> rendezVous = new ArrayList<>();
 
 	public RDVTableModel() {
-			rendezVous.add(new RDV(Date.from(Instant.now()) , "Nom", "nomAnimal", "especeAnimal"));
+		Clinique.getInstance().getRDVJour(Date.from(Instant.now()), getCbbVeterinaire().getSelectedIndex());	
+		//rendezVous.add(new RDV(Date.from(Instant.now()) , "Nom", "nomAnimal", "especeAnimal"));
+		
 	}
 
 
