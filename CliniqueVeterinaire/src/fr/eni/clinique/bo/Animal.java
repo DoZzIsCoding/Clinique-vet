@@ -13,7 +13,7 @@ public class Animal {
 	private String antecedents;
 	private boolean archive;
 
-	private Agenda rdv;
+	private RDV rdv;
 
 	public Animal() {
 		// TODO Auto-generated constructor stub
@@ -32,13 +32,13 @@ public class Animal {
 		this.tatouage = tatouage;
 		this.antecedents = antecedents;
 		this.archive = false;
-		this.rdv = new Agenda();
+		this.rdv = new RDV();
 
 	}
 
 	// METHODES
 
-	public void ajouterRdv(Agenda rdv) {
+	public void ajouterRdv(RDV rdv) {
 		this.rdv = rdv;
 	}
 

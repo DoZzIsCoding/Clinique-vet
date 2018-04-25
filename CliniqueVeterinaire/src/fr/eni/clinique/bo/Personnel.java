@@ -11,7 +11,7 @@ public class Personnel {
 	private String role;
 	private boolean archive;
 	
-	private List<Agenda> planning;
+	private List<RDV> planning;
 	
 	public Personnel() {
 		// TODO Auto-generated constructor stub
@@ -29,11 +29,11 @@ public class Personnel {
 
 	// METHODES
 
-	public void ajouterRdv (Agenda rdv){
+	public void ajouterRdv (RDV rdv){
 		this.planning.add(rdv);
 	}
 	
-	public void supprimerRdv(Agenda rdv){
+	public void supprimerRdv(RDV rdv){
 		this.planning.remove(rdv);
 	}
 	

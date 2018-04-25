@@ -3,7 +3,7 @@ package fr.eni.clinique.bo;
 
 import java.util.GregorianCalendar;
 
-public class Agenda {
+public class RDV {
 	
 	
 	//VARIABLES
@@ -13,11 +13,11 @@ public class Agenda {
 	
 
 	//CONSTRUCTEUR
-	public Agenda() {
+	public RDV() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Agenda(int codeVeto, GregorianCalendar dateRDV, int codeAnimal) {
+	public RDV(int codeVeto, GregorianCalendar dateRDV, int codeAnimal) {
 		super();
 		this.codeVeto = codeVeto;
 		this.dateRDV = dateRDV;
