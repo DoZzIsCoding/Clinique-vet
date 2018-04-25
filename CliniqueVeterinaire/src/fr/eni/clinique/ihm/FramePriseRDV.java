@@ -1,8 +1,9 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Locale;
+import java.util.Properties;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -40,6 +42,9 @@ public class FramePriseRDV extends JFrame {
 	private JPanel quandPanel;
 	private JLabel lblDate;
 	private UtilDateModel model;
+	private JDatePanelImpl datePanel;
+	private JDatePickerImpl datePicker;
+
 	private JLabel lblHeure;
 	private JComboBox<Integer> cbbHeure;
 	private JLabel lblH;
@@ -64,7 +69,7 @@ public class FramePriseRDV extends JFrame {
 
 	///////////////////////////////////
 	// Interface graphique
-	//////////////////////////////////
+	///////////////////////////////////
 	public JPanel getMainPanel() {
 		if (mainPanel == null) {
 			mainPanel = new JPanel(new GridBagLayout());
@@ -89,7 +94,7 @@ public class FramePriseRDV extends JFrame {
 		// ajouter le titledborder
 		if (pourPanel == null) {
 			pourPanel = new JPanel();
-			pourPanel.setLayout(new BoxLayout(pourPanel, BoxLayout.X_AXIS));
+			pourPanel.setLayout(new BoxLayout(pourPanel, BoxLayout.Y_AXIS));
 			pourPanel.add(getLblClient());
 			pourPanel.add(getCbbClient());
 			pourPanel.add(getLblAnimal());
@@ -151,10 +156,9 @@ public class FramePriseRDV extends JFrame {
 		// ajouter le titledborder
 		if (parPanel == null) {
 			parPanel = new JPanel();
-			parPanel.setLayout(new BoxLayout(pourPanel, BoxLayout.X_AXIS));
-			
-			
-			
+			parPanel.setLayout(new BoxLayout(parPanel, BoxLayout.Y_AXIS));
+			parPanel.add(getLblVeterinaire());
+			parPanel.add(getCbbVeterinaire());			
 		}
 		return parPanel;
 	}
@@ -178,27 +182,63 @@ public class FramePriseRDV extends JFrame {
 	public JPanel getQuandPanel() {
 		// ajouter le titledborder
 		if (quandPanel == null) {
-			quandPanel = new JPanel();
+			quandPanel = new JPanel(new GridBagLayout());
 		}
+		GridBagConstraints gbc = new GridBagConstraints();
+		// Groupe date
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		quandPanel.add(getLblDate(), gbc);
+		gbc.gridy = 1;
+		gbc.weightx = 0.8;
+		quandPanel.add(getDatePicker(),gbc);
+		
+		// Groupe Heure
+		gbc.weightx = 1;
+		gbc.gridy = 2;
+		quandPanel.add(getLblHeure(),gbc);
+		gbc.gridy = 3;
+		gbc.weightx = 0.2;
+		quandPanel.add(getCbbHeure(),gbc);
+		gbc.gridx = 1;
+		gbc.weightx = 0.2;
+		quandPanel.add(getLblH(),gbc);
+		gbc.gridx = 2;
+		gbc.weightx = 0.2;
+		quandPanel.add(getCbbMinute(),gbc);
 		return quandPanel;
 	}
 
 	public JLabel getLblDate() {
 		if (lblDate == null) {
 			lblDate = new JLabel("Date");
-			// TODO: à formater?
 		}
 		return lblDate;
 	}
 
+	public JDatePanelImpl getDatePanel() {
+		if(datePanel == null){
+			Properties p = new Properties();
+			p.put("text.day", "Today");
+			p.put("text.month", "Month");
+			p.put("text.year", "Year");
+			datePanel = new JDatePanelImpl(getModel(), p);
+			
+		}
+		return datePanel;
+	}
+	
+	public JDatePickerImpl getDatePicker() {
+		if(datePicker == null){
+			datePicker = new JDatePickerImpl(getDatePanel(),new DateComponentFormatter());
+		}
+		return datePicker;
+	}
+	
 	public UtilDateModel getModel() {
 		if (model == null) {
 			model = new UtilDateModel();
-			JDatePanelImpl datePanel = new JDatePanelImpl(model, null);
-			JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, null);
 			// TODO: revoir les parametres de dates null
-			model.setDate(2018, 3, 24);
-			// TODO: format de la date auto en date du jour
 		}
 		return model;
 	}
