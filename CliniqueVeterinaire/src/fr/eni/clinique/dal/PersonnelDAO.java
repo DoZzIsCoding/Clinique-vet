@@ -17,10 +17,19 @@ public interface PersonnelDAO extends DAO<Personnel>{
 	/**
 	 * 
 	 * @return la liste du personnel (non Archivé) jamais null
+	 * @throws DalException 
 	 * 
 	 */
-	public abstract List<Personnel> selectionnerTout();
+	public abstract List<Personnel> selectionnerTout() throws DalException;
 	
+	
+	/**
+	 * 
+	 * @return la liste des veterinaires (non Archivés) jamais null
+	 * @throws DalException 
+	 * 
+	 */
+	public abstract List<Personnel> selectionnerVetos() throws DalException;
 	
 	/**
 	 * 

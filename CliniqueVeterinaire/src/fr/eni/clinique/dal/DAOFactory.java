@@ -3,6 +3,7 @@ package fr.eni.clinique.dal;
 import fr.eni.clinique.configuration.Parametres;
 import fr.eni.clinique.dal.jdbc.AnimalDAOJdbcImpl;
 import fr.eni.clinique.dal.jdbc.ClientDAOJdbcImpl;
+import fr.eni.clinique.dal.jdbc.PersonnelDAOJdbcImpl;
 
 public abstract class DAOFactory {
 	
@@ -28,6 +29,19 @@ public abstract class DAOFactory {
 //			return new ArticleDAOSerialImpl();
 		default:
 			return new ClientDAOJdbcImpl();
+		}
+	}
+	
+	
+	public static PersonnelDAO getPersonnelDAO()
+	{
+		switch (Parametres.getValue("typeSauvegarde")) {
+		case "jdbc":
+			return new PersonnelDAOJdbcImpl();
+//		case "serial":
+//			return new ArticleDAOSerialImpl();
+		default:
+			return new PersonnelDAOJdbcImpl();
 		}
 	}
 	

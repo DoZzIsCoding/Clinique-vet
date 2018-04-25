@@ -60,7 +60,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				clients.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 		}
 		return clients;
 	}
@@ -87,6 +87,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			}
 		} catch (SQLException e) {
 
+			e.printStackTrace();
 		}
 		return clients;
 	}

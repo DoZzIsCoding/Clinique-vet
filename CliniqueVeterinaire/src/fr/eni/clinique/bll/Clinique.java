@@ -3,17 +3,19 @@ package fr.eni.clinique.bll;
 import java.util.List;
 
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Personnel;
 
 public class Clinique {
 	
 private List<Client> lesClients;
+private List<Personnel> lesVeterinaires;
 	
 	private CliniqueManager manager;
 	
 	private Clinique() throws BLLException {
 		manager = CliniqueManager.getInstance();
-		
 		lesClients = manager.getClients();
+		lesVeterinaires = manager.getVeterinaires();
 	}
 	
 	////////////////////////
@@ -35,6 +37,16 @@ private List<Client> lesClients;
 	public List<Client> getClients() {
 		return lesClients;
 	}
+	
+	
+	/////////////
+	// GESTION DU PERSONNEL
+	/////////////
+
+	public List<Personnel> getVeterinaires() {
+		return lesVeterinaires;
+	}
+	
 	
 	
 	
