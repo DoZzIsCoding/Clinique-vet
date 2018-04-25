@@ -1,9 +1,11 @@
 package fr.eni.clinique.bll;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.bo.RDV;
 
 public class Clinique {
 	
@@ -47,8 +49,12 @@ private List<Personnel> lesVeterinaires;
 		return lesVeterinaires;
 	}
 	
+	////////////
+	// GESTION DES RDV
+	////////////
 	
-	
-	
+	public List<RDV> getRDVJour(Date date, Personnel veterinaire) {
+		return manager.getRDVdu(date, veterinaire);
+	}
 	
 }
