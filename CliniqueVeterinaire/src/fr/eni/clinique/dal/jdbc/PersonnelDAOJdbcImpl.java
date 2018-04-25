@@ -63,7 +63,7 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 	// TODO: mercredi
 
 	private Personnel itemBuilder(ResultSet rs) throws SQLException {
-		Personnel personnel = new Personnel(rs.getInt("codepers"), rs.getString("codepers"), "*****" ,rs.getString("role"));
+		Personnel personnel = new Personnel(rs.getInt("codepers"), rs.getString("nom"), "*****" ,rs.getString("role"));
 
 		return personnel;
 	}
