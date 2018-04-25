@@ -1,15 +1,17 @@
 package fr.eni.clinique.bo;
 
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class RDV {
 	
 	
 	//VARIABLES
-	private int codeVeto;
-	private GregorianCalendar dateRDV;
-	private int codeAnimal;
+	private Date date;
+	private String nomClient;
+	private String nomAnimal;
+	private String especeAnimal;
 	
 
 	//CONSTRUCTEUR
@@ -17,46 +19,52 @@ public class RDV {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public RDV(int codeVeto, GregorianCalendar dateRDV, int codeAnimal) {
+	public RDV(Date date, String nomClient, String nomAnimal, String especeAnimal) {
 		super();
-		this.codeVeto = codeVeto;
-		this.dateRDV = dateRDV;
-		this.codeAnimal = codeAnimal;
+		this.date = date;
+		this.nomClient = nomClient;
+		this.nomAnimal = nomAnimal;
+		this.especeAnimal = especeAnimal;
 	}
+
 	
 	
 	// SETTERS GETTERS
-	public int getCodeVeto() {
-		return codeVeto;
-	}
-	public void setCodeVeto(int codeVeto) {
-		this.codeVeto = codeVeto;
-	}
-	public GregorianCalendar getDateRDV() {
-		return dateRDV;
-	}
-	public void setDateRDV(GregorianCalendar dateRDV) {
-		this.dateRDV = dateRDV;
-	}
-	public int getCodeAnimal() {
-		return codeAnimal;
-	}
-	public void setCodeAnimal(int codeAnimal) {
-		this.codeAnimal = codeAnimal;
+	public Date getDate() {
+		return date;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Agenda [getCodeVeto()=");
-		builder.append(getCodeVeto());
-		builder.append(", getDateRDV()=");
-		builder.append(getDateRDV().getTime());
-		builder.append(", getCodeAnimal()=");
-		builder.append(getCodeAnimal());
-		builder.append("]");
-		return builder.toString();
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+	public String getNomClient() {
+		return nomClient;
+	}
+
+	public void setNomClient(String nomClient) {
+		this.nomClient = nomClient;
+	}
+
+	public String getNomAnimal() {
+		return nomAnimal;
+	}
+
+	public void setNomAnimal(String nomAnimal) {
+		this.nomAnimal = nomAnimal;
+	}
+
+	public String getEspeceAnimal() {
+		return especeAnimal;
+	}
+
+	public void setEspeceAnimal(String especeAnimal) {
+		this.especeAnimal = especeAnimal;
+	}
+
+
+
+
 	
 
 	
