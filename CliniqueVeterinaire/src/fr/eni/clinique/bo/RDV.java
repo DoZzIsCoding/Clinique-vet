@@ -26,7 +26,6 @@ public class RDV {
 		this.nomAnimal = nomAnimal;
 		this.especeAnimal = especeAnimal;
 	}
-
 	
 	
 	// SETTERS GETTERS
