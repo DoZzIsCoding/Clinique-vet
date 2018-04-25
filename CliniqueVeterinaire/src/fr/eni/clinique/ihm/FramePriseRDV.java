@@ -79,17 +79,20 @@ public class FramePriseRDV extends JFrame {
 		if (mainPanel == null) {
 			mainPanel = new JPanel(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
+			
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			mainPanel.add(getPourPanel(), gbc);
+			
 			gbc.gridx = 1;
 			mainPanel.add(getParPanel(), gbc);
+			
 			gbc.gridx = 2;
 			mainPanel.add(getQuandPanel(), gbc);
-			/*gbc.gridy = 1;
-			gbc.gridx = 0;
-			gbc.gridwidth = 3; 
-			mainPanel.add(getTablePanel(),gbc);*/
+			
+			gbc.gridy = 1; gbc.gridx = 0; gbc.gridwidth = 3;
+			mainPanel.add(getTablePanel(),gbc);
+			
 
 		}
 
@@ -321,13 +324,10 @@ public class FramePriseRDV extends JFrame {
 		return cbbMinute;
 	}
 
-	
 	/////////////////////////////////
 	// LISTE DE RENDEZ VOUS
 	/////////////////////////////////
-	
-	
-	
+
 	public JScrollPane getTablePanel() {
 		if (tablePanel == null) {
 			tablePanel = new JScrollPane();
@@ -336,47 +336,11 @@ public class FramePriseRDV extends JFrame {
 		return tablePanel;
 	}
 
-	public RDVTableModel getTableModel() {
-		return tableModel;
-	}
-
 	public JTable getTableRDV() {
 		if (tableRDV == null) {
-			tableRDV = new JTable();
-		}
-
-		try {
 			tableModel = new RDVTableModel();
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			tableRDV = new JTable(tableModel);
 		}
-		tableRDV = new JTable(tableModel);
-		tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableRDV.setRowHeight(30);
-		// tableRDV.getSelectionModel().addListSelectionListener(new
-		// ListSelectionListener() {
-
-		/*
-		 * @Override public void valueChanged(ListSelectionEvent e) { // permet
-		 * de ne prendre en compte qu'un seul des // événements générés par le
-		 * clic if (!e.getValueIsAdjusting()) { int ligneSelectionnee =
-		 * tableArticle.getSelectedRow();
-		 * catalogue.setCurrentIndex(ligneSelectionnee); /*try { Article
-		 * articleSelectionne = model.getValueAt(ligneSelectionnee);
-		 * System.out.println(articleSelectionne); } catch
-		 * (ArticleNotFoundException e1) { e1.printStackTrace(); }
-		 * 
-		 * 
-		 * }
-		 * 
-		 * } }); tableArticle.getSelectionModel().setSelectionInterval(0, 0); }
-		 * catch (BLLException e) { JOptionPane.showMessageDialog(this,
-		 * "Erreur..."); }
-		 * 
-		 * }
-		 */
-
 		return tableRDV;
 	}
 

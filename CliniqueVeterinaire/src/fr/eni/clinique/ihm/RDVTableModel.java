@@ -1,6 +1,8 @@
 package fr.eni.clinique.ihm;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,9 +15,10 @@ public class RDVTableModel extends AbstractTableModel {
 
 	private List<RDV> rendezVous = new ArrayList<>();
 
-	public RDVTableModel() throws BLLException {
-			//updateData();
+	public RDVTableModel() {
+			rendezVous.add(new RDV(Date.from(Instant.now()) , "Nom", "nomAnimal", "especeAnimal"));
 	}
+
 
 	/**
 	 * Cette méthode permet de mettre à jour l'affichage de la JTable (en
@@ -28,10 +31,10 @@ public class RDVTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 */
+	
 	@Override
 	public int getRowCount() {
-		return 10;
-		//rendezVous.size();
+		return rendezVous.size();
 	}
 
 	@Override
@@ -51,26 +54,20 @@ public class RDVTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Object value = null;
-
 		if (rowIndex >= 0 && rowIndex < rendezVous.size()) {
 			RDV rdvAAfficher = rendezVous.get(rowIndex);
 			switch (columnIndex) {
 			case 0:
-				value = "10h00";
+				return rdvAAfficher.getDate();
 			case 1:
-				value = "Dupont";
-				break;
+				return rdvAAfficher.getNomClient();
 			case 2:
-				value = "Filou" ;
-				break;
+				return rdvAAfficher.getNomAnimal();
 			case 3:
-				value = "Border";
-				break;
+				return rdvAAfficher.getEspeceAnimal();
 			}
 		}
-
-		return value;
+		return null;
 	}
 
 	/**
