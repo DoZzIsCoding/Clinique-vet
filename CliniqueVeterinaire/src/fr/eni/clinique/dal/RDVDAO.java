@@ -10,11 +10,16 @@ public interface RDVDAO extends DAO<RDV>{
 
 	
 	/**
-	 * 
+	 * les enregistrement contiennent: 
+	 * Une heure de RDV,
+	 * Le Nom du client,
+	 * le nom de l'animal,
+	 * l'espeve de l'animal
 	 * @param date
 	 * @param veterinaire
 	 * @return la liste des RDV du veterinaire pour la date donnée
+	 * @throws DalException 
 	 */
-	public abstract List<RDV> selectionnerRDV(Date date, Personnel veterinaire) ;
+	public abstract List<RDV> selectionnerRDV(Date date, Personnel veterinaire) throws DalException ;
 	
 }

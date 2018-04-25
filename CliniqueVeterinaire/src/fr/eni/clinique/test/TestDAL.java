@@ -1,9 +1,12 @@
 package fr.eni.clinique.test;
 
-import fr.eni.clinique.bo.Animal;
-import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.dal.ClientDAO;
+import java.sql.Date;
+import java.time.LocalDate;
+
+import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.dal.RDVDAO;
 
 public class TestDAL {
 
@@ -42,12 +45,13 @@ public class TestDAL {
 //		}
 		
 		try {
-			ClientDAO clientDAO = DAOFactory.getClientDAO();
-			
-			System.out.println("Liste apres selectwith animals");
-			for(Client c: clientDAO.selectionnerAvecAnimaux())
+			RDVDAO RdvDAO = DAOFactory.getRDVDAO();
+			Personnel veto = new Personnel(2, "nomtest", "***", "vet");
+			System.out.println("Liste apres select RDV");
+			for(RDV r: RdvDAO.selectionnerRDV(Date.valueOf(LocalDate.of(2018, 4, 24)), veto))
 			{
-				System.out.println(c);
+				System.out.println(r);
+				System.out.println("une ligne");
 			}
 			
 		}catch (Exception e) {

@@ -82,10 +82,11 @@ private static CliniqueManager instance;
 	 * Recupere la liste des RDV prévus a une date donnée avec un veterinaire donné
 	 * @param date
 	 * @return Liste de RDV.
+	 * @throws BLLException 
 	 */
-	public List<RDV> getRDVdu(Date date, Personnel veterinaire) {
+	public List<RDV> getRDVdu(Date date, Personnel veterinaire) throws BLLException {
 		try {
-			return RDVDAO.selectionnerRDV(date, veterinaire);
+			return rdvDAO.selectionnerRDV(date, veterinaire);
 		} catch (DalException e) {
 			throw new BLLException("Erreur accès aux Rendez vous .");
 		}

@@ -53,7 +53,7 @@ private List<Personnel> lesVeterinaires;
 	// GESTION DES RDV
 	////////////
 	
-	public List<RDV> getRDVJour(Date date, Personnel veterinaire) {
+	public List<RDV> getRDVJour(Date date, Personnel veterinaire) throws BLLException {
 		return manager.getRDVdu(date, veterinaire);
 	}
 	
