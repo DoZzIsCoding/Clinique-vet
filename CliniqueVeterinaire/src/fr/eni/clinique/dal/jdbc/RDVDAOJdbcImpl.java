@@ -15,8 +15,10 @@ import fr.eni.clinique.dal.RDVDAO;
 
 public class RDVDAOJdbcImpl implements RDVDAO {
 
-	private static final String SELECT_AGENDA_JOUR = "  SELECT CodeVeto, DateRDV, Codeanimal FROM Agendas "
-			+ "where codeveto = ? " + "And DATEDIFF(day, dateRdv, ? ) = 0" ;
+	private static final String SELECT_AGENDA_JOUR = " select DateRdv, Nom, NomAnimal, Espece from Agendas ag "
+														+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal "
+														+ "join Personnels pe on pe.CodePers = ag.CodeVeto "
+														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
 
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
@@ -69,10 +71,11 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 		return agenda;
 	}
 
-	private RDV itemBuilder(ResultSet rs) {
-		return null;
-		// TODO: bin le builder
-
+	private RDV itemBuilder(ResultSet rs) throws SQLException {
+		RDV rdv = new RDV(rs.getDate("DateRDV"), 
+				rs.getString("Nom"), rs.getString("NomAnimal"), rs.getString("Espece"));
+		
+		return rdv;
 	}
 
 	private java.sql.Date utilToSqlDate(java.util.Date date) {

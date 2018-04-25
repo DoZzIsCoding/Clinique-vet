@@ -90,8 +90,8 @@ private List<Personnel> lesVeterinaires;
 	// GESTION DES RDV
 	////////////
 	
-	public List<RDV> getRDVJour(Date date, Personnel veterinaire) throws BLLException {
-		return manager.getRDVdu(date, veterinaire);
+	public List<RDV> getRDVJour(Date date, int indexVeterinaire) throws BLLException {
+		return manager.getRDVdu(date, lesVeterinaires.get(indexVeterinaire));
 	}
 	
 }
