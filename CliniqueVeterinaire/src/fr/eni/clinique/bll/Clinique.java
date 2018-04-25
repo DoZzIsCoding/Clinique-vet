@@ -78,6 +78,14 @@ private List<Personnel> lesVeterinaires;
 		return lesVeterinaires;
 	}
 	
+	public String[] getTabNomsVeterinaires(){
+		String[] tableau= new String[lesVeterinaires.size()];
+		for (int i = 0; i < tableau.length; i++) {
+			tableau[i] = lesVeterinaires.get(i).getNom();
+		}
+		return tableau;
+	}
+	
 	////////////
 	// GESTION DES RDV
 	////////////
