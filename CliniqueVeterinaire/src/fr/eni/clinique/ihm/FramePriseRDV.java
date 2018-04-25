@@ -82,20 +82,21 @@ public class FramePriseRDV extends JFrame {
 		if (mainPanel == null) {
 			mainPanel = new JPanel(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
-			
+
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			mainPanel.add(getPourPanel(), gbc);
-			
+
 			gbc.gridx = 1;
 			mainPanel.add(getParPanel(), gbc);
-			
+
 			gbc.gridx = 2;
 			mainPanel.add(getQuandPanel(), gbc);
-			
-			gbc.gridy = 1; gbc.gridx = 0; gbc.gridwidth = 3;
-			mainPanel.add(getTablePanel(),gbc);
-			
+
+			gbc.gridy = 1;
+			gbc.gridx = 0;
+			gbc.gridwidth = 3;
+			mainPanel.add(getTablePanel(), gbc);
 
 		}
 
@@ -103,7 +104,7 @@ public class FramePriseRDV extends JFrame {
 	}
 
 	////////////////////////////////////
-	// GETTERS AND SETTERS
+	// PANEL POUR
 	////////////////////////////////////
 
 	public JPanel getPourPanel() {
@@ -117,11 +118,11 @@ public class FramePriseRDV extends JFrame {
 
 			// Options graphiques
 			pourPanel.setBorder(border);
-			//pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
+			// pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
 			pourPanel.setBackground(Color.WHITE);
-			//pourPanel.s
-			//encours
-			
+			// pourPanel.s
+			// encours
+
 			// Oragnisation des éléments
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -156,7 +157,7 @@ public class FramePriseRDV extends JFrame {
 
 	public JComboBox<String> getCbbClient() {
 		if (cbbClient == null) {
-			
+
 			try {
 				cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
 			} catch (BLLException e) {
@@ -164,16 +165,23 @@ public class FramePriseRDV extends JFrame {
 				e.printStackTrace();
 			}
 			cbbClient.setAlignmentX(CENTER_ALIGNMENT);
-			
+
 			cbbClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					getCbbAnimal().removeAllItems();
-					for(int i = 0; i < Clinique.getInstance().getAnimauxDeClient(cbbClient.getSelectedItem()).length;i++){
-						
+					try {
+						for (int i = 0; i < Clinique.getInstance()
+								.getAnimauxDeClient(getCbbClient().getSelectedIndex()).length; i++) {
+							getCbbAnimal().addItem(
+									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
+						}
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					
+
 				}
 			});
 			;
@@ -197,9 +205,10 @@ public class FramePriseRDV extends JFrame {
 
 	public JComboBox<String> getCbbAnimal() {
 		if (cbbAnimal == null) {
-			
-			cbbAnimal = new JComboBox<String>(new String[]{"test","test2"});
-			//(Clinique.getInstance().getAnimauxDeClient(client));
+
+			cbbAnimal = new JComboBox<String>();
+
+			cbbAnimal.setAlignmentX(CENTER_ALIGNMENT);
 		}
 		return cbbAnimal;
 	}
@@ -211,6 +220,9 @@ public class FramePriseRDV extends JFrame {
 		return btnAjouterAnimal;
 	}
 
+	////////////////////////////////////
+	// PANEL PAR
+	////////////////////////////////////
 	public JPanel getParPanel() {
 		// ajouter le titledborder
 		if (parPanel == null) {
@@ -239,12 +251,19 @@ public class FramePriseRDV extends JFrame {
 
 	public JComboBox<String> getCbbVeterinaire() {
 		if (cbbVeterinaire == null) {
-			String[] veterinaires = { "Dupont", "Glandu" };
-			// TODO: connecter au Mangaer
-			cbbVeterinaire = new JComboBox<String>(veterinaires);
+			try {
+				cbbVeterinaire = new JComboBox<String>(Clinique.getInstance().getTabNomsVeterinaires());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return cbbVeterinaire;
 	}
+
+	////////////////////////////////////
+	// PANEL QUAND
+	////////////////////////////////////
 
 	public JPanel getQuandPanel() {
 		// ajouter le titledborder
