@@ -3,6 +3,8 @@ package fr.eni.clinique.ihm;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Properties;
 
 import javax.swing.BoxLayout;
@@ -13,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
@@ -23,6 +24,8 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bo.Client;
 
 public class FramePriseRDV extends JFrame {
 
@@ -114,8 +117,11 @@ public class FramePriseRDV extends JFrame {
 
 			// Options graphiques
 			pourPanel.setBorder(border);
-			// pourPanel.setFont(font);
-
+			//pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
+			pourPanel.setBackground(Color.WHITE);
+			//pourPanel.s
+			//encours
+			
 			// Oragnisation des éléments
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -150,10 +156,26 @@ public class FramePriseRDV extends JFrame {
 
 	public JComboBox<String> getCbbClient() {
 		if (cbbClient == null) {
-			String[] clients = { "guiton", "menerville" };
-			// TODO: connecter au Manager
-			cbbClient = new JComboBox<String>(clients);
+			
+			try {
+				cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			cbbClient.setAlignmentX(CENTER_ALIGNMENT);
+			
+			cbbClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getCbbAnimal().removeAllItems();
+					for(int i = 0; i < Clinique.getInstance().getAnimauxDeClient(cbbClient.getSelectedItem()).length;i++){
+						
+					}
+					
+				}
+			});
 			;
 		}
 		return cbbClient;
@@ -175,9 +197,9 @@ public class FramePriseRDV extends JFrame {
 
 	public JComboBox<String> getCbbAnimal() {
 		if (cbbAnimal == null) {
-			String[] animaux = { "CHIEN", "CHAT" };
-			// TODO: connecter au Manager
-			cbbAnimal = new JComboBox<String>(animaux);
+			
+			cbbAnimal = new JComboBox<String>(new String[]{"test","test2"});
+			//(Clinique.getInstance().getAnimauxDeClient(client));
 		}
 		return cbbAnimal;
 	}
