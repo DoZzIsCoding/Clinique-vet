@@ -59,10 +59,10 @@ private List<Personnel> lesVeterinaires;
 	 * @param client complet (avec Liste d'animaux)
 	 * @return un tableau de String contenant les noms des animaux du client.
 	 */
-	public String[] getAnimauxDeClient(Client client){
-		String[] tableau = new String[client.getAnimaux().size()];
+	public String[] getAnimauxDeClient(int index){
+		String[] tableau = new String[lesClients.get(index).getAnimaux().size()];
 		for (int i = 0; i < tableau.length; i++) {
-			tableau[i] = client.getAnimaux().get(i).getNomAnimal();
+			tableau[i] = lesClients.get(index).getAnimaux().get(i).getNomAnimal();
 		}
 		return tableau;
 	}
