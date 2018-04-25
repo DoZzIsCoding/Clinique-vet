@@ -1,21 +1,11 @@
 package fr.eni.clinique.test;
 
-import java.util.GregorianCalendar;
-
-import fr.eni.clinique.bo.RDV;
-import fr.eni.clinique.bo.Animal;
-import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.bo.Personnel;
-
 public class TestBO {
 
 	public static void main(String[] args) {
 
-
-		RDV rdv = new RDV(1, new GregorianCalendar(2018, 2, 2, 15, 0), 12);
 		
-		
-		System.out.println(rdv);
+		System.out.println();
 		
 		//Animal animal = new Animal(2, "Banjo", "F", "bleu", "flouch", "a déterminer", 12, "klhsdjlgbqhs");
 		//System.out.println(animal);
