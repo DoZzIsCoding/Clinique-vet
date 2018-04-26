@@ -442,8 +442,14 @@ public class FramePriseRDV extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
+<<<<<<< HEAD
 						Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 						
+=======
+						if(getTableRDV().getSelectedRow() >= 0){
+							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
+						}
+>>>>>>> branch 'master' of https://github.com/DoZzIsCoding/Clinique-vet
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
