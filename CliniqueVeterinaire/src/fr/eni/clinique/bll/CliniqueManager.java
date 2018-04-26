@@ -92,5 +92,10 @@ private static CliniqueManager instance;
 		}
 	}
 
-	public void supprimerRdv(RDV rdv){}
+	/*
+	 * Demande a la DAL de supprimer le RDV en BDD
+	 */
+	public void supprimerRdv(RDV rdv){
+		
+	}
 }

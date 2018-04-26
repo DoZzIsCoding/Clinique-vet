@@ -96,10 +96,17 @@ private List<RDV> lesRdv;
 		return lesRdv;
 	}
 	
-	public boolean supprimerRdvCourant(int index){
+	public boolean supprimerRdvCourant(int index) throws BLLException{
 		boolean suppressionRDVOK = false;
 		RDV rdvASupprimer = lesRdv.get(index);
-		manager.supprimerRdv(rdvASupprimer);
+
+		try {
+			manager.supprimerRdv(rdvASupprimer);
+			lesRdv.remove(index);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		lesRdv.remove(rdvASupprimer);
 		suppressionRDVOK = true;
 		return suppressionRDVOK;

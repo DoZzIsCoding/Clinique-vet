@@ -443,6 +443,7 @@ public class FramePriseRDV extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
+						
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
