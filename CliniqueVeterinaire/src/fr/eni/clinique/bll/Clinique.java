@@ -11,6 +11,7 @@ public class Clinique {
 	
 private List<Client> lesClients;
 private List<Personnel> lesVeterinaires;
+private List<RDV> lesRdv;
 	
 	private CliniqueManager manager;
 	
@@ -91,7 +92,41 @@ private List<Personnel> lesVeterinaires;
 	////////////
 	
 	public List<RDV> getRDVJour(Date date, int indexVeterinaire) throws BLLException {
-		return manager.getRDVdu(date, lesVeterinaires.get(indexVeterinaire));
+		lesRdv =  manager.getRDVdu(date, lesVeterinaires.get(indexVeterinaire));
+		return lesRdv;
 	}
+	
+	public boolean supprimerRdvCourant(int index){
+		boolean suppressionRDVOK = false;
+		lesRdv.remove(index);
+		
+		return suppressionRDVOK;
+	}
+	
+	
+//public Article supprimerArticleCourant() throws BLLException, ArticleNotFoundException {
+//		
+//		//récupère l'article à supprimer
+//		Article articleASupprimer = mesArticles.get(indexArticleCourant.getValeur());
+//		
+//		//on supprime l'article de la BDD
+//		manager.removeArticle(articleASupprimer);
+//		
+//		//on enlève l'article de la liste (si ça été fait dans la BDD)
+//		mesArticles.remove(articleASupprimer);
+//		
+//		notifyToutLesListeners();
+//		
+//		//on essaye de retourner l'article précédent
+//		try {
+//			return getArticlePrecedent();
+//		} catch (ArticleNotFoundException e) { //s'il n'existe pas, on essaye de retourner l'article suivant
+//			if(indexArticleCourant.getValeur() < mesArticles.size()) {
+//				return mesArticles.get(indexArticleCourant.getValeur());
+//			}
+//		}
+//		
+//		throw new ArticleNotFoundException();
+//	}
 	
 }

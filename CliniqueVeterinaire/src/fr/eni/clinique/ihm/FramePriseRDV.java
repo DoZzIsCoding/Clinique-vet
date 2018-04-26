@@ -30,8 +30,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import fr.eni.clinique.bll.ArticleNotFoundException;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bll.RdvNotFoundException;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.RDV;
 
@@ -362,7 +364,8 @@ public class FramePriseRDV extends JFrame {
 	public UtilDateModel getModel() {
 		if (model == null) {
 			model = new UtilDateModel();
-			model.setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue()-1, LocalDate.now().getDayOfMonth());
+			model.setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1,
+					LocalDate.now().getDayOfMonth());
 			model.setSelected(true);
 			// TODO: revoir les parametres de dates null
 		}
@@ -435,6 +438,18 @@ public class FramePriseRDV extends JFrame {
 		if (btnSupprimer == null) {
 			btnSupprimer = new JButton("Supprimer");
 
+			btnSupprimer.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
 		}
 		return btnSupprimer;
 	}
@@ -525,11 +540,12 @@ public class FramePriseRDV extends JFrame {
 		 * @return
 		 * @throws ArticleNotFoundException
 		 */
-		/*
-		 * public RDV getValueAt(int rowIndex) throws ArticleNotFoundException {
-		 * if (rowIndex >= 0 && rowIndex < 10) { return rdv.get(rowIndex); }
-		 * throw new ArticleNotFoundException(); }
-		 */
+		public RDV getValueAt(int rowIndex) throws RdvNotFoundException {
+			if (rowIndex >= 0 && rowIndex < 10) {
+				return rendezVous.get(rowIndex);
+			}
+			throw new RdvNotFoundException();
+		}
 
 	}
 
