@@ -24,7 +24,10 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 														+ "join Clients cl on cl.codeclient = an.Codeclient "
 														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
 
-	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DATEDIFF(minute, ? , DateRdv ) = 0 AND codeVeto = ?;";
+	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DATEDIFF(day, ? , DateRdv ) = 0 "
+																		+ "AND DATEDIFF(hour, ? , DateRdv ) = 0"
+																		+ "AND DATEDIFF(minute, ? , DateRdv ) = 0"
+																		+ "AND codeVeto = ?";
 	
 	
 	
@@ -58,6 +61,10 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RDV);
+			
+			// TODO: faire la conversion de LocalDateTimer vers Sql.date sans perdre les heures et minutes
+			System.out.println(value.getDate());
+			System.out.println(java.sql.Date.valueOf(value.getDate().toLocalDate()));
 			pstmt.setDate(1, java.sql.Date.valueOf(value.getDate().toLocalDate()));
 			pstmt.setInt(2, value.getCodeVeto());
 			System.out.println(pstmt.executeUpdate());

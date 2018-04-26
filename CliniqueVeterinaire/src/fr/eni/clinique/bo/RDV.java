@@ -51,6 +51,10 @@ public class RDV {
 	public LocalDateTime getDate() {
 		return date;
 	}
+	
+//	public Date getDatetest() {
+//		return date;
+//	}
 
 	public void setDate(LocalDateTime date) {
 		this.date = date;
