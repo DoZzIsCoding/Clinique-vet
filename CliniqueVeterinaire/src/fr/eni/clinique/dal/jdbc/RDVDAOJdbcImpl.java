@@ -24,6 +24,10 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 														+ "join Clients cl on cl.codeclient = an.Codeclient "
 														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
 
+	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DateRdv = ?;";
+	
+	
+	
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
 		// TODO Auto-generated method stub
