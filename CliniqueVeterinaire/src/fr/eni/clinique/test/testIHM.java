@@ -2,6 +2,8 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
+import org.jdatepicker.JDatePicker;
+
 import fr.eni.clinique.ihm.FramePriseRDV;
 
 public class testIHM {
@@ -19,6 +21,8 @@ public class testIHM {
 			}
 		});
 
+		
+		
 	}
 
 }
