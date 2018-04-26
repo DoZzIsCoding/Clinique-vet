@@ -13,6 +13,7 @@ public class RDV {
 	private String nomClient;
 	private String nomAnimal;
 	private String especeAnimal;
+	private int codeVeto;
 	
 
 	//CONSTRUCTEUR
@@ -28,8 +29,25 @@ public class RDV {
 		this.especeAnimal = especeAnimal;
 	}
 	
-	
+	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal, int codeVeto) {
+		super();
+		this.date = date;
+		this.nomClient = nomClient;
+		this.nomAnimal = nomAnimal;
+		this.especeAnimal = especeAnimal;
+		this.codeVeto = codeVeto;
+	}
+
 	// SETTERS GETTERS
+	
+	public int getCodeVeto() {
+		return codeVeto;
+	}
+
+	public void setCodeVeto(int codeVeto) {
+		this.codeVeto = codeVeto;
+	}
+
 	public LocalDateTime getDate() {
 		return date;
 	}
