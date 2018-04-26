@@ -5,6 +5,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.BoxLayout;
@@ -17,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
 
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -26,6 +32,7 @@ import org.jdatepicker.impl.UtilDateModel;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.RDV;
 
 public class FramePriseRDV extends JFrame {
 
@@ -34,7 +41,7 @@ public class FramePriseRDV extends JFrame {
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
 		setTitle("Prise de rendez-vous");
-		setBounds(100, 100, 600, 600);
+		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		setContentPane(getMainPanel());
@@ -62,15 +69,13 @@ public class FramePriseRDV extends JFrame {
 			gbc.gridx = 0;
 			gbc.gridwidth = 3;
 			mainPanel.add(getTablePanel(), gbc);
-			
+
 			gbc.gridy = 2;
 			gbc.gridx = 1;
-			mainPanel.add(getBtnSupprimer(),gbc);
-			
+			mainPanel.add(getBtnSupprimer(), gbc);
+
 			gbc.gridx = 2;
-			mainPanel.add(getBtnValider(),gbc);
-			
-			
+			mainPanel.add(getBtnValider(), gbc);
 
 		}
 
@@ -80,7 +85,7 @@ public class FramePriseRDV extends JFrame {
 	////////////////////////////////////
 	// PANEL POUR
 	////////////////////////////////////
-	
+
 	private JPanel pourPanel;
 	private JLabel lblClient;
 	private JComboBox<String> cbbClient;
@@ -88,7 +93,6 @@ public class FramePriseRDV extends JFrame {
 	private JLabel lblAnimal;
 	private JComboBox<String> cbbAnimal;
 	private JButton btnAjouterAnimal;
-	
 
 	public JPanel getPourPanel() {
 		if (pourPanel == null) {
@@ -207,11 +211,11 @@ public class FramePriseRDV extends JFrame {
 	////////////////////////////////////
 	// PANEL PAR
 	////////////////////////////////////
-	
+
 	private JPanel parPanel;
 	private JLabel lblVeterinaire;
 	private JComboBox<String> cbbVeterinaire;
-	
+
 	public JPanel getParPanel() {
 		// ajouter le titledborder
 		if (parPanel == null) {
@@ -246,6 +250,20 @@ public class FramePriseRDV extends JFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			cbbVeterinaire.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						tableModel.updateData();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+			});
 		}
 		return cbbVeterinaire;
 	}
@@ -264,8 +282,7 @@ public class FramePriseRDV extends JFrame {
 	private JComboBox<Integer> cbbHeure;
 	private JLabel lblH;
 	private JComboBox<Integer> cbbMinute;
-	
-	
+
 	public JPanel getQuandPanel() {
 		// ajouter le titledborder
 		if (quandPanel == null) {
@@ -323,13 +340,18 @@ public class FramePriseRDV extends JFrame {
 	public JDatePickerImpl getDatePicker() {
 		if (datePicker == null) {
 			datePicker = new JDatePickerImpl(getDatePanel(), new DateComponentFormatter());
-			
+
 			datePicker.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-	
-					
+					try {
+						tableModel.updateData();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 				}
 			});
 		}
@@ -339,6 +361,8 @@ public class FramePriseRDV extends JFrame {
 	public UtilDateModel getModel() {
 		if (model == null) {
 			model = new UtilDateModel();
+			model.setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue()-1, LocalDate.now().getDayOfMonth());
+			model.setSelected(true);
 			// TODO: revoir les parametres de dates null
 		}
 		return model;
@@ -379,12 +403,10 @@ public class FramePriseRDV extends JFrame {
 	// LISTE DE RENDEZ VOUS
 	/////////////////////////////////
 
-	
-		private JScrollPane tablePanel;
-		private JTable tableRDV;
-		private RDVTableModel tableModel;
-	
-	
+	private JScrollPane tablePanel;
+	private JTable tableRDV;
+	private RDVTableModel tableModel;
+
 	public JScrollPane getTablePanel() {
 		if (tablePanel == null) {
 			tablePanel = new JScrollPane();
@@ -404,12 +426,10 @@ public class FramePriseRDV extends JFrame {
 	/////////////////////////////////
 	// BOUTONS BAS DE PAGE
 	/////////////////////////////////
-	
 
 	private JButton btnSupprimer;
 	private JButton btnValider;
-	
-	
+
 	public JButton getBtnSupprimer() {
 		if (btnSupprimer == null) {
 			btnSupprimer = new JButton("Supprimer");
@@ -424,6 +444,91 @@ public class FramePriseRDV extends JFrame {
 
 		}
 		return btnValider;
+	}
+
+	////////////////////////////////
+	// CLASS RDVTableModel
+	////////////////////////////////
+
+	public class RDVTableModel extends AbstractTableModel {
+		private String[] nomsColonne = { "Heure", "Nom du client", "Animal", "Race" };
+
+		private List<RDV> rendezVous = new ArrayList<>();
+
+		public RDVTableModel() {
+			try {
+				rendezVous = Clinique.getInstance().getRDVJour(Date.from(Instant.now()),
+						getCbbVeterinaire().getSelectedIndex());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		/**
+		 * Cette méthode permet de mettre à jour l'affichage de la JTable (en
+		 * rechargeant les données)
+		 * 
+		 * @throws BLLException
+		 */
+		public void updateData() throws BLLException {
+			rendezVous = Clinique.getInstance().getRDVJour((Date) getDatePicker().getModel().getValue(),
+					getCbbVeterinaire().getSelectedIndex());
+			fireTableDataChanged();
+		}
+
+		@Override
+		public int getRowCount() {
+			return rendezVous.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return nomsColonne.length;
+		}
+
+		@Override
+		public String getColumnName(int column) {
+			return nomsColonne[column];
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return getValueAt(0, columnIndex).getClass();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (rowIndex >= 0 && rowIndex < rendezVous.size()) {
+				RDV rdvAAfficher = rendezVous.get(rowIndex);
+				switch (columnIndex) {
+				case 0:
+					return rdvAAfficher.getDate();
+				case 1:
+					return rdvAAfficher.getNomClient();
+				case 2:
+					return rdvAAfficher.getNomAnimal();
+				case 3:
+					return rdvAAfficher.getEspeceAnimal();
+				}
+			}
+			return null;
+		}
+
+		/**
+		 * Retourne l'article pour une ligne donnée
+		 * 
+		 * @param rowIndex
+		 *            La ligne où se situe l'article
+		 * @return
+		 * @throws ArticleNotFoundException
+		 */
+		/*
+		 * public RDV getValueAt(int rowIndex) throws ArticleNotFoundException {
+		 * if (rowIndex >= 0 && rowIndex < 10) { return rdv.get(rowIndex); }
+		 * throw new ArticleNotFoundException(); }
+		 */
+
 	}
 
 }
