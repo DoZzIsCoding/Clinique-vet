@@ -15,7 +15,7 @@ import fr.eni.clinique.dal.RDVDAO;
 
 public class RDVDAOJdbcImpl implements RDVDAO {
 
-	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, NomAnimal, Espece from Agendas ag "
+	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece from Agendas ag "
 														+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal "
 														+ "join Clients cl on cl.codeclient = an.Codeclient "
 														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
@@ -73,7 +73,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
 		RDV rdv = new RDV(rs.getDate("DateRDV"), 
-				rs.getString("Nom"), rs.getString("NomAnimal"), rs.getString("Espece"));
+				rs.getString("Nomclient")+ " " + rs.getString("prenomClient"), rs.getString("NomAnimal"), rs.getString("Espece"));
 		
 		return rdv;
 	}
