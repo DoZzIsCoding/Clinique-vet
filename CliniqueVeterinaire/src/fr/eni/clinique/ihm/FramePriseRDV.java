@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -517,8 +518,8 @@ public class FramePriseRDV extends JFrame {
 				RDV rdvAAfficher = rendezVous.get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-					SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-					return sdf.format(rdvAAfficher.getDate());
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh'h'mm");
+					return rdvAAfficher.getDate().format(dtf);
 				case 1:
 					return rdvAAfficher.getNomClient();
 				case 2:
