@@ -98,7 +98,8 @@ private List<RDV> lesRdv;
 	
 	public boolean supprimerRdvCourant(int index){
 		boolean suppressionRDVOK = false;
-		lesRdv.remove(index);
+		//RDV
+		//lesRdv.remove(index);
 		
 		return suppressionRDVOK;
 	}

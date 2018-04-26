@@ -21,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
@@ -30,11 +29,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import fr.eni.clinique.bll.ArticleNotFoundException;
+
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bll.RdvNotFoundException;
-import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.RDV;
 
 public class FramePriseRDV extends JFrame {
