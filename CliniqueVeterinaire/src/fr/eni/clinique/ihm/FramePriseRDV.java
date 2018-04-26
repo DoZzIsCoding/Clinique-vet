@@ -443,8 +443,6 @@ public class FramePriseRDV extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
-						
 						if(getTableRDV().getSelectedRow() >= 0){
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 						}

@@ -19,12 +19,12 @@ import fr.eni.clinique.dal.RDVDAO;
 
 public class RDVDAOJdbcImpl implements RDVDAO {
 
-	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece from Agendas ag "
+	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece, codeVeto from Agendas ag "
 														+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal "
 														+ "join Clients cl on cl.codeclient = an.Codeclient "
 														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
 
-	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DateRdv = ?;";
+	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DATEDIFF(minute, ? , DateRdv ) = 0 AND codeVeto = ?;";
 	
 	
 	
@@ -54,11 +54,14 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	@Override
 	public boolean supprimer(RDV value) throws DalException {
+		
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RDV);
 			pstmt.setDate(1, java.sql.Date.valueOf(value.getDate().toLocalDate()));
-			
+			pstmt.setInt(2, value.getCodeVeto());
+			System.out.println(pstmt.executeUpdate());
+			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -88,7 +91,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
 		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime() , 
-				rs.getString("Nomclient")+ " " + rs.getString("prenomClient"), rs.getString("NomAnimal"), rs.getString("Espece"));
+				rs.getString("Nomclient")+ " " + rs.getString("prenomClient"), rs.getString("NomAnimal"), rs.getString("Espece"), rs.getInt("CodeVeto"));
 				
 		return rdv;
 	}
