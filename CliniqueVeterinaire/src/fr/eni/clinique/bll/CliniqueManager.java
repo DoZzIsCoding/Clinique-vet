@@ -92,4 +92,5 @@ private static CliniqueManager instance;
 		}
 	}
 
+	public void supprimerRdv(RDV rdv){}
 }
