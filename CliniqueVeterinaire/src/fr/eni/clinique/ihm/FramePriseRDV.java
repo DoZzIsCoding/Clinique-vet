@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -503,7 +504,8 @@ public class FramePriseRDV extends JFrame {
 				RDV rdvAAfficher = rendezVous.get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-					return rdvAAfficher.getDate();
+					SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+					return sdf.format(rdvAAfficher.getDate());
 				case 1:
 					return rdvAAfficher.getNomClient();
 				case 2:
