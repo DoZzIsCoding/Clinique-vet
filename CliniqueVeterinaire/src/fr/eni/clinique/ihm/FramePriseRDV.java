@@ -39,6 +39,7 @@ import fr.eni.clinique.bo.RDV;
 public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
+	//private Clinique clinique = Clinique.getInstance();
 
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
@@ -442,14 +443,11 @@ public class FramePriseRDV extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-<<<<<<< HEAD
 						Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 						
-=======
 						if(getTableRDV().getSelectedRow() >= 0){
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 						}
->>>>>>> branch 'master' of https://github.com/DoZzIsCoding/Clinique-vet
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -525,7 +523,7 @@ public class FramePriseRDV extends JFrame {
 				RDV rdvAAfficher = rendezVous.get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh'h'mm");
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH'h'mm");
 					return rdvAAfficher.getDate().format(dtf);
 				case 1:
 					return rdvAAfficher.getNomClient();
