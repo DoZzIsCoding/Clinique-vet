@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
@@ -72,16 +76,14 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	}
 
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
-		RDV rdv = new RDV(rs.getDate("DateRDV"), 
+		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime() , 
 				rs.getString("Nomclient")+ " " + rs.getString("prenomClient"), rs.getString("NomAnimal"), rs.getString("Espece"));
-		
+				
 		return rdv;
 	}
 
 	private java.sql.Date utilToSqlDate(java.util.Date date) {
-
 		return new java.sql.Date(date.getTime());
-
 	}
 
 }

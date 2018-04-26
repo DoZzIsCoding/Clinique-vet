@@ -1,6 +1,7 @@
 package fr.eni.clinique.bo;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -8,7 +9,7 @@ public class RDV {
 	
 	
 	//VARIABLES
-	private Date date;
+	private LocalDateTime date;
 	private String nomClient;
 	private String nomAnimal;
 	private String especeAnimal;
@@ -19,7 +20,7 @@ public class RDV {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public RDV(Date date, String nomClient, String nomAnimal, String especeAnimal) {
+	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal) {
 		super();
 		this.date = date;
 		this.nomClient = nomClient;
@@ -29,11 +30,11 @@ public class RDV {
 	
 	
 	// SETTERS GETTERS
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
