@@ -93,9 +93,14 @@ private static CliniqueManager instance;
 	}
 
 	/*
-	 * Demande a la DAL de supprimer le RDV en BDD
+	 * Demande a la DAL de supprimer le RDV 
 	 */
 	public void supprimerRdv(RDV rdv){
-		
+		try {
+			rdvDAO.supprimer(rdv);
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

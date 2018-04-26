@@ -54,7 +54,14 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	@Override
 	public boolean supprimer(RDV value) throws DalException {
-		// TODO Auto-generated method stub
+		try (Connection cnx = ConnectionDAO.getConnection()) {
+			// On considère qu'on a une connexion opérationnelle
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RDV);
+			pstmt.setDate(1, java.sql.Date.valueOf(value.getDate().toLocalDate()));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return false;
 	}
 
