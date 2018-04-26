@@ -48,7 +48,7 @@ private List<Personnel> lesVeterinaires;
 	public String[] getTabNomsClients(){
 		String[] tableau= new String[this.getClients().size()];
 		for (int i = 0; i < tableau.length; i++) {
-			tableau[i] = lesClients.get(i).getNomClient();
+			tableau[i] = lesClients.get(i).getNomClient() + " " + lesClients.get(i).getPrenomClient();
 		}
 		return tableau;
 	}
