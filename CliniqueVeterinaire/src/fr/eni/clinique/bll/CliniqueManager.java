@@ -104,7 +104,12 @@ private static CliniqueManager instance;
 		}
 	}
 	
-	public void ajouterRdv(RDV rdv) throws DalException{
-		rdvDAO.ajouter(rdv);
+	public void ajouterRdv(RDV rdv) throws BLLException{
+		try {
+			rdvDAO.ajouter(rdv);		
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur BLL ajout de RDV");
+		}
 	}
 }

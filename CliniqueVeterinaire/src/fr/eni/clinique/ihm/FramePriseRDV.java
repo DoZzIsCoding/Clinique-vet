@@ -444,9 +444,9 @@ public class FramePriseRDV extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						if (getTableRDV().getSelectedRow() >= 0) {
+							JOptionPane.showConfirmDialog(btnSupprimer, "Voulez-vous vraiment supprimer ce rendez-vous ?");
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 							tableModel.fireTableDataChanged();
-							JOptionPane.showConfirmDialog(btnSupprimer, "Voulez-vous vraiment supprimer ce rendez-vous ?");
 							JOptionPane.showMessageDialog(btnSupprimer, "Suppression effectuée ");;
 						}
 					} catch (BLLException e) {
@@ -474,7 +474,7 @@ public class FramePriseRDV extends JFrame {
 						indexVeto = getCbbVeterinaire().getSelectedIndex();
 						dateRdv = LocalDateTime.of(
 								getDatePicker().getModel().getYear(), 
-								getDatePicker().getModel().getMonth(), 
+								getDatePicker().getModel().getMonth()+1, 
 								getDatePicker().getModel().getDay(), 
 								(int) getCbbHeure().getSelectedItem(), 
 								(int) getCbbMinute().getSelectedItem());
@@ -490,8 +490,8 @@ public class FramePriseRDV extends JFrame {
 
 						
 						} catch (BLLException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
+							JOptionPane.showMessageDialog(btnValider, "Rendez-vous refusé ");
 						}
 				}
 			});

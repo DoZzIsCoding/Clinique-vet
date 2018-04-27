@@ -121,8 +121,11 @@ private List<RDV> lesRdv;
 			manager.ajouterRdv(nouveauRdv);
 			
 			lesRdv.add(nouveauRdv);
+		} catch (BLLException e) {
+			e.printStackTrace();
+			throw new BLLException("erreur clinique");
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
