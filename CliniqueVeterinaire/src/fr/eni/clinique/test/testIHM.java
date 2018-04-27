@@ -2,8 +2,7 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
-import org.jdatepicker.JDatePicker;
-
+import fr.eni.clinique.ihm.FrameAnimaux;
 import fr.eni.clinique.ihm.FramePriseRDV;
 
 public class testIHM {
@@ -15,7 +14,7 @@ public class testIHM {
 			
 			@Override
 			public void run() {
-				FramePriseRDV frame = new FramePriseRDV();
+				FrameAnimaux frame = new FrameAnimaux();
 				frame.setVisible(true);
 				
 			}
