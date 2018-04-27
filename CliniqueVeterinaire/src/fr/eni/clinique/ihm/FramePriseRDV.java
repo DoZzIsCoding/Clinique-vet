@@ -445,6 +445,7 @@ public class FramePriseRDV extends JFrame {
 						if (getTableRDV().getSelectedRow() >= 0) {
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 							tableModel.fireTableDataChanged();
+							JOptionPane.showConfirmDialog(btnSupprimer, "Voulez-vous vraiment supprimer ce rendez-vous ?");
 							JOptionPane.showMessageDialog(btnSupprimer, "Suppression effectuée ");;
 						}
 					} catch (BLLException e) {
