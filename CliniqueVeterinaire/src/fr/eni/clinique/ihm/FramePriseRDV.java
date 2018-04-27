@@ -37,6 +37,7 @@ import fr.eni.clinique.bll.RdvNotFoundException;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.CreneauDejaPrisException;
 
+@SuppressWarnings("serial")
 public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
@@ -184,6 +185,15 @@ public class FramePriseRDV extends JFrame {
 	public JButton getBtnAjouterClient() {
 		if (btnAjouterClient == null) {
 			btnAjouterClient = new JButton("+");
+			
+			btnAjouterClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		return btnAjouterClient;
 	}
@@ -198,7 +208,12 @@ public class FramePriseRDV extends JFrame {
 	public JComboBox<String> getCbbAnimal() {
 		if (cbbAnimal == null) {
 
-			cbbAnimal = new JComboBox<String>();
+			try {
+				cbbAnimal = new JComboBox<String>(Clinique.getInstance().getAnimauxDeClient(0));
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			cbbAnimal.setAlignmentX(CENTER_ALIGNMENT);
 		}
@@ -208,6 +223,13 @@ public class FramePriseRDV extends JFrame {
 	public JButton getBtnAjouterAnimal() {
 		if (btnAjouterAnimal == null) {
 			btnAjouterAnimal = new JButton("+");
+			btnAjouterAnimal.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 		}
 		return btnAjouterAnimal;
 	}
@@ -467,6 +489,7 @@ public class FramePriseRDV extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+						
 						int indexVeto;
 						LocalDateTime dateRdv;
 						int indexClient;
@@ -479,8 +502,16 @@ public class FramePriseRDV extends JFrame {
 								getDatePicker().getModel().getDay(), 
 								(int) getCbbHeure().getSelectedItem(), 
 								(int) getCbbMinute().getSelectedItem());
+						
 						indexAnimal = getCbbAnimal().getSelectedIndex();
+						if( indexAnimal == -1){
+							JOptionPane.showMessageDialog(btnValider, "Vous devez d'abord ajouter un animal au client ");
+						}
+						
 						indexClient = getCbbClient().getSelectedIndex();
+						if( indexClient == -1){
+							JOptionPane.showMessageDialog(btnValider, "Vous devez d'abord ajouter un client ");
+						}
 						
 						try {
 							JOptionPane.showConfirmDialog(btnValider, "Confirmez-vous ce rendez-vous ?");

@@ -93,8 +93,10 @@ private static CliniqueManager instance;
 		}
 	}
 
-	/*
-	 * Demande a la DAL de supprimer le RDV 
+	/**
+	 * Demande a la DAL de supprimer le RDV
+	 * @param rdv
+	 * @throws BLLException
 	 */
 	public void supprimerRdv(RDV rdv) throws BLLException{
 		try {
@@ -105,6 +107,13 @@ private static CliniqueManager instance;
 		}
 	}
 	
+	
+	/**
+	 * Demande a la DAL de supprimer le RDV
+	 * @param rdv
+	 * @throws BLLException
+	 * @throws CreneauDejaPrisException
+	 */
 	public void ajouterRdv(RDV rdv) throws BLLException, CreneauDejaPrisException{
 		try {
 			rdvDAO.ajouter(rdv);		
@@ -115,4 +124,22 @@ private static CliniqueManager instance;
 			throw new BLLException("Erreur BLL ajout de RDV");
 		}
 	}
+
+	/**
+	 * demande a la DAL d'ajouter un Animal (contenant deja un codeClient valide)
+	 * @param animal
+	 * @throws DalException
+	 */
+	public void ajouterAnimal(Animal animal) throws DalException {
+		try {
+			animalDAO.ajouter(animal);
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DalException("Erreur BLL ajout d'animal");
+		}
+	}
+	
+	
+	
 }

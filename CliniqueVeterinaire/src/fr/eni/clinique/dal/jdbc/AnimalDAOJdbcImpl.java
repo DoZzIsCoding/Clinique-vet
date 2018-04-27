@@ -148,4 +148,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		pstmt.setBoolean(9, animal.isArchive());
 	}
 
+
+
 }
