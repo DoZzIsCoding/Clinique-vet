@@ -25,23 +25,6 @@ public class RDV {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal) {
-		super();
-		this.date = date;
-		this.nomClient = nomClient;
-		this.nomAnimal = nomAnimal;
-		this.especeAnimal = especeAnimal;
-	}
-	
-	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal, int codeVeto) {
-		super();
-		this.date = date;
-		this.nomClient = nomClient;
-		this.nomAnimal = nomAnimal;
-		this.especeAnimal = especeAnimal;
-		this.codeVeto = codeVeto;
-	}
-	
 	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal, int codeVeto,
 			int codeAnimal) {
 		super();
