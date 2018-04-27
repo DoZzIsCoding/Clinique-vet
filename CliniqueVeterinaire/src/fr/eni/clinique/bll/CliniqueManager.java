@@ -95,12 +95,12 @@ private static CliniqueManager instance;
 	/*
 	 * Demande a la DAL de supprimer le RDV 
 	 */
-	public void supprimerRdv(RDV rdv){
+	public void supprimerRdv(RDV rdv) throws BLLException{
 		try {
 			rdvDAO.supprimer(rdv);
 		} catch (DalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new BLLException("Erreur BLL supression de RDV");
 		}
 	}
 }
