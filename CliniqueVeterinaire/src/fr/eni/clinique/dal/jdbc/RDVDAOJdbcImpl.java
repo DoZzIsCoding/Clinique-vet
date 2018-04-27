@@ -26,6 +26,8 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DATEDIFF(day, ? , DateRdv ) = 0 "
 			+ "AND DATEDIFF(hour, ? , DateRdv ) = 0" + "AND DATEDIFF(minute, ? , DateRdv ) = 0" + "AND codeVeto = ?";
 
+	private static final String INSERT_RDV = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?);";
+	
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
 		// TODO Auto-generated method stub
@@ -85,7 +87,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			pstmt.setInt(1, veterinaire.getCodePers());
 			pstmt.setDate(2, utilToSqlDate(date));
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				agenda.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
@@ -95,6 +97,21 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 		return agenda;
 	}
+	
+//	public boolean validerRDV(RDV value){
+//		try (Connection cnx = ConnectionDAO.getConnection()){
+//			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
+//			pstmt.setInt(1, value.getCodeVeto());
+//			pstmt.setDate(2, value.getDate());
+//			// pstmt.setInt(3, value.get()); MANQUE CODEANIMAL dans RDV
+//			pstmt.executeUpdate();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return false;
+//	}
+	
+	
 
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
 		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime(),

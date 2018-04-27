@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,7 +30,6 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bll.RdvNotFoundException;
@@ -39,7 +38,7 @@ import fr.eni.clinique.bo.RDV;
 public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
-	//private Clinique clinique = Clinique.getInstance();
+	// private Clinique clinique = Clinique.getInstance();
 
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
@@ -443,8 +442,10 @@ public class FramePriseRDV extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						if(getTableRDV().getSelectedRow() >= 0){
+						if (getTableRDV().getSelectedRow() >= 0) {
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
+							tableModel.fireTableDataChanged();
+							JOptionPane.showMessageDialog(btnSupprimer, "Suppression effectuée ");;
 						}
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
@@ -459,13 +460,39 @@ public class FramePriseRDV extends JFrame {
 	public JButton getBtnValider() {
 		if (btnValider == null) {
 			btnValider = new JButton("Valider");
-
+			btnValider.addActionListener(new  ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				//	Clinique.getInstance().validerRDV()
+					
+				}
+			});
 		}
+		
+		
 		return btnValider;
 	}
 
+	/////////////////////////////////
+	// METHODES
+	/////////////////////////////////
+
+//	private RDV RDVFormulaie() {
+//		int codeVeto;
+//		Date dateRdv;
+//		int codeAnimal;
+//		
+//		codeVeto = getCbbVeterinaire();
+//		dateRdv = getDatePanel().ge
+//		
+//		
+//		return null;
+//
+//	}
+
 	////////////////////////////////
-	// CLASS RDVTableModel
+	// CLASSES
 	////////////////////////////////
 
 	public class RDVTableModel extends AbstractTableModel {
