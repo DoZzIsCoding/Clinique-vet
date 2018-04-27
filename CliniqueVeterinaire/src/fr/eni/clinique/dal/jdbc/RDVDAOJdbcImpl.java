@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,17 +21,12 @@ import fr.eni.clinique.dal.RDVDAO;
 public class RDVDAOJdbcImpl implements RDVDAO {
 
 	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece, codeVeto from Agendas ag "
-														+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal "
-														+ "join Clients cl on cl.codeclient = an.Codeclient "
-														+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0" ;
+			+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal " + "join Clients cl on cl.codeclient = an.Codeclient "
+			+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0";
 
 	private static final String DELETE_RDV = "DELETE FROM Agendas WHERE DATEDIFF(day, ? , DateRdv ) = 0 "
-																		+ "AND DATEDIFF(hour, ? , DateRdv ) = 0"
-																		+ "AND DATEDIFF(minute, ? , DateRdv ) = 0"
-																		+ "AND codeVeto = ?";
-	
-	
-	
+			+ "AND DATEDIFF(hour, ? , DateRdv ) = 0" + "AND DATEDIFF(minute, ? , DateRdv ) = 0" + "AND codeVeto = ?";
+
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
 		// TODO Auto-generated method stub
@@ -57,17 +53,21 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	@Override
 	public boolean supprimer(RDV value) throws DalException {
-		
+
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RDV);
+
+			// TODO: faire la conversion de LocalDateTime vers Sql.date sans
+			// perdre les heures et minutes
+			// En Chinois
+			long epochMillis = value.getDate().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+			java.sql.Date date = new java.sql.Date(epochMillis);
 			
-			// TODO: faire la conversion de LocalDateTimer vers Sql.date sans perdre les heures et minutes
-			System.out.println(value.getDate());
-			System.out.println(java.sql.Date.valueOf(value.getDate().toLocalDate()));
-			pstmt.setDate(1, java.sql.Date.valueOf(value.getDate().toLocalDate()));
+			System.out.println(date.getTime());
+			pstmt.setDate(1, date);
 			pstmt.setInt(2, value.getCodeVeto());
-			System.out.println(pstmt.executeUpdate());
+			System.out.println(pstmt.executeUpdate() + " Enregistrement supprimé");
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -97,9 +97,10 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	}
 
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
-		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime() , 
-				rs.getString("Nomclient")+ " " + rs.getString("prenomClient"), rs.getString("NomAnimal"), rs.getString("Espece"), rs.getInt("CodeVeto"));
-				
+		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime(),
+				rs.getString("Nomclient") + " " + rs.getString("prenomClient"), rs.getString("NomAnimal"),
+				rs.getString("Espece"), rs.getInt("CodeVeto"));
+
 		return rdv;
 	}
 
