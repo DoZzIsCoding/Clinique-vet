@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -465,8 +466,33 @@ public class FramePriseRDV extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//	Clinique.getInstance().validerRDV()
-					
+						int indexVeto;
+						LocalDateTime dateRdv;
+						int indexClient;
+						int indexAnimal;
+						
+						indexVeto = getCbbVeterinaire().getSelectedIndex();
+						dateRdv = LocalDateTime.of(
+								getDatePicker().getModel().getYear(), 
+								getDatePicker().getModel().getMonth(), 
+								getDatePicker().getModel().getDay(), 
+								(int) getCbbHeure().getSelectedItem(), 
+								(int) getCbbMinute().getSelectedItem());
+								//getDatePicker().getModel().getValue();
+						indexAnimal = getCbbAnimal().getSelectedIndex();
+						indexClient = getCbbClient().getSelectedIndex();
+						
+						try {
+							JOptionPane.showConfirmDialog(btnValider, "Confirmez-vous ce rendez-vous ?");
+							Clinique.getInstance().ajouterRdvCourant(indexClient, indexAnimal, indexVeto, dateRdv);
+							tableModel.fireTableDataChanged();
+							JOptionPane.showMessageDialog(btnValider, "Rendez-vous enregistré ");
+
+						
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				}
 			});
 		}
@@ -479,18 +505,7 @@ public class FramePriseRDV extends JFrame {
 	// METHODES
 	/////////////////////////////////
 
-//	private RDV RDVFormulaie() {
-//		int codeVeto;
-//		Date dateRdv;
-//		int codeAnimal;
-//		
-//		codeVeto = getCbbVeterinaire();
-//		dateRdv = getDatePanel().ge
-//		
-//		
-//		return null;
-//
-//	}
+	
 
 	////////////////////////////////
 	// CLASSES

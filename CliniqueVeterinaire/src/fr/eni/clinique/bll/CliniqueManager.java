@@ -103,4 +103,8 @@ private static CliniqueManager instance;
 			throw new BLLException("Erreur BLL supression de RDV");
 		}
 	}
+	
+	public void ajouterRdv(RDV rdv) throws DalException{
+		rdvDAO.ajouter(rdv);
+	}
 }

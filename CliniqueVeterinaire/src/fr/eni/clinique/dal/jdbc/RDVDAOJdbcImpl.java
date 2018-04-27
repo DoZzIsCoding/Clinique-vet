@@ -19,7 +19,7 @@ import fr.eni.clinique.dal.RDVDAO;
 
 public class RDVDAOJdbcImpl implements RDVDAO {
 
-	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece, codeVeto from Agendas ag "
+	private static final String SELECT_AGENDA_JOUR = " select DateRdv, NomClient, prenomClient, NomAnimal, Espece, codeVeto, ag.codeAnimal from Agendas ag "
 			+ "join Animaux an on an.CodeAnimal = ag.CodeAnimal " + "join Clients cl on cl.codeclient = an.Codeclient "
 			+ "where codeveto = ? And DATEDIFF(day, ? , ag.DateRdv ) = 0";
 
@@ -42,7 +42,17 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	@Override
 	public void ajouter(RDV value) throws DalException {
-		// TODO Auto-generated method stub
+		try (Connection cnx = ConnectionDAO.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
+			Timestamp ts = Timestamp.valueOf(value.getDate());
+			pstmt.setInt(1, value.getCodeVeto());
+			pstmt.setTimestamp(2, ts);
+			pstmt.setInt(3, value.getCodeAnimal());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DalException("erreur d'insertion de rendez vous");
+		}
 
 	}
 
@@ -98,25 +108,10 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 		return agenda;
 	}
 	
-//	public boolean validerRDV(RDV value){
-//		try (Connection cnx = ConnectionDAO.getConnection()){
-//			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
-//			pstmt.setInt(1, value.getCodeVeto());
-//			pstmt.setDate(2, value.getDate());
-//			// pstmt.setInt(3, value.get()); MANQUE CODEANIMAL dans RDV
-//			pstmt.executeUpdate();
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return false;
-//	}
-	
-	
-
 	private RDV itemBuilder(ResultSet rs) throws SQLException {
 		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime(),
 				rs.getString("Nomclient") + " " + rs.getString("prenomClient"), rs.getString("NomAnimal"),
-				rs.getString("Espece"), rs.getInt("CodeVeto"));
+				rs.getString("Espece"), rs.getInt("CodeVeto"), rs.getInt("CodeAnimal"));
 
 		return rdv;
 	}

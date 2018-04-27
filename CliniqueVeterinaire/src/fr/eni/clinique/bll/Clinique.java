@@ -1,5 +1,7 @@
 package fr.eni.clinique.bll;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -103,34 +105,27 @@ private List<RDV> lesRdv;
 			manager.supprimerRdv(rdvASupprimer);
 			lesRdv.remove(index);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
+	public void ajouterRdvCourant(int indexClient, int indexAnimal, int indexVeto, LocalDateTime dateRdv) throws BLLException{
+		RDV nouveauRdv = new RDV(dateRdv, 
+									lesClients.get(indexClient).getNomClient(), 
+									lesClients.get(indexClient).getAnimaux().get(indexAnimal).getNomAnimal(),
+									lesClients.get(indexClient).getAnimaux().get(indexAnimal).getEspece(), 
+									lesVeterinaires.get(indexVeto).getCodePers(), 
+									lesClients.get(indexClient).getAnimaux().get(indexAnimal).getCodeAnimal());
+		try {
+			
+			manager.ajouterRdv(nouveauRdv);
+			
+			lesRdv.add(nouveauRdv);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
 	
-//public Article supprimerArticleCourant() throws BLLException, ArticleNotFoundException {
-//		
-//		//récupère l'article à supprimer
-//		Article articleASupprimer = mesArticles.get(indexArticleCourant.getValeur());
-//		
-//		//on supprime l'article de la BDD
-//		manager.removeArticle(articleASupprimer);
-//		
-//		//on enlève l'article de la liste (si ça été fait dans la BDD)
-//		mesArticles.remove(articleASupprimer);
-//		
-//		notifyToutLesListeners();
-//		
-//		//on essaye de retourner l'article précédent
-//		try {
-//			return getArticlePrecedent();
-//		} catch (ArticleNotFoundException e) { //s'il n'existe pas, on essaye de retourner l'article suivant
-//			if(indexArticleCourant.getValeur() < mesArticles.size()) {
-//				return mesArticles.get(indexArticleCourant.getValeur());
-//			}
-//		}
-//		
-//		throw new ArticleNotFoundException();
-//	}
 	
 }
