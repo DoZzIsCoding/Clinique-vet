@@ -9,6 +9,7 @@ import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.AnimalDAO;
 import fr.eni.clinique.dal.ClientDAO;
+import fr.eni.clinique.dal.CreneauDejaPrisException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.PersonnelDAO;
@@ -104,9 +105,11 @@ private static CliniqueManager instance;
 		}
 	}
 	
-	public void ajouterRdv(RDV rdv) throws BLLException{
+	public void ajouterRdv(RDV rdv) throws BLLException, CreneauDejaPrisException{
 		try {
 			rdvDAO.ajouter(rdv);		
+		}catch (CreneauDejaPrisException e) {
+			throw new CreneauDejaPrisException("Erreur BLL ajout de RDV");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur BLL ajout de RDV");

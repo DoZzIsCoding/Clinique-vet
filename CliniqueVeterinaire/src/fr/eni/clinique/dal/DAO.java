@@ -24,10 +24,11 @@ public interface DAO<T> {
 	 * 
 	 * @param objet
 	 *            obligatoirement non null
+	 * @throws CreneauDejaPrisException 
 	 * @exception NullPointerException
 	 *                si l'article est null
 	 */
-	public abstract void ajouter(T value) throws DalException;
+	public abstract void ajouter(T value) throws DalException, CreneauDejaPrisException;
 
 	/**
 	 * 

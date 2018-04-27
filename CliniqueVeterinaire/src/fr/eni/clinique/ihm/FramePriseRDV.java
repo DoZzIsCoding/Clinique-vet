@@ -35,6 +35,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bll.RdvNotFoundException;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.dal.CreneauDejaPrisException;
 
 public class FramePriseRDV extends JFrame {
 
@@ -478,7 +479,6 @@ public class FramePriseRDV extends JFrame {
 								getDatePicker().getModel().getDay(), 
 								(int) getCbbHeure().getSelectedItem(), 
 								(int) getCbbMinute().getSelectedItem());
-								//getDatePicker().getModel().getValue();
 						indexAnimal = getCbbAnimal().getSelectedIndex();
 						indexClient = getCbbClient().getSelectedIndex();
 						
@@ -492,6 +492,9 @@ public class FramePriseRDV extends JFrame {
 						} catch (BLLException e1) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValider, "Rendez-vous refusé ");
+						} catch (CreneauDejaPrisException e1) {
+							JOptionPane.showMessageDialog(btnValider, "Un Rendez vous existe deja à l'heure demandée ");
+							e1.printStackTrace();
 						}
 				}
 			});

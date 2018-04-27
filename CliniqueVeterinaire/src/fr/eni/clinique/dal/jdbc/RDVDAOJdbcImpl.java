@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.dal.CreneauDejaPrisException;
 import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.RDVDAO;
 
@@ -41,7 +44,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	}
 
 	@Override
-	public void ajouter(RDV value) throws DalException {
+	public void ajouter(RDV value) throws DalException, CreneauDejaPrisException {
 		try (Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
 			Timestamp ts = Timestamp.valueOf(value.getDate());
@@ -49,6 +52,9 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			pstmt.setTimestamp(2, ts);
 			pstmt.setInt(3, value.getCodeAnimal());
 			pstmt.executeUpdate();
+		}catch (SQLServerException e) {
+			e.printStackTrace();
+			throw new CreneauDejaPrisException("un Rdv existe deja a cette heure");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DalException("erreur d'insertion de rendez vous");

@@ -8,6 +8,7 @@ import java.util.List;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.dal.CreneauDejaPrisException;
 
 public class Clinique {
 	
@@ -109,7 +110,7 @@ private List<RDV> lesRdv;
 		}
 	}
 	
-	public void ajouterRdvCourant(int indexClient, int indexAnimal, int indexVeto, LocalDateTime dateRdv) throws BLLException{
+	public void ajouterRdvCourant(int indexClient, int indexAnimal, int indexVeto, LocalDateTime dateRdv) throws BLLException, CreneauDejaPrisException{
 		RDV nouveauRdv = new RDV(dateRdv, 
 									lesClients.get(indexClient).getNomClient(), 
 									lesClients.get(indexClient).getAnimaux().get(indexAnimal).getNomAnimal(),
@@ -121,7 +122,10 @@ private List<RDV> lesRdv;
 			manager.ajouterRdv(nouveauRdv);
 			
 			lesRdv.add(nouveauRdv);
-		} catch (BLLException e) {
+		} catch (CreneauDejaPrisException e) {
+			e.printStackTrace();
+			throw new CreneauDejaPrisException("RDV deja existant");
+		}catch (BLLException e) {
 			e.printStackTrace();
 			throw new BLLException("erreur clinique");
 		} catch (Exception e) {
