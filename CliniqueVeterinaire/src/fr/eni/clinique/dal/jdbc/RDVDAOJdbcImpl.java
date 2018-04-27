@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
@@ -60,17 +59,18 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 			// TODO: faire la conversion de LocalDateTime vers Sql.date sans
 			// perdre les heures et minutes
-			// En Chinois
-			long epochMillis = value.getDate().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
-			java.sql.Date date = new java.sql.Date(epochMillis);
-			
-			System.out.println(date.getTime());
-			pstmt.setDate(1, date);
-			pstmt.setInt(2, value.getCodeVeto());
+			System.out.println("avant parametres");
+			Timestamp ts = Timestamp.valueOf(value.getDate());
+			System.out.println(ts);
+			pstmt.setTimestamp(1, ts);
+			pstmt.setTimestamp(2, ts);
+			pstmt.setTimestamp(3, ts);
+			pstmt.setInt(4, value.getCodeVeto());
 			System.out.println(pstmt.executeUpdate() + " Enregistrement supprimé");
+			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return false;
 	}
