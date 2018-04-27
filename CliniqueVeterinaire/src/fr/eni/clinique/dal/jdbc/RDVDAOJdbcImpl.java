@@ -85,7 +85,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			pstmt.setInt(1, veterinaire.getCodePers());
 			pstmt.setDate(2, utilToSqlDate(date));
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while(rs.next()) {
 				agenda.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
