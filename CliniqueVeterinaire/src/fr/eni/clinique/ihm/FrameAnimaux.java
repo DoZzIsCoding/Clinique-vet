@@ -292,9 +292,6 @@ public class FrameAnimaux extends JFrame {
 	
 	}
 	
-	
-	
-	
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();
