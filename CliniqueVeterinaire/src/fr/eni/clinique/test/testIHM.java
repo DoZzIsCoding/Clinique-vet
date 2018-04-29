@@ -17,6 +17,9 @@ public class testIHM {
 				FrameAnimaux frame = new FrameAnimaux();
 				frame.setVisible(true);
 				
+				FramePriseRDV rdvFrame = new FramePriseRDV();
+				rdvFrame.setVisible(true);
+				
 			}
 		});
 

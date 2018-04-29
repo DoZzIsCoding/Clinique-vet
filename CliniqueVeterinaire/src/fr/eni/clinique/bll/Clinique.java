@@ -1,11 +1,13 @@
 package fr.eni.clinique.bll;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Espece;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.CreneauDejaPrisException;
@@ -16,6 +18,10 @@ public class Clinique {
 	private List<Client> lesClients;
 	private List<Personnel> lesVeterinaires;
 	private List<RDV> lesRdv;
+	private List<Espece> lesEspeces;
+	
+	private int indexClientEnCours;
+	private int indexAnimalEnCours;
 
 	private CliniqueManager manager;
 
@@ -23,6 +29,24 @@ public class Clinique {
 		manager = CliniqueManager.getInstance();
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
+	}
+	
+	//GETTERS SETTERS
+
+	public int getIndexClientEnCours() {
+		return indexClientEnCours;
+	}
+
+	public void setIndexClientEnCours(int indexClientEnCours) {
+		this.indexClientEnCours = indexClientEnCours;
+	}
+
+	public int getIndexAnimalEnCours() {
+		return indexAnimalEnCours;
+	}
+
+	public void setIndexAnimalEnCours(int indexAnimalEnCours) {
+		this.indexAnimalEnCours = indexAnimalEnCours;
 	}
 
 	////////////////////////
@@ -58,7 +82,7 @@ public class Clinique {
 
 	/**
 	 * 
-	 * @param client
+	 * @param indexclient
 	 *            complet (avec Liste d'animaux)
 	 * @return un tableau de String contenant les noms des animaux du client.
 	 */
@@ -82,11 +106,42 @@ public class Clinique {
 		}
 
 	}
+	
+	/////////////////
+	//GESTION DES ANIMAUX
+	/////////////////
+	
+
+	public List<Espece> getEspeces(){
+		lesEspeces = manager.getEspeces();
+		return lesEspeces;
+		
+	}
+	
+	public String[] getTabEspeces() {
+		
+		String[] tableau = new String[lesEspeces.size()];
+		for (int i = 0; i < tableau.length; i++) {
+			tableau[i] = lesEspeces.get(i).getNomEspece();
+		}
+		return tableau;
+	}
+	
+	public String[] getTabRaceFromEspece(int index) {
+		String[] tableau = new String[lesEspeces.get(index).getRaces().size()];
+		for (int i = 0; i < tableau.length; i++) {
+			tableau[i] = lesEspeces.get(index).getRaces().get(i);
+		}
+		return tableau;
+	}
+	
+	
+	
 
 	/////////////
 	// GESTION DU PERSONNEL
 	/////////////
-
+	
 	public List<Personnel> getVeterinaires() {
 		return lesVeterinaires;
 	}

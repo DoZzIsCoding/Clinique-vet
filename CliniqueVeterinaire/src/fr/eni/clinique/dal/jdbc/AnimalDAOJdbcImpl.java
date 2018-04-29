@@ -19,7 +19,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	private static final String SELECT_BY_ID = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux WHERE codeAnimal =?";
 
 	private static final String INSERT = "INSERT INTO ANIMAUX(nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive ) "
-											+ "VALUES(?,?,?,?,?,?,?,?,?)";;
+											+ "VALUES(?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE = "UPDATE ANIMAUX SET "
 			+ "nomAnimal=?, "
@@ -33,7 +33,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			+ "archive=? "
 			+ "WHERE codeAnimal=? ;";		
 	
-	private static final String DELETE = "UPDATE ANIMAUX SET archive=? WHERE codeAnimal=? ;";
+	private static final String DELETE = "UPDATE ANIMAUX SET archive=1 WHERE codeAnimal=? ;";
 										
 		
 	@Override
@@ -113,13 +113,12 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 
 	@Override
 	/**
-	 * change le status de l'animal à archivé
+	 * change le status de l'animal à archiver
 	 */
 	public boolean supprimer(Animal animal) throws DalException {
 		try(Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
-			pstmt.setInt(1, (animal.isArchive()? 1 : 0));
-			pstmt.setInt(2, animal.getCodeAnimal());
+			pstmt.setInt(1, animal.getCodeAnimal());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -128,6 +127,13 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		}
 	}
 
+	
+	
+	//////////////////////////
+	// UTILITAIRES
+	//////////////////////////
+	
+	
 	public static Animal itemBuilder(ResultSet rs) throws SQLException {
 		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe"),
 				rs.getString("Couleur"), rs.getString("Race"), rs.getString("Espece"), rs.getInt("CodeClient"),
@@ -135,6 +141,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 
 		return animal;
 	}
+	
 
 	private void preparerStatement(Animal animal, PreparedStatement pstmt) throws SQLException {
 		pstmt.setString(1, animal.getNomAnimal());

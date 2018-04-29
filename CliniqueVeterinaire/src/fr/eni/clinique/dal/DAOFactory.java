@@ -3,6 +3,7 @@ package fr.eni.clinique.dal;
 import fr.eni.clinique.configuration.Parametres;
 import fr.eni.clinique.dal.jdbc.AnimalDAOJdbcImpl;
 import fr.eni.clinique.dal.jdbc.ClientDAOJdbcImpl;
+import fr.eni.clinique.dal.jdbc.EspeceDAOJdbcImpl;
 import fr.eni.clinique.dal.jdbc.PersonnelDAOJdbcImpl;
 import fr.eni.clinique.dal.jdbc.RDVDAOJdbcImpl;
 
@@ -41,12 +42,21 @@ public abstract class DAOFactory {
 	}
 
 
-	public static RDVDAOJdbcImpl getRDVDAO() {
+	public static RDVDAO getRDVDAO() {
 		switch (Parametres.getValue("typeSauvegarde")) {
 		case "jdbc":
 			return new RDVDAOJdbcImpl();
 		default:
 			return new RDVDAOJdbcImpl();
+		}
+	}
+	
+	public static EspeceDAO getEspeceDAO() {
+		switch (Parametres.getValue("typeSauvegarde")) {
+		case "jdbc":
+			return new EspeceDAOJdbcImpl();
+		default:
+			return new EspeceDAOJdbcImpl();
 		}
 	}
 	

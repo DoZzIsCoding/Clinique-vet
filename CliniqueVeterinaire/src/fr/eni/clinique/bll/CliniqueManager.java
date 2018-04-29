@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Espece;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.AnimalDAO;
@@ -12,6 +13,7 @@ import fr.eni.clinique.dal.ClientDAO;
 import fr.eni.clinique.dal.CreneauDejaPrisException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DalException;
+import fr.eni.clinique.dal.EspeceDAO;
 import fr.eni.clinique.dal.PersonnelDAO;
 import fr.eni.clinique.dal.RDVDAO;
 
@@ -23,12 +25,14 @@ private static CliniqueManager instance;
 	private ClientDAO clientDAO;
 	private PersonnelDAO personnelDAO;
 	private RDVDAO rdvDAO;
+	private EspeceDAO especeDAO;
 	
 	private CliniqueManager() { 
 		animalDAO = DAOFactory.getAnimalDAO();
 		clientDAO = DAOFactory.getClientDAO();
 		personnelDAO = DAOFactory.getPersonnelDAO();
 		rdvDAO = DAOFactory.getRDVDAO();
+		especeDAO = DAOFactory.getEspeceDAO();
 	}
 	
 	public static CliniqueManager getInstance() {
@@ -138,6 +142,18 @@ private static CliniqueManager instance;
 			e.printStackTrace();
 			throw new DalException("Erreur BLL ajout d'animal");
 		}
+	}
+
+	public List<Espece> getEspeces() {
+
+		try {
+			especeDAO.selectionnerTout();
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	
