@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm;
 
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -15,6 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -23,10 +27,11 @@ public class FrameAnimaux extends JFrame {
 
 	public FrameAnimaux() {
 		setTitle("Animaux");
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 500, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		setContentPane(getMainPanel());
+		applyLookAndFeel();
 	}
 
 	////////////////////////////////
@@ -40,6 +45,7 @@ public class FrameAnimaux extends JFrame {
 			mainPanel = new JPanel();
 
 			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+			
 			mainPanel.add(getBoutonsPanel());
 			mainPanel.add(getNomClientPanel());
 			mainPanel.add(getInfosAnimalPanel());
@@ -59,12 +65,13 @@ public class FrameAnimaux extends JFrame {
 	public JPanel getBoutonsPanel() {
 		if (boutonsPanel == null) {
 			boutonsPanel = new JPanel();
-			boutonsPanel.setLayout(new FlowLayout());
+			boutonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 
 			boutonsPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 			boutonsPanel.setBorder(border);
+			
 			boutonsPanel.add(getBtnAnnuler());
 			boutonsPanel.add(getBtnValider());
 		}
@@ -76,7 +83,8 @@ public class FrameAnimaux extends JFrame {
 			btnValider = new JButton("Valider");
 			// new
 			// ImageIcon(getClass().getResource("./resources/valider.png")));
-		}
+			
+			}
 		return btnValider;
 	}
 
@@ -85,6 +93,7 @@ public class FrameAnimaux extends JFrame {
 			btnAnnuler = new JButton("Annuler");
 			// new
 			// ImageIcon(getClass().getResource("./resources/annuler.png")));
+			
 		}
 		return btnAnnuler;
 	}
@@ -99,12 +108,15 @@ public class FrameAnimaux extends JFrame {
 	public JPanel getNomClientPanel() {
 		if (nomClientPanel == null) {
 			nomClientPanel = new JPanel();
-			TitledBorder border = new TitledBorder("Client :");
+			TitledBorder border = BorderFactory.createTitledBorder(
+					BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Client :");
+			
 			border.setTitleJustification(TitledBorder.LEFT);
 			border.setTitlePosition(TitledBorder.TOP);
-
+			
 			nomClientPanel.setBorder(border);
 			nomClientPanel.add(getTxtNomClient());
+			
 		}
 		return nomClientPanel;
 	}
@@ -148,19 +160,19 @@ public class FrameAnimaux extends JFrame {
 		if(infosAnimalPanel == null){
 			infosAnimalPanel = new JPanel(new GridBagLayout());			
 			
-			addComponentTo(getLblCode(), infosAnimalPanel, 0, 0, 1, 1, 0.3, true);
-			addComponentTo(getTxtCode(), infosAnimalPanel, 1, 0, 1, 1, 0.7, true);
-			addComponentTo(getLblNomAnimal(), infosAnimalPanel, 0, 1, 1, 1, 0.3, true);
-			addComponentTo(getTxtNomAnimal(), infosAnimalPanel, 1, 1, 1, 1, 0.7, true);
-			addComponentTo(getCbbSexeAnimal(), infosAnimalPanel, 3, 1, 1, 1, 1, true);
+			addComponentTo(getLblCode(), infosAnimalPanel, 0, 0, 1, 1, 1, true);
+			addComponentTo(getTxtCode(), infosAnimalPanel, 1, 0, 2, 1, 2, true);
+			addComponentTo(getLblNomAnimal(), infosAnimalPanel, 0, 1, 1, 1, 1, true);
+			addComponentTo(getTxtNomAnimal(), infosAnimalPanel, 1, 1, 3, 1, 1, true);
+			addComponentTo(getCbbSexeAnimal(), infosAnimalPanel, 4, 1, 1, 1, 1, true);
 			addComponentTo(getLblCouleur(), infosAnimalPanel, 0, 2, 1, 1, 1, true);
-			addComponentTo(getTxtCouleurAnimal(), infosAnimalPanel, 1, 2, 1, 1, 1, true);
+			addComponentTo(getTxtCouleurAnimal(), infosAnimalPanel, 1, 2, 3, 1, 1, true);
 			addComponentTo(getLblEspeceAnimal(), infosAnimalPanel, 0, 3, 1, 1, 1, true);
 			addComponentTo(getCbbEspeceAnimal(), infosAnimalPanel, 1, 3, 1, 1, 1, true);
 			addComponentTo(getLblRaceAnimal(), infosAnimalPanel, 2, 3, 1, 1, 1, true );
 			addComponentTo(getCbbRaceAnimal(), infosAnimalPanel, 3, 3, 1, 1, 1, true);
 			addComponentTo(getLblTatouage(), infosAnimalPanel, 0, 4, 1, 1, 1, true);
-			addComponentTo(getTxtTatouage(), infosAnimalPanel, 1, 4, 1, 1, 1, true);
+			addComponentTo(getTxtTatouage(), infosAnimalPanel, 1, 4, 3, 1, 1, true);
 					
 			
 		}
@@ -170,6 +182,7 @@ public class FrameAnimaux extends JFrame {
 	public JLabel getLblCode() {
 		if (lblCode == null) {
 			lblCode = new JLabel("Code");
+			
 		}
 		return lblCode;
 	}
@@ -235,6 +248,7 @@ public class FrameAnimaux extends JFrame {
 	public JLabel getLblRaceAnimal() {
 		if (lblRaceAnimal == null) {
 			lblRaceAnimal = new JLabel("Race");
+			lblRaceAnimal.setHorizontalAlignment(SwingConstants.RIGHT);
 		}
 		return lblRaceAnimal;
 	}
@@ -263,7 +277,23 @@ public class FrameAnimaux extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-
+	private void applyLookAndFeel() {
+		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+		//look = "javax.swing.plaf.metal.MetalLookAndFeel";
+		
+		try {
+			UIManager.setLookAndFeel(look);
+			SwingUtilities.updateComponentTreeUI(this.getContentPane());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	
+	}
+	
+	
+	
+	
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();
