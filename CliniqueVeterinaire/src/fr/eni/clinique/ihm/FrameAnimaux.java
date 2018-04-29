@@ -1,6 +1,5 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -9,6 +8,7 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -23,6 +23,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class FrameAnimaux extends JFrame {
 
 	public FrameAnimaux() {
@@ -80,9 +81,10 @@ public class FrameAnimaux extends JFrame {
 
 	public JButton getBtnValider() {
 		if (btnValider == null) {
-			btnValider = new JButton("Valider");
-			// new
-			// ImageIcon(getClass().getResource("./resources/valider.png")));
+			btnValider = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
+			btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
+
 			
 			}
 		return btnValider;
@@ -90,10 +92,9 @@ public class FrameAnimaux extends JFrame {
 
 	public JButton getBtnAnnuler() {
 		if (btnAnnuler == null) {
-			btnAnnuler = new JButton("Annuler");
-			// new
-			// ImageIcon(getClass().getResource("./resources/annuler.png")));
-			
+			btnAnnuler = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
+			btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
 		}
 		return btnAnnuler;
 	}
