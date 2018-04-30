@@ -23,7 +23,7 @@ public class Clinique {
 	private int indexClientEnCours;
 	private int indexAnimalEnCours;
 
-	private Personnel utilisateurConnecté;
+	private Personnel utilisateurConnecté = null;
 
 	private CliniqueManager manager;
 
