@@ -148,10 +148,15 @@ public class Clinique {
 	// GESTION DU PERSONNEL
 	/////////////
 
-	public void connectionUtilisateur(String login, String mdp) throws DalException {
+	public void connectionUtilisateur(String login, String mdp) throws BLLException {
 
 		if (!login.isEmpty() && !mdp.isEmpty()) {
-			setUtilisateurConnecté(manager.connecter(login, mdp));
+			try {
+				setUtilisateurConnecté(manager.connecter(login, mdp));
+			} catch (DalException e) {
+				e.printStackTrace();
+				throw new BLLException("Erreur dans le Login ou dans le Mot De Passe");
+			}
 		}
 
 	}
