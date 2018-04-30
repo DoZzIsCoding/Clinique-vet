@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
@@ -26,10 +25,8 @@ public class FrameConnexion extends JFrame {
 		setTitle("Connexion");
 		setBounds(100, 100, 300, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-		
-
 		setContentPane(getMainPanel());
+		setVisible(true);
 	}
 
 	////////////////////////////////
@@ -93,15 +90,7 @@ public class FrameConnexion extends JFrame {
 					try {
 						Clinique.getInstance().connectionUtilisateur(getTxtNomPersonnel().getText(), String.valueOf(getTxtPasswordPersonnel().getPassword()));
 						if(Clinique.getInstance().getUtilisateurConnecté() != null){
-//							SwingUtilities.invokeLater(new Runnable() {
-//								
-//								@Override
-//								public void run() {
-//									FrameAccueilClinique accueilFrame = new FrameAccueilClinique();
-//									accueilFrame.setVisible(true);
-//									
-//								}
-//							});
+							fermerFenetre();
 							new FrameAccueilClinique();
 						}
 					} catch (BLLException e1) {
@@ -112,6 +101,8 @@ public class FrameConnexion extends JFrame {
 		});
 		return btnValider;
 	}
+
+
 
 	//////////////////////////////////
 	// METHODES
@@ -131,5 +122,11 @@ public class FrameConnexion extends JFrame {
 		gbc.insets = new Insets(7, 10, 5, 10);
 		panel.add(component, gbc);
 	}
+	
+	protected void fermerFenetre() {
+		this.dispose();
+		
+	}
+	
 
 }

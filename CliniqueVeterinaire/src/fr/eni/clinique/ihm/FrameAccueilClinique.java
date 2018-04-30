@@ -91,6 +91,7 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					fermerFenetre();
 					new FrameConnexion();
 					
 				}
@@ -98,6 +99,7 @@ public class FrameAccueilClinique extends JFrame {
 		}
 		return itemDeconnexion;
 	}
+
 	public JMenuItem getItemFermer() {
 		if(itemFermer == null){
 			itemFermer = new JMenuItem("Fermer");
@@ -208,4 +210,15 @@ public class FrameAccueilClinique extends JFrame {
 		gbc.insets = new Insets(7, 10, 5, 10);
 		panel.add(component, gbc);
 	}
+	
+	protected void fermerFenetre() {
+		this.dispose();
+		
+	}
+	
+	protected void quitterProgramme() {
+		
+		
+	}
+	
 }
