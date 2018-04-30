@@ -2,7 +2,7 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
-import fr.eni.clinique.ihm.FrameClients;
+import fr.eni.clinique.ihm.FrameAjouterClient;
 
 public class testFrameClients {
 
@@ -11,7 +11,7 @@ SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {
-				FrameClients clientsFrame = new FrameClients();
+				FrameAjouterClient clientsFrame = new FrameAjouterClient();
 				clientsFrame.setVisible(true);
 			}
 		});

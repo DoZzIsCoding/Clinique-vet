@@ -31,7 +31,7 @@ import fr.eni.clinique.bll.AnimalNotFoundException;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
-import fr.eni.clinique.ihm.FramePriseRDV.RDVTableModel;
+import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameClients extends JFrame {
@@ -44,6 +44,13 @@ public class FrameClients extends JFrame {
 
 		setContentPane(getMainPanel());
 		applyLookAndFeel();
+		
+		try {
+			setClient(Clinique.getInstance().getClientEnCours());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	////////////////////////////////
@@ -61,6 +68,7 @@ public class FrameClients extends JFrame {
 			mainPanel.add(getPanelDetailsClient(), BorderLayout.LINE_START);
 			mainPanel.add(getPanelAnimauxClient(), BorderLayout.LINE_END);
 
+			
 		}
 		return mainPanel;
 	}
@@ -400,6 +408,15 @@ public class FrameClients extends JFrame {
 		panel.add(component, gbc);
 	}
 	
+	private void setClient(Client client){
+		getTxtCodeClient().setText(String.valueOf(client.getCodeClient()));
+		getTxtNomClient().setText(client.getNomClient());
+		getTxtPrenomClient().setText(client.getPrenomClient());
+		getTxtAdresseClient().setText(client.getAdresse1());
+		getTxtAdresseClient2().setText(client.getAdresse2());
+		getTxtCodePostalClient().setText(client.getCodePostal());
+		getTxtVilleClient().setText(client.getVille());
+	}
 	
 	
 	////////////////////////////////
