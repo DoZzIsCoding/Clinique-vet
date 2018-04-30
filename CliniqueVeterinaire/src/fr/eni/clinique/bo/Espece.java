@@ -16,6 +16,11 @@ public class Espece {
 		this.nomEspece = nomEspece;
 		this.races = races;
 	}
+	
+	public Espece(String nomEspece) {
+		super();
+		this.nomEspece = nomEspece;
+	}
 
 
 

@@ -148,7 +148,7 @@ public class Clinique {
 
 	public String[] getTabEspeces() {
 
-		String[] tableau = new String[lesEspeces.size()];
+		String[] tableau = new String[getEspeces().size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesEspeces.get(i).getNomEspece();
 		}
