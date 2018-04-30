@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +126,15 @@ public class FrameClients extends JFrame {
 			btnAjouterClient = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
 			btnAjouterClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			btnAjouterClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					new FrameAjouterClient();
+					
+				}
+			});
 		}
 		return btnAjouterClient;
 	}
