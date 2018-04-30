@@ -47,8 +47,8 @@ public class FramePriseRDV extends JFrame {
 		setTitle("Prise de rendez-vous");
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		setContentPane(getMainPanel());
+		setVisible(true);
 	}
 
 	///////////////////////////////////

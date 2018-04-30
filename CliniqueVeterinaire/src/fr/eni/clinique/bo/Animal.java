@@ -4,7 +4,7 @@ public class Animal {
 
 	private int codeAnimal;
 	private String nomAnimal;
-	private String sexe;
+	private char sexe;
 	private String couleur;
 	private String race;
 	private String espece;
@@ -19,7 +19,7 @@ public class Animal {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, String espece,
+	public Animal(int codeAnimal, String nomAnimal, char sexe, String couleur, String race, String espece,
 			int codeClient, String tatouage, String antecedents) {
 		super();
 		this.codeAnimal = codeAnimal;
@@ -63,11 +63,11 @@ public class Animal {
 		this.nomAnimal = nomAnimal;
 	}
 
-	public String getSexe() {
+	public char getSexe() {
 		return sexe;
 	}
 
-	public void setSexe(String sexe) {
+	public void setSexe(char sexe) {
 		this.sexe = sexe;
 	}
 

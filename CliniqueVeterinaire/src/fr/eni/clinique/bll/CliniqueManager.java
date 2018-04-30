@@ -136,6 +136,8 @@ private static CliniqueManager instance;
 	 */
 	public void ajouterAnimal(Animal animal) throws DalException {
 		try {
+			
+			//TODO: AJOUTER TOUTES LES VERIFICATION!!
 			animalDAO.ajouter(animal);
 		} catch (DalException e) {
 			// TODO Auto-generated catch block

@@ -36,9 +36,9 @@ public class FrameAnimaux extends JFrame {
 		setTitle("Animaux");
 		setBounds(100, 100, 500, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 		setContentPane(getMainPanel());
 		applyLookAndFeel();
+		setVisible(true);
 	}
 
 	////////////////////////////////
@@ -101,11 +101,12 @@ public class FrameAnimaux extends JFrame {
 						animal = new Animal(
 								(Clinique.getInstance().getIndexAnimalEnCours() == -1 ? -1
 										: Clinique.getInstance().getAnimalEnCours().getCodeAnimal()),
-								getTxtNomAnimal().getText(), (String) getCbbSexeAnimal().getSelectedItem(),
+								getTxtNomAnimal().getText(), getCbbSexeAnimal().getSelectedItem().toString().charAt(0),
 								getTxtCouleurAnimal().getText(), (String) getCbbRaceAnimal().getSelectedItem(),
 								(String) getCbbEspeceAnimal().getSelectedItem(),
 								(Integer) Clinique.getInstance().getClientEnCours().getCodeClient(),
-								getTxtTatouage().getText(), new String());
+								getTxtTatouage().getText(), (Clinique.getInstance().getIndexAnimalEnCours() == -1
+										? new String() : Clinique.getInstance().getAnimalEnCours().getAntecedents()));
 						Clinique.getInstance().ajouterAnimal(animal);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
