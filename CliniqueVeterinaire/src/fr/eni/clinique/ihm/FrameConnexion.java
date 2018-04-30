@@ -26,7 +26,7 @@ public class FrameConnexion extends JFrame {
 		setTitle("Connexion");
 		setBounds(100, 100, 300, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		setVisible(true);
 		
 
 		setContentPane(getMainPanel());

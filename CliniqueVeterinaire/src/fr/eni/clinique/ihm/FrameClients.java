@@ -1,8 +1,13 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -11,21 +16,29 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
+
+import fr.eni.clinique.bll.AnimalNotFoundException;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.ihm.FramePriseRDV.RDVTableModel;
 
 @SuppressWarnings("serial")
 public class FrameClients extends JFrame {
 
 	public FrameClients() {
-		setTitle("CLients");
-		setBounds(100, 100, 500, 400);
+		setTitle("Clients");
+		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 
-		
 		setContentPane(getMainPanel());
 		applyLookAndFeel();
 	}
@@ -39,8 +52,11 @@ public class FrameClients extends JFrame {
 	public JPanel getMainPanel() {
 		if (mainPanel == null) {
 			mainPanel = new JPanel();
+			mainPanel.setLayout(new BorderLayout());
 
-			addComponentTo(getPanelBoutonsDuHaut(), mainPanel, 0, 0, 2, 1, 1, true);
+			mainPanel.add(getPanelBoutonsDuHaut(), BorderLayout.PAGE_START);
+			mainPanel.add(getPanelDetailsClient(), BorderLayout.LINE_START);
+			mainPanel.add(getPanelAnimauxClient(), BorderLayout.LINE_END);
 
 		}
 		return mainPanel;
@@ -143,7 +159,8 @@ public class FrameClients extends JFrame {
 	private JTextField txtPrenomClient;
 
 	private JLabel lblAdresseClient;
-	private JTextArea txtAdresseClient;
+	private JTextField txtAdresseClient;
+	private JTextField txtAdresseClient2;
 
 	private JLabel lblCodePostalClient;
 	private JTextField txtCodePostalClient;
@@ -152,11 +169,23 @@ public class FrameClients extends JFrame {
 	private JTextField txtVilleClient;
 
 	public JPanel getPanelDetailsClient() {
-		if (panelBoutonsDuHaut == null) {
-			panelBoutonsDuHaut = new JPanel();
-			GridBagConstraints gbc = new GridBagConstraints();
-			
-			//addComponentTo(component, panel, x, y, width, height, weightX, fillHorizontal);
+		if (panelDetailsClient == null) {
+			panelDetailsClient = new JPanel(new GridBagLayout());
+
+			addComponentTo(getLblCodeClient(), panelDetailsClient, 0, 0, 1, 1, 1, true);
+			addComponentTo(getTxtCodeClient(), panelDetailsClient, 1, 0, 1, 1, 1, true);
+			addComponentTo(getLblNomClient(), panelDetailsClient, 0, 1, 1, 1, 1, true);
+			addComponentTo(getTxtNomClient(), panelDetailsClient, 1, 1, 1, 1, 1, true);
+			addComponentTo(getLblPrenomClient(), panelDetailsClient, 0, 2, 1, 1, 1, true);
+			addComponentTo(getTxtPrenomClient(), panelDetailsClient, 1, 2, 1, 1, 1, true);
+			addComponentTo(getLblAdresseClient(), panelDetailsClient, 0, 3, 1, 1, 1, true);
+			addComponentTo(getTxtAdresseClient(), panelDetailsClient, 1, 3, 1, 1, 1, true);
+			addComponentTo(getTxtAdresseClient2(), panelDetailsClient, 1, 4, 1, 1, 1, true);
+			addComponentTo(getLblCodePostalClient(), panelDetailsClient, 0, 5, 1, 1, 1, true);
+			addComponentTo(getTxtCodePostalClient(), panelDetailsClient, 1, 5, 1, 1, 1, true);
+			addComponentTo(getLblVilleClient(), panelDetailsClient, 0, 6, 1, 1, 1, true);
+			addComponentTo(getTxtVilleClient(), panelDetailsClient, 1, 6, 1, 1, 1, true);
+
 		}
 		return panelDetailsClient;
 	}
@@ -170,7 +199,7 @@ public class FrameClients extends JFrame {
 
 	public JTextField getTxtCodeClient() {
 		if (txtCodeClient == null) {
-			txtCodeClient = new JTextField(30);
+			txtCodeClient = new JTextField(20);
 		}
 		return txtCodeClient;
 	}
@@ -183,8 +212,8 @@ public class FrameClients extends JFrame {
 	}
 
 	public JTextField getTxtNomClient() {
-		if (txtCodeClient == null) {
-			txtCodeClient = new JTextField(30);
+		if (txtNomClient == null) {
+			txtNomClient = new JTextField(20);
 		}
 		return txtNomClient;
 	}
@@ -198,7 +227,7 @@ public class FrameClients extends JFrame {
 
 	public JTextField getTxtPrenomClient() {
 		if (txtPrenomClient == null) {
-			txtPrenomClient = new JTextField(30);
+			txtPrenomClient = new JTextField(20);
 		}
 		return txtPrenomClient;
 	}
@@ -206,15 +235,23 @@ public class FrameClients extends JFrame {
 	public JLabel getLblAdresseClient() {
 		if (lblAdresseClient == null) {
 			lblAdresseClient = new JLabel("Adresse");
+
 		}
 		return lblAdresseClient;
 	}
 
-	public JTextArea getTxtAdresseClient() {
+	public JTextField getTxtAdresseClient() {
 		if (txtAdresseClient == null) {
-			txtAdresseClient = new JTextArea();
+			txtAdresseClient = new JTextField(20);
 		}
 		return txtAdresseClient;
+	}
+
+	public JTextField getTxtAdresseClient2() {
+		if (txtAdresseClient2 == null) {
+			txtAdresseClient2 = new JTextField(20);
+		}
+		return txtAdresseClient2;
 	}
 
 	public JLabel getLblCodePostalClient() {
@@ -226,7 +263,7 @@ public class FrameClients extends JFrame {
 
 	public JTextField getTxtCodePostalClient() {
 		if (txtCodePostalClient == null) {
-			txtCodePostalClient = new JTextField(30);
+			txtCodePostalClient = new JTextField(20);
 		}
 		return txtCodePostalClient;
 	}
@@ -240,18 +277,87 @@ public class FrameClients extends JFrame {
 
 	public JTextField getTxtVilleClient() {
 		if (txtVilleClient == null) {
-			txtVilleClient = new JTextField(30);
+			txtVilleClient = new JTextField(20);
 		}
 		return txtVilleClient;
 	}
 
 	///////////////////////////////////
-	// PANEL LISTE ANIMAUX CLIENTS
+	// PANEL ANIMAUX CLIENTS
 	///////////////////////////////////
+	private JPanel panelAnimauxClient;
+
+	public JPanel getPanelAnimauxClient() {
+		if(panelAnimauxClient == null){
+			panelAnimauxClient = new JPanel(new BorderLayout());
+			
+			panelAnimauxClient.add(getPanelTableAnimauxClient(), BorderLayout.PAGE_START);
+			panelAnimauxClient.add(getPanelBoutons(), BorderLayout.AFTER_LAST_LINE);
+		}
+		return panelAnimauxClient;
+	}
 
 	////////// TABLEAU //////////////////
+	private JScrollPane panelTableAnimauxClient;
+	private JTable tableAnimauxClient;
+	private AnimalTableModel tableModel;
+	
+	public JScrollPane getPanelTableAnimauxClient() {
+		if (panelTableAnimauxClient == null){
+			panelTableAnimauxClient = new JScrollPane();
+		}
+		return panelTableAnimauxClient;
+	}
+
+	public JTable getTableAnimauxClient() {
+		if(tableAnimauxClient == null){
+			//tableModel = new AnimalTableModel();
+			tableAnimauxClient = new JTable(tableModel);
+			
+			
+		}
+		return tableAnimauxClient;
+	}
 
 	////////// BOUTONS //////////////////
+	private JPanel panelBoutons;
+	private JButton btnAjouterAnimal;
+	private JButton btnSupprimerAnimal;
+	private JButton btnModifieranimal;
+	
+	public JPanel getPanelBoutons() {
+		if(panelBoutons == null){
+			panelBoutons = new JPanel();
+			panelBoutons.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			panelBoutons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+			panelBoutons.add(getBtnAjouterAnimal());
+			panelBoutons.add(getBtnSupprimerAnimal());
+			panelBoutons.add(getBtnModifieranimal());
+			
+		}
+		return panelBoutons;
+	}
+
+	public JButton getBtnAjouterAnimal() {
+		if(btnAjouterAnimal == null){
+			btnAjouterAnimal = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
+		}
+		return btnAjouterAnimal;
+	}
+
+	public JButton getBtnSupprimerAnimal() {
+		if(btnSupprimerAnimal == null){
+			btnSupprimerAnimal = new JButton("Supprimer", new ImageIcon(getClass().getResource("./resources/supprimer.png")));
+		}
+		return btnSupprimerAnimal;
+	}
+
+	public JButton getBtnModifieranimal() {
+		if(btnModifieranimal == null){
+			btnModifieranimal = new JButton("Modifier", new ImageIcon(getClass().getResource("./resources/modifier.png")));
+		}
+		return btnModifieranimal;
+	}
 
 	///////////////////////////////////
 	// METHODES
@@ -282,6 +388,99 @@ public class FrameClients extends JFrame {
 		}
 		gbc.insets = new Insets(7, 10, 5, 10);
 		panel.add(component, gbc);
+	}
+	
+	
+	
+	////////////////////////////////
+	// CLASSES
+	////////////////////////////////
+
+	public class AnimalTableModel extends AbstractTableModel {
+		private String[] nomsColonne = { "Numéro", "Nom", "Sexe", "Couleur", "Race", "Espèce", "Tatouage" };
+
+		private List<Animal> animaux = new ArrayList<>();
+
+		public AnimalTableModel() {
+			try {
+				animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		/**
+		 * Cette méthode permet de mettre à jour l'affichage de la JTable (en
+		 * rechargeant les données)
+		 * 
+		 * @throws BLLException
+		 */
+		public void updateData() throws BLLException {
+			animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
+			fireTableDataChanged();
+		}
+
+		@Override
+		public int getRowCount() {
+			return animaux.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return nomsColonne.length;
+		}
+
+		@Override
+		public String getColumnName(int column) {
+			return nomsColonne[column];
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return getValueAt(0, columnIndex).getClass();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (rowIndex >= 0 && rowIndex < animaux.size()) {
+				Animal animalAAfficher = animaux.get(rowIndex);
+				switch (columnIndex) {
+				case 0:
+					return animalAAfficher.getCodeAnimal();
+				case 1:
+					return animalAAfficher.getNomAnimal();
+				case 2:
+					return animalAAfficher.getSexe();
+				case 3:
+					return animalAAfficher.getCouleur();
+				case 4:
+					return animalAAfficher.getRace();
+				case 5:
+					return animalAAfficher.getEspece();
+				case 6:
+					return animalAAfficher.getTatouage();
+				
+				}
+			}
+			return null;
+		}
+
+		/**
+		 * Retourne l'article pour une ligne donnée
+		 * 
+		 * @param rowIndex
+		 *            La ligne où se situe l'article
+		 * @return
+		 * @throws ArticleNotFoundException
+		 */
+		public Animal getValueAt(int rowIndex) throws AnimalNotFoundException {
+			if (rowIndex >= 0 && rowIndex < 10) {
+				return animaux.get(rowIndex);
+			}
+			throw new AnimalNotFoundException();
+		}
+
 	}
 
 }
