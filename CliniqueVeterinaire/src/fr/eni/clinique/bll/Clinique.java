@@ -73,7 +73,7 @@ public class Clinique {
 	}
 
 	////////////
-	// GESTION DES CLIENTS AVEC LEURS ANIMAUX
+	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
 	public List<Client> getClients() {
 		return lesClients;
@@ -134,6 +134,24 @@ public class Clinique {
 			return lesClients.get(indexClientEnCours).getAnimaux().get(indexAnimalEnCours);
 		}
 	}
+	
+	/**
+	 * Recherches dans les données locales les clients 
+	 * dont le nom contient le Mot en parametre.
+	 * @param mot
+	 * @return liste de Client
+	 */
+	public List<Client> rechercherClients(String mot){
+		List<Client> resultat = new ArrayList<>();
+		
+		for (Client c : lesClients) {
+			if (c.getNomClient().indexOf(mot)!= -1){
+				resultat.add(c);
+			}
+		}
+		return resultat;
+	}
+	
 
 	/////////////////
 	// GESTION DES ANIMAUX

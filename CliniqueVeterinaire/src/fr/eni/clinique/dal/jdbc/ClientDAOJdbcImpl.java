@@ -96,7 +96,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	private Client itemBuilder(ResultSet rs) throws SQLException {
 		Client client = new Client(rs.getInt("codeClient"), rs.getString("nomclient"), rs.getString("prenomClient"),
 				rs.getString("adresse1"), rs.getString("adresse2"), rs.getString("codePostal"),
-				rs.getString("codeClient"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
+				rs.getString("Ville"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
 				rs.getString("remarque"));
 
 		return client;
