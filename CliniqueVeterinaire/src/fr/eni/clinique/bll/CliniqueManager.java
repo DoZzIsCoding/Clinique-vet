@@ -147,7 +147,7 @@ private static CliniqueManager instance;
 	public List<Espece> getEspeces() {
 
 		try {
-			especeDAO.selectionnerTout();
+			return especeDAO.selectionnerTout();
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

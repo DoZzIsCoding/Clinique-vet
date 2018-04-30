@@ -105,12 +105,11 @@ public class Clinique {
 		return tableau;
 	}
 
-	public void ajouterAnimal(int indexclient, Animal animal) {
-
+	public void ajouterAnimal(Animal animal) {
+		
 		try {
-			animal.setCodeClient(lesClients.get(indexclient).getCodeClient());
 			manager.ajouterAnimal(animal);
-			lesClients.get(indexclient).ajouterAnimal(animal);
+			getClientEnCours().ajouterAnimal(animal);
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,12 +141,13 @@ public class Clinique {
 
 	public List<Espece> getEspeces() {
 		lesEspeces = manager.getEspeces();
+		System.out.println(lesEspeces);
 		return lesEspeces;
 
 	}
 
 	public String[] getTabEspeces() {
-
+		System.out.println(getEspeces().size());
 		String[] tableau = new String[getEspeces().size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesEspeces.get(i).getNomEspece();

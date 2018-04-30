@@ -34,16 +34,14 @@ public class EspeceDAOJdbcImpl implements EspeceDAO {
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
 			String EspeceEnCours = new String("");
-			int indexEspeceEnCours = 0;
 			while (rs.next()) {
-				if(!rs.getString("Espece").equals(EspeceEnCours)){
+				if(!EspeceEnCours.equals(rs.getString("Espece"))){
 					especes.add(new Espece(rs.getString("Espece")));
-					especes.get(indexEspeceEnCours).ajouterRace(rs.getString("Race"));
+					especes.get(especes.size()-1).ajouterRace(rs.getString("Race"));
 					EspeceEnCours = rs.getString("Espece");
 				}
 				else{
-					especes.get(indexEspeceEnCours).ajouterRace(rs.getString("Race"));
-					indexEspeceEnCours++;
+					especes.get(especes.size()-1).ajouterRace(rs.getString("Race"));
 				}
 
 			}

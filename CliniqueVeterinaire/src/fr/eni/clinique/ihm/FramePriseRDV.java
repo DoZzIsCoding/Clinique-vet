@@ -1,6 +1,5 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -226,7 +225,14 @@ public class FramePriseRDV extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new FrameAnimaux();
+					try {
+						Clinique.getInstance().setIndexClientEnCours(getCbbClient().getSelectedIndex());
+						Clinique.getInstance().setIndexAnimalEnCours(-1);
+						new FrameAnimaux();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

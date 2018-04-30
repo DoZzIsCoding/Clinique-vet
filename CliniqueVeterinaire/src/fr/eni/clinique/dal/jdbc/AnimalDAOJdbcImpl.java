@@ -132,7 +132,13 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	//////////////////////////
 	// UTILITAIRES
 	//////////////////////////
-	
+	public void ajouterAnimal(Animal a) throws DalException{
+		if(a.getCodeAnimal()==-1){
+			ajouter(a);
+		}else{
+			modifier(a);
+		}
+	}
 	
 	public static Animal itemBuilder(ResultSet rs) throws SQLException {
 		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe"),
