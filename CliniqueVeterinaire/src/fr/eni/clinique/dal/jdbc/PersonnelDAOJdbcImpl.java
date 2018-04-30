@@ -1,6 +1,7 @@
 package fr.eni.clinique.dal.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +17,9 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 
 	private static final String SELECT_ALL = "SELECT codeClient, NomClient, prenomClient, adresse1, adresse2, codePostal, ville, numTel, assurance, email, remarque FROM clients where archive=0";
 	private static final String SELECT_VETOS = "select codepers, nom, role from personnels where archive=0 and role='Vet'";
-
+	private static final String LOGIN = "select * from personnels where nom=? and MotPasse=? ";
+	
+	
 	@Override
 	public Personnel selectionnerUn(int id) {
 		// TODO Auto-generated method stub
@@ -60,7 +63,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 		return false;
 	}
 
-	// TODO: mercredi
 
 	private Personnel itemBuilder(ResultSet rs) throws SQLException {
 		Personnel personnel = new Personnel(rs.getInt("codepers"), rs.getString("nom"), "*****" ,rs.getString("role"));
@@ -85,5 +87,29 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 			throw new DalException("select vetos");
 		}
 		return personnel;
+	}
+
+	@Override
+	public Personnel connecter(String login, String mdp) throws DalException {
+		
+		try (Connection cnx = ConnectionDAO.getConnection()) {
+			// On considère qu'on a une connexion opérationnelle
+			PreparedStatement pstmt = cnx.prepareStatement(LOGIN);
+			pstmt.setString(1, login);
+			pstmt.setString(2, mdp);
+			
+			// Exécution de la requête
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return this.itemBuilder(rs);
+			}
+			else {
+				throw new DalException("Erreur de Connection");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

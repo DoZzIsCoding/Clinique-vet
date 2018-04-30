@@ -96,7 +96,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	private Client itemBuilder(ResultSet rs) throws SQLException {
 		Client client = new Client(rs.getInt("codeClient"), rs.getString("nomclient"), rs.getString("prenomClient"),
 				rs.getString("adresse1"), rs.getString("adresse2"), rs.getString("codePostal"),
-				rs.getString("codeClient"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
+				rs.getString("Ville"), rs.getString("numTel"), rs.getString("assurance"), rs.getString("email"),
 				rs.getString("remarque"));
 
 		return client;
@@ -125,21 +125,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		}
 	}
 
-	private void preparerParametres(Client client, PreparedStatement pstmt) throws SQLException {
 
-		pstmt.setString(1, client.getNomClient());
-		pstmt.setString(2, client.getPrenomClient());
-		pstmt.setString(3, client.getAdresse1());
-		pstmt.setString(4, client.getAdresse2());
-		pstmt.setString(5, client.getCodePostal());
-		pstmt.setString(6, client.getVille());
-		pstmt.setString(7, client.getNumTel());
-		pstmt.setString(8, client.getAssurance());
-		pstmt.setString(9, client.getEmail());
-		pstmt.setString(10, client.getRemarque());
-		pstmt.setBoolean(11, client.getArchive());
-
-	}
 
 	public void modifier(Client client) throws DalException {
 
@@ -180,6 +166,27 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			e.printStackTrace();
 		}
 		return suppressionOK;
+	}
+	
+	///////////////////////
+	//UTILITAIRES
+	///////////////////////
+	
+	
+	private void preparerParametres(Client client, PreparedStatement pstmt) throws SQLException {
+
+		pstmt.setString(1, client.getNomClient());
+		pstmt.setString(2, client.getPrenomClient());
+		pstmt.setString(3, client.getAdresse1());
+		pstmt.setString(4, client.getAdresse2());
+		pstmt.setString(5, client.getCodePostal());
+		pstmt.setString(6, client.getVille());
+		pstmt.setString(7, client.getNumTel());
+		pstmt.setString(8, client.getAssurance());
+		pstmt.setString(9, client.getEmail());
+		pstmt.setString(10, client.getRemarque());
+		pstmt.setBoolean(11, client.getArchive());
+
 	}
 
 }

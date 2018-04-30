@@ -1,6 +1,5 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,8 +47,8 @@ public class FramePriseRDV extends JFrame {
 		setTitle("Prise de rendez-vous");
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 		setContentPane(getMainPanel());
+		setVisible(true);
 	}
 
 	///////////////////////////////////
@@ -112,9 +111,7 @@ public class FramePriseRDV extends JFrame {
 			pourPanel.setBorder(border);
 			pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
 			pourPanel.setSize(300, 300);
-			pourPanel.setBackground(Color.WHITE);
-			// pourPanel.s
-			// encours
+			
 
 			// Oragnisation des éléments
 			gbc.gridx = 0;
@@ -182,6 +179,7 @@ public class FramePriseRDV extends JFrame {
 		return cbbClient;
 	}
 
+	
 	public JButton getBtnAjouterClient() {
 		if (btnAjouterClient == null) {
 			btnAjouterClient = new JButton("+");
@@ -227,7 +225,14 @@ public class FramePriseRDV extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					try {
+						Clinique.getInstance().setIndexClientEnCours(getCbbClient().getSelectedIndex());
+						Clinique.getInstance().setIndexAnimalEnCours(-1);
+						new FrameAnimaux();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

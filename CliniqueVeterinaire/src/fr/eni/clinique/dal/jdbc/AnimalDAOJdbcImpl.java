@@ -80,7 +80,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			 throw new NullPointerException(); 
 			 }
 		 
-
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			preparerStatement(animal, pstmt);
@@ -132,10 +131,16 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	//////////////////////////
 	// UTILITAIRES
 	//////////////////////////
-	
+	public void ajouterAnimal(Animal a) throws DalException{
+		if(a.getCodeAnimal()==-1){
+			ajouter(a);
+		}else{
+			modifier(a);
+		}
+	}
 	
 	public static Animal itemBuilder(ResultSet rs) throws SQLException {
-		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe"),
+		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe").charAt(0),
 				rs.getString("Couleur"), rs.getString("Race"), rs.getString("Espece"), rs.getInt("CodeClient"),
 				rs.getString("Tatouage"), rs.getString("Antecedents"));
 
@@ -145,7 +150,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 
 	private void preparerStatement(Animal animal, PreparedStatement pstmt) throws SQLException {
 		pstmt.setString(1, animal.getNomAnimal());
-		pstmt.setString(2, animal.getSexe());
+		pstmt.setString(2, String.valueOf(animal.getSexe()));
 		pstmt.setString(3, animal.getCouleur());
 		pstmt.setString(4, animal.getRace());
 		pstmt.setString(5, animal.getEspece());

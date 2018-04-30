@@ -48,5 +48,7 @@ public interface PersonnelDAO extends DAO<Personnel>{
 	 * @param personnel non null
 	 */
 	public abstract boolean supprimer(Personnel personnel);
+	
+	public abstract Personnel connecter(String login, String mdp) throws DalException;
 
 }

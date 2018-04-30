@@ -19,9 +19,12 @@ public class Clinique {
 	private List<Personnel> lesVeterinaires;
 	private List<RDV> lesRdv;
 	private List<Espece> lesEspeces;
-	
-	private int indexClientEnCours;
-	private int indexAnimalEnCours;
+
+	//TODO: repasser l'indexclientencours a -1 apres les test
+	private int indexClientEnCours = 0;
+	private int indexAnimalEnCours = -1;
+
+	private Personnel utilisateurConnecté = null;
 
 	private CliniqueManager manager;
 
@@ -30,8 +33,16 @@ public class Clinique {
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
 	}
-	
-	//GETTERS SETTERS
+
+	// GETTERS SETTERS
+
+	public Personnel getUtilisateurConnecté() {
+		return utilisateurConnecté;
+	}
+
+	public void setUtilisateurConnecté(Personnel utilisateurConnecté) {
+		this.utilisateurConnecté = utilisateurConnecté;
+	}
 
 	public int getIndexClientEnCours() {
 		return indexClientEnCours;
@@ -62,7 +73,7 @@ public class Clinique {
 	}
 
 	////////////
-	// GESTION DES CLIENTS AVEC LEURS ANIMAUX
+	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
 	public List<Client> getClients() {
 		return lesClients;
@@ -94,12 +105,11 @@ public class Clinique {
 		return tableau;
 	}
 
-	public void ajouterAnimal(int indexclient, Animal animal) {
-
+	public void ajouterAnimal(Animal animal) {
+		
 		try {
-			animal.setCodeClient(lesClients.get(indexclient).getCodeClient());
 			manager.ajouterAnimal(animal);
-			lesClients.get(indexclient).ajouterAnimal(animal);
+			getClientEnCours().ajouterAnimal(animal);
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,26 +117,62 @@ public class Clinique {
 
 	}
 	
-	/////////////////
-	//GESTION DES ANIMAUX
-	/////////////////
-	
-
-	public List<Espece> getEspeces(){
-		lesEspeces = manager.getEspeces();
-		return lesEspeces;
-		
+	public Client getClientEnCours(){
+		if(indexClientEnCours == -1){
+			return null;
+		}
+		else{
+			return lesClients.get(indexClientEnCours);
+		}
 	}
 	
-	public String[] getTabEspeces() {
+	public Animal getAnimalEnCours(){
+		if(indexClientEnCours == -1 || indexAnimalEnCours == -1 ){
+			return null;
+		}
+		else{
+			return lesClients.get(indexClientEnCours).getAnimaux().get(indexAnimalEnCours);
+		}
+	}
+	
+	/**
+	 * Recherches dans les données locales les clients 
+	 * dont le nom contient le Mot en parametre.
+	 * @param mot
+	 * @return liste de Client
+	 */
+	public List<Client> rechercherClients(String mot){
+		List<Client> resultat = new ArrayList<>();
 		
-		String[] tableau = new String[lesEspeces.size()];
+		for (Client c : lesClients) {
+			if (c.getNomClient().indexOf(mot)!= -1){
+				resultat.add(c);
+			}
+		}
+		return resultat;
+	}
+	
+
+	/////////////////
+	// GESTION DES ANIMAUX
+	/////////////////
+
+	public List<Espece> getEspeces() {
+		lesEspeces = manager.getEspeces();
+		System.out.println(lesEspeces);
+		return lesEspeces;
+
+	}
+
+	public String[] getTabEspeces() {
+		System.out.println(getEspeces().size());
+		String[] tableau = new String[getEspeces().size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesEspeces.get(i).getNomEspece();
 		}
 		return tableau;
 	}
-	
+
 	public String[] getTabRaceFromEspece(int index) {
 		String[] tableau = new String[lesEspeces.get(index).getRaces().size()];
 		for (int i = 0; i < tableau.length; i++) {
@@ -134,14 +180,28 @@ public class Clinique {
 		}
 		return tableau;
 	}
-	
-	
-	
 
 	/////////////
 	// GESTION DU PERSONNEL
 	/////////////
-	
+
+	public void connectionUtilisateur(String login, String mdp) throws BLLException {
+
+		if (!login.isEmpty() && !mdp.isEmpty()) {
+			try {
+				setUtilisateurConnecté(manager.connecter(login, mdp));
+			} catch (DalException e) {
+				e.printStackTrace();
+				throw new BLLException("Erreur dans le Login ou dans le Mot De Passe");
+			}
+		}
+
+	}
+
+	public void deconnectionUtilisateur() {
+		utilisateurConnecté = null;
+	}
+
 	public List<Personnel> getVeterinaires() {
 		return lesVeterinaires;
 	}

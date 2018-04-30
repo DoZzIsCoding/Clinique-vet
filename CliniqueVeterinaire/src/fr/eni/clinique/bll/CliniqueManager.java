@@ -136,6 +136,8 @@ private static CliniqueManager instance;
 	 */
 	public void ajouterAnimal(Animal animal) throws DalException {
 		try {
+			
+			//TODO: AJOUTER TOUTES LES VERIFICATION!!
 			animalDAO.ajouter(animal);
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
@@ -147,13 +149,25 @@ private static CliniqueManager instance;
 	public List<Espece> getEspeces() {
 
 		try {
-			especeDAO.selectionnerTout();
+			return especeDAO.selectionnerTout();
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return null;
+	}
+
+	/**
+	 * Connecte l'utilisateur avec son login et son mdp
+	 * @param login
+	 * @param mdp
+	 * @throws DalException 
+	 */
+	public Personnel connecter(String login, String mdp) throws DalException {
+		
+		return personnelDAO.connecter(login, mdp);
+
 	}
 	
 	

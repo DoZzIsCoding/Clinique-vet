@@ -15,7 +15,7 @@ import fr.eni.clinique.dal.EspeceDAO;
 
 public class EspeceDAOJdbcImpl implements EspeceDAO {
 
-	private static final String SELECT_ALL = "Select * from Races order by Espece";
+	private static final String SELECT_ALL = "Select Race,Espece from Races order by Espece";
 	
 
 	@Override
@@ -33,17 +33,17 @@ public class EspeceDAOJdbcImpl implements EspeceDAO {
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
-			String EspeceEnCours = new String();
-			int indexEspeceEnCours = 0;
+			String EspeceEnCours = new String("");
 			while (rs.next()) {
-				if(rs.getString("Espece").equals(especes.get(indexEspeceEnCours).getNomEspece())){
+				if(!EspeceEnCours.equals(rs.getString("Espece"))){
+					especes.add(new Espece(rs.getString("Espece")));
+					especes.get(especes.size()-1).ajouterRace(rs.getString("Race"));
 					EspeceEnCours = rs.getString("Espece");
-					especes.get(indexEspeceEnCours).ajouterRace(rs.getString("Espece"));
-					indexEspeceEnCours++;
 				}
 				else{
-					especes.get(indexEspeceEnCours).ajouterRace(rs.getString("Espece"));
+					especes.get(especes.size()-1).ajouterRace(rs.getString("Race"));
 				}
+
 			}
 		} catch (SQLException e) {
 
