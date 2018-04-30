@@ -90,7 +90,7 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 	}
 
 	@Override
-	public void connecter(String login, String mdp) {
+	public Personnel connecter(String login, String mdp) throws DalException {
 		
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			// On considère qu'on a une connexion opérationnelle
@@ -99,15 +99,17 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 			pstmt.setString(2, mdp);
 			
 			// Exécution de la requête
-			pstmt.executeUpdate();
-//			 if(rs.next){
-//				 
-//			 }
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return this.itemBuilder(rs);
+			}
+			else {
+				throw new DalException("Erreur de Connection");
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 
-		
+		return null;
 	}
 }

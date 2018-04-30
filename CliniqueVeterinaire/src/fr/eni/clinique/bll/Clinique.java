@@ -19,9 +19,11 @@ public class Clinique {
 	private List<Personnel> lesVeterinaires;
 	private List<RDV> lesRdv;
 	private List<Espece> lesEspeces;
-	
+
 	private int indexClientEnCours;
 	private int indexAnimalEnCours;
+
+	private Personnel utilisateurConnecté;
 
 	private CliniqueManager manager;
 
@@ -30,8 +32,16 @@ public class Clinique {
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
 	}
-	
-	//GETTERS SETTERS
+
+	// GETTERS SETTERS
+
+	public Personnel getUtilisateurConnecté() {
+		return utilisateurConnecté;
+	}
+
+	public void setUtilisateurConnecté(Personnel utilisateurConnecté) {
+		this.utilisateurConnecté = utilisateurConnecté;
+	}
 
 	public int getIndexClientEnCours() {
 		return indexClientEnCours;
@@ -61,20 +71,6 @@ public class Clinique {
 		return instance;
 	}
 
-	///////////////////
-	// GESTION UTILISATEUR CONNECTE
-	///////////////////
-	
-	public void connectionUtilisateur(String login, String mdp){
-		
-		if(!login.isEmpty() && !mdp.isEmpty()){
-			manager.connecter(login,mdp);
-		}
-		
-	}
-	
-	
-	
 	////////////
 	// GESTION DES CLIENTS AVEC LEURS ANIMAUX
 	////////////
@@ -120,27 +116,26 @@ public class Clinique {
 		}
 
 	}
-	
-	/////////////////
-	//GESTION DES ANIMAUX
-	/////////////////
-	
 
-	public List<Espece> getEspeces(){
+	/////////////////
+	// GESTION DES ANIMAUX
+	/////////////////
+
+	public List<Espece> getEspeces() {
 		lesEspeces = manager.getEspeces();
 		return lesEspeces;
-		
+
 	}
-	
+
 	public String[] getTabEspeces() {
-		
+
 		String[] tableau = new String[lesEspeces.size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesEspeces.get(i).getNomEspece();
 		}
 		return tableau;
 	}
-	
+
 	public String[] getTabRaceFromEspece(int index) {
 		String[] tableau = new String[lesEspeces.get(index).getRaces().size()];
 		for (int i = 0; i < tableau.length; i++) {
@@ -148,14 +143,23 @@ public class Clinique {
 		}
 		return tableau;
 	}
-	
-	
-	
 
 	/////////////
 	// GESTION DU PERSONNEL
 	/////////////
-	
+
+	public void connectionUtilisateur(String login, String mdp) throws DalException {
+
+		if (!login.isEmpty() && !mdp.isEmpty()) {
+			setUtilisateurConnecté(manager.connecter(login, mdp));
+		}
+
+	}
+
+	public void deconnectionUtilisateur() {
+		utilisateurConnecté = null;
+	}
+
 	public List<Personnel> getVeterinaires() {
 		return lesVeterinaires;
 	}

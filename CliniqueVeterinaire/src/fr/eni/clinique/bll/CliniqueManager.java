@@ -160,11 +160,12 @@ private static CliniqueManager instance;
 	 * Connecte l'utilisateur avec son login et son mdp
 	 * @param login
 	 * @param mdp
+	 * @throws DalException 
 	 */
-	public void connecter(String login, String mdp) {
+	public Personnel connecter(String login, String mdp) throws DalException {
+		
+		return personnelDAO.connecter(login, mdp);
 
-		
-		
 	}
 	
 	
