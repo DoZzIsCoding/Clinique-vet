@@ -61,6 +61,20 @@ public class Clinique {
 		return instance;
 	}
 
+	///////////////////
+	// GESTION UTILISATEUR CONNECTE
+	///////////////////
+	
+	public void connectionUtilisateur(String login, String mdp){
+		
+		if(!login.isEmpty() && !mdp.isEmpty()){
+			manager.connecter(login,mdp);
+		}
+		
+	}
+	
+	
+	
 	////////////
 	// GESTION DES CLIENTS AVEC LEURS ANIMAUX
 	////////////

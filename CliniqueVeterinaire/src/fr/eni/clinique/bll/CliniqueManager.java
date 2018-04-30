@@ -155,6 +155,17 @@ private static CliniqueManager instance;
 		
 		return null;
 	}
+
+	/**
+	 * Connecte l'utilisateur avec son login et son mdp
+	 * @param login
+	 * @param mdp
+	 */
+	public void connecter(String login, String mdp) {
+
+		
+		
+	}
 	
 	
 	
