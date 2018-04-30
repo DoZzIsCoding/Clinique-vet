@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.AbstractTableModel;
 
 import fr.eni.clinique.bll.AnimalNotFoundException;
@@ -35,7 +38,7 @@ public class FrameClients extends JFrame {
 
 	public FrameClients() {
 		setTitle("Clients");
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 850, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
@@ -76,6 +79,10 @@ public class FrameClients extends JFrame {
 	public JPanel getPanelBoutonsDuHaut() {
 		if (panelBoutonsDuHaut == null) {
 			panelBoutonsDuHaut = new JPanel(new BorderLayout());
+			
+			Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+			panelBoutonsDuHaut.setBorder(border);
+			
 			Box box = Box.createHorizontalBox();
 
 			box = Box.createHorizontalBox();
@@ -171,6 +178,8 @@ public class FrameClients extends JFrame {
 	public JPanel getPanelDetailsClient() {
 		if (panelDetailsClient == null) {
 			panelDetailsClient = new JPanel(new GridBagLayout());
+			
+			
 
 			addComponentTo(getLblCodeClient(), panelDetailsClient, 0, 0, 1, 1, 1, true);
 			addComponentTo(getTxtCodeClient(), panelDetailsClient, 1, 0, 1, 1, 1, true);
@@ -305,13 +314,14 @@ public class FrameClients extends JFrame {
 	public JScrollPane getPanelTableAnimauxClient() {
 		if (panelTableAnimauxClient == null){
 			panelTableAnimauxClient = new JScrollPane();
+			panelTableAnimauxClient.setViewportView(getTableAnimauxClient());
 		}
 		return panelTableAnimauxClient;
 	}
 
 	public JTable getTableAnimauxClient() {
 		if(tableAnimauxClient == null){
-			//tableModel = new AnimalTableModel();
+			tableModel = new AnimalTableModel();
 			tableAnimauxClient = new JTable(tableModel);
 			
 			
@@ -436,10 +446,10 @@ public class FrameClients extends JFrame {
 			return nomsColonne[column];
 		}
 
-		@Override
-		public Class<?> getColumnClass(int columnIndex) {
-			return getValueAt(0, columnIndex).getClass();
-		}
+//		@Override
+//		public Class<?> getColumnClass(int columnIndex) {
+//			return getValueAt(0, columnIndex).getClass();
+//		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
