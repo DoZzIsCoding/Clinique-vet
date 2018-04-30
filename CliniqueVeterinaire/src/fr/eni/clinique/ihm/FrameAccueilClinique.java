@@ -2,6 +2,8 @@ package fr.eni.clinique.ihm;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -11,6 +13,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
 
 @SuppressWarnings("serial")
 public class FrameAccueilClinique extends JFrame {
@@ -44,12 +49,28 @@ public class FrameAccueilClinique extends JFrame {
 	public JMenuBar getMenuPrincipal() {
 		if (menuPrincipal == null){
 			menuPrincipal = new JMenuBar();
-			menuPrincipal.add(getMenuFichier());
-			menuPrincipal.add(getMenuGestionRdv());
-			menuPrincipal.add(getMenuAgenda());
-			menuPrincipal.add(menuBtnGestionPersonnel());
-			//menuPrincipal.set
 			
+			try {
+				switch (Clinique.getInstance().getUtilisateurConnecté().getRole()) {
+				case "vet":
+					menuPrincipal.add(getMenuFichier());
+					menuPrincipal.add(getMenuAgenda());
+					break;
+				case "sec":
+					menuPrincipal.add(getMenuFichier());
+					menuPrincipal.add(getMenuGestionRdv());
+					break;
+				case "adm":
+					menuPrincipal.add(getMenuFichier());
+					menuPrincipal.add(getMenuAgenda());
+					menuPrincipal.add(getMenuGestionRdv());
+					menuPrincipal.add(menuBtnGestionPersonnel());
+					break;
+				}
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return menuPrincipal;
 	}
@@ -65,6 +86,15 @@ public class FrameAccueilClinique extends JFrame {
 	public JMenuItem getItemDeconnexion() {
 		if(itemDeconnexion == null){
 			itemDeconnexion = new JMenuItem("Déconnexion");
+			
+			itemDeconnexion.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FrameConnexion();
+					
+				}
+			});
 		}
 		return itemDeconnexion;
 	}
@@ -79,6 +109,7 @@ public class FrameAccueilClinique extends JFrame {
 			menuGestionRdv = new JMenu("Gestion des rendez-vous");
 			menuGestionRdv.add(getItemGestionClients());
 			menuGestionRdv.add(getItemPriseDeRdv());
+			
 		}
 		return menuGestionRdv;
 	}
@@ -86,18 +117,45 @@ public class FrameAccueilClinique extends JFrame {
 	public JMenuItem getItemPriseDeRdv() {
 		if(itemPriseDeRdv == null){
 			itemPriseDeRdv = new JMenuItem("Prise de rendez-vous");
+			
+			itemPriseDeRdv.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FramePriseRDV();
+					
+				}
+			});
 		}
 		return itemPriseDeRdv;
 	}
 	public JMenuItem getItemGestionClients() {
 		if(itemGestionClients == null){
 			itemGestionClients = new JMenuItem("Gestion des clients");
+			
+			itemGestionClients.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FrameClients();
+					
+				}
+			});
 		}
 		return itemGestionClients;
 	}
 	public JMenu getMenuAgenda() {
 		if(menuAgenda == null){
 			menuAgenda = new JMenu("Agenda");
+			
+			menuAgenda.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FrameAgenda();
+					
+				}
+			});
 		}
 		return menuAgenda;
 	}
@@ -105,6 +163,15 @@ public class FrameAccueilClinique extends JFrame {
 	public JMenu menuBtnGestionPersonnel() {
 		if(menuGestionPersonnel == null){
 			menuGestionPersonnel = new JMenu("Gestion du personnel");
+			
+			menuGestionPersonnel.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FrameGestionDuPersonnel();
+					
+				}
+			});
 		}
 		return menuGestionPersonnel;
 	}

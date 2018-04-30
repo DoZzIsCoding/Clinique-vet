@@ -48,7 +48,7 @@ public class FramePriseRDV extends JFrame {
 		setTitle("Prise de rendez-vous");
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		setVisible(true);
 		setContentPane(getMainPanel());
 	}
 
@@ -112,9 +112,7 @@ public class FramePriseRDV extends JFrame {
 			pourPanel.setBorder(border);
 			pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
 			pourPanel.setSize(300, 300);
-			pourPanel.setBackground(Color.WHITE);
-			// pourPanel.s
-			// encours
+			
 
 			// Oragnisation des éléments
 			gbc.gridx = 0;
@@ -228,7 +226,7 @@ public class FramePriseRDV extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					new FrameAnimaux();
 				}
 			});
 		}

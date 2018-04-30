@@ -16,20 +16,20 @@ public class testIHM {
 			
 			@Override
 			public void run() {
-				FrameAnimaux frame = new FrameAnimaux();
-				frame.setVisible(false);
-				
-				FramePriseRDV rdvFrame = new FramePriseRDV();
-				rdvFrame.setVisible(false);
+//				FrameAnimaux frame = new FrameAnimaux();
+//				frame.setVisible(false);
+//				
+//				FramePriseRDV rdvFrame = new FramePriseRDV();
+//				rdvFrame.setVisible(false);
 				
 				FrameConnexion connexionFrame = new FrameConnexion();
-				connexionFrame.setVisible(false);
+				connexionFrame.setVisible(true);
 				
-				FrameAnimaux animauxFrame = new FrameAnimaux();
-				animauxFrame.setVisible(true);
-				
-				FrameClients clientsFrame = new FrameClients();
-				clientsFrame.setVisible(false);
+//				FrameAnimaux animauxFrame = new FrameAnimaux();
+//				animauxFrame.setVisible(false);
+//				
+//				FrameClients clientsFrame = new FrameClients();
+//				clientsFrame.setVisible(false);
 				
 				
 				
