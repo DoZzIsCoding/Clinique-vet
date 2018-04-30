@@ -2,6 +2,7 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
+import fr.eni.clinique.ihm.FrameAccueilClinique;
 import fr.eni.clinique.ihm.FrameAnimaux;
 import fr.eni.clinique.ihm.FrameConnexion;
 import fr.eni.clinique.ihm.FramePriseRDV;
@@ -23,6 +24,9 @@ public class testIHM {
 				
 				FrameConnexion connexionFrame = new FrameConnexion();
 				connexionFrame.setVisible(true);
+				
+				
+				
 				
 			}
 		});

@@ -52,6 +52,8 @@ public class FramePriseRDV extends JFrame {
 		setContentPane(getMainPanel());
 	}
 
+	
+	
 	///////////////////////////////////
 	// Interface graphique
 	///////////////////////////////////

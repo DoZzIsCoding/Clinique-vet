@@ -3,14 +3,21 @@ package fr.eni.clinique.ihm;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
 
 @SuppressWarnings("serial")
 public class FrameConnexion extends JFrame {
@@ -77,6 +84,31 @@ public class FrameConnexion extends JFrame {
 	public JButton getBtnValider() {
 		if (btnValider == null)
 			btnValider = new JButton("Valider");
+		
+		btnValider.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					try {
+						Clinique.getInstance().connectionUtilisateur(getTxtNomPersonnel().getText(), String.valueOf(getTxtPasswordPersonnel().getPassword()));
+						if(Clinique.getInstance().getUtilisateurConnecté() != null){
+							SwingUtilities.invokeLater(new Runnable() {
+								
+								@Override
+								public void run() {
+									FrameAccueilClinique accueilFrame = new FrameAccueilClinique();
+									accueilFrame.setVisible(true);
+									
+								}
+							});
+						}
+					} catch (BLLException e1) {
+						JOptionPane.showMessageDialog(btnValider, e1.getMessage());
+						e1.printStackTrace();
+					}
+				}
+		});
 		return btnValider;
 	}
 
