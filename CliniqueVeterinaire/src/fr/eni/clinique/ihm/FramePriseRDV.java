@@ -52,8 +52,6 @@ public class FramePriseRDV extends JFrame {
 		setContentPane(getMainPanel());
 	}
 
-	
-	
 	///////////////////////////////////
 	// Interface graphique
 	///////////////////////////////////
@@ -184,6 +182,7 @@ public class FramePriseRDV extends JFrame {
 		return cbbClient;
 	}
 
+	
 	public JButton getBtnAjouterClient() {
 		if (btnAjouterClient == null) {
 			btnAjouterClient = new JButton("+");
