@@ -2,10 +2,7 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
-import fr.eni.clinique.ihm.FrameAnimaux;
-import fr.eni.clinique.ihm.FrameClients;
-import fr.eni.clinique.ihm.FrameConnexion;
-import fr.eni.clinique.ihm.FramePriseRDV;
+import fr.eni.clinique.ihm.FrameAccueilClinique;
 
 public class testFrameAccueil {
 
@@ -17,6 +14,9 @@ public class testFrameAccueil {
 			@Override
 			public void run() {
 				
+				
+				FrameAccueilClinique accueilCliniqueframe = new FrameAccueilClinique();
+				accueilCliniqueframe.setVisible(true);
 				
 			}
 		});
