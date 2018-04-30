@@ -3,6 +3,7 @@ package fr.eni.clinique.test;
 import javax.swing.SwingUtilities;
 
 import fr.eni.clinique.ihm.FrameAnimaux;
+import fr.eni.clinique.ihm.FrameConnexion;
 import fr.eni.clinique.ihm.FramePriseRDV;
 
 public class testIHM {
@@ -15,10 +16,13 @@ public class testIHM {
 			@Override
 			public void run() {
 				FrameAnimaux frame = new FrameAnimaux();
-				frame.setVisible(true);
+				frame.setVisible(false);
 				
 				FramePriseRDV rdvFrame = new FramePriseRDV();
-				rdvFrame.setVisible(true);
+				rdvFrame.setVisible(false);
+				
+				FrameConnexion connexionFrame = new FrameConnexion();
+				connexionFrame.setVisible(true);
 				
 			}
 		});
