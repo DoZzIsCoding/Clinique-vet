@@ -2,8 +2,7 @@ package fr.eni.clinique.test;
 
 import javax.swing.SwingUtilities;
 
-import fr.eni.clinique.ihm.FrameAnimaux;
-import fr.eni.clinique.ihm.FramePriseRDV;
+import fr.eni.clinique.ihm.FrameClients;
 
 public class testIHM {
 
@@ -14,7 +13,7 @@ public class testIHM {
 			
 			@Override
 			public void run() {
-				FrameAnimaux frame = new FrameAnimaux();
+				FrameClients frame = new FrameClients();
 				frame.setVisible(true);
 				
 				FramePriseRDV rdvFrame = new FramePriseRDV();
