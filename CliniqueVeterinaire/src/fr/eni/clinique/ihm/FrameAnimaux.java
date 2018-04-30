@@ -23,9 +23,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+
 @SuppressWarnings("serial")
 public class FrameAnimaux extends JFrame {
 
+	
 	public FrameAnimaux() {
 		setTitle("Animaux");
 		setBounds(100, 100, 500, 400);
@@ -107,7 +111,7 @@ public class FrameAnimaux extends JFrame {
 	private JPanel nomClientPanel;
 	private JTextField txtNomClient;
 
-	public JPanel getNomClientPanel() {
+	public JPanel getNomClientPanel(){
 		if (nomClientPanel == null) {
 			nomClientPanel = new JPanel();
 			TitledBorder border = BorderFactory.createTitledBorder(
@@ -123,9 +127,19 @@ public class FrameAnimaux extends JFrame {
 		return nomClientPanel;
 	}
 
-	public JTextField getTxtNomClient() {
+	public JTextField getTxtNomClient(){
 		if (txtNomClient == null) {
 			txtNomClient = new JTextField(30);
+			
+			try {
+				String nomComplet = new String(Clinique.getInstance().getClientEnCours().getNomClient()
+												+ " " + Clinique.getInstance().getClientEnCours().getPrenomClient());
+				txtNomClient.setText(nomComplet);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			txtNomClient.setEditable(false);
 		}
 		return txtNomClient;
 	}
@@ -192,9 +206,22 @@ public class FrameAnimaux extends JFrame {
 	public JTextField getTxtCode() {
 		if (txtCode == null) {
 			txtCode = new JTextField(30);
+			try {
+				if(Clinique.getInstance().getIndexAnimalEnCours() == -1){
+					chargerNouvelAnimal();
+				}else{
+					chargerAnimal(Clinique.getInstance().getIndexAnimalEnCours());
+				}
+					
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return txtCode;
 	}
+
+
 
 	public JLabel getLblNomAnimal() {
 		if (lblNomAnimal == null) {
@@ -213,7 +240,7 @@ public class FrameAnimaux extends JFrame {
 	
 	public JComboBox<String> getCbbSexeAnimal() {
 		if (cbbSexeAnimal == null) {
-			cbbSexeAnimal = new JComboBox<>();
+			cbbSexeAnimal = new JComboBox<>(new String[]{"Male","Femelle","Hermaphrodite"});
 		}
 		return cbbSexeAnimal;
 	}
@@ -242,7 +269,12 @@ public class FrameAnimaux extends JFrame {
 
 	public JComboBox<String> getCbbEspeceAnimal() {
 		if (cbbEspeceAnimal == null) {
-			cbbEspeceAnimal = new JComboBox<>();
+			try {
+				cbbEspeceAnimal = new JComboBox<>(Clinique.getInstance().getTabEspeces());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return cbbEspeceAnimal;
 	}
@@ -306,6 +338,15 @@ public class FrameAnimaux extends JFrame {
 		}
 		gbc.insets = new Insets(7, 10, 5, 10);
 		panel.add(component, gbc);
+	}
+	
+	private void chargerAnimal(int indexAnimalEnCours) {
+		// TODO Auto-generated method stub
+	}
+
+	private void chargerNouvelAnimal() {
+		getTxtCode().setText("Nouvel Animal");
+		getTxtCode().setEditable(false);
 	}
 	
 	

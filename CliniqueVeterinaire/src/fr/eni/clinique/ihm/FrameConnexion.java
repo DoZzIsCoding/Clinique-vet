@@ -93,15 +93,16 @@ public class FrameConnexion extends JFrame {
 					try {
 						Clinique.getInstance().connectionUtilisateur(getTxtNomPersonnel().getText(), String.valueOf(getTxtPasswordPersonnel().getPassword()));
 						if(Clinique.getInstance().getUtilisateurConnecté() != null){
-							SwingUtilities.invokeLater(new Runnable() {
-								
-								@Override
-								public void run() {
-									FrameAccueilClinique accueilFrame = new FrameAccueilClinique();
-									accueilFrame.setVisible(true);
-									
-								}
-							});
+//							SwingUtilities.invokeLater(new Runnable() {
+//								
+//								@Override
+//								public void run() {
+//									FrameAccueilClinique accueilFrame = new FrameAccueilClinique();
+//									accueilFrame.setVisible(true);
+//									
+//								}
+//							});
+							new FrameAccueilClinique();
 						}
 					} catch (BLLException e1) {
 						JOptionPane.showMessageDialog(btnValider, e1.getMessage());

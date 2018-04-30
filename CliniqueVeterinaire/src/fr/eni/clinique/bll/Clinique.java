@@ -20,8 +20,9 @@ public class Clinique {
 	private List<RDV> lesRdv;
 	private List<Espece> lesEspeces;
 
-	private int indexClientEnCours;
-	private int indexAnimalEnCours;
+	//TODO: repasser l'indexclientencours a -1 apres les test
+	private int indexClientEnCours = 0;
+	private int indexAnimalEnCours = -1;
 
 	private Personnel utilisateurConnecté = null;
 
@@ -115,6 +116,24 @@ public class Clinique {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Client getClientEnCours(){
+		if(indexClientEnCours == -1){
+			return null;
+		}
+		else{
+			return lesClients.get(indexClientEnCours);
+		}
+	}
+	
+	public Animal getAnimalEnCours(){
+		if(indexClientEnCours == -1 || indexAnimalEnCours == -1 ){
+			return null;
+		}
+		else{
+			return lesClients.get(indexClientEnCours).getAnimaux().get(indexAnimalEnCours);
+		}
 	}
 
 	/////////////////
