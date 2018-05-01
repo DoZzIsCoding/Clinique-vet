@@ -66,8 +66,6 @@ public class FrameAjouterClient extends JFrame {
 			boutonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 
-			boutonsPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-
 			boutonsPanel.setBorder(border);
 
 			boutonsPanel.add(getBtnAnnuler());

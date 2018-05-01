@@ -11,34 +11,27 @@ public class testIHM {
 
 	public static void main(String[] args) {
 
-
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
-//				FrameAnimaux frame = new FrameAnimaux();
-//				frame.setVisible(false);
-//				
+				FrameAnimaux frame = new FrameAnimaux();
+				frame.setVisible(true);
+
 				FramePriseRDV rdvFrame = new FramePriseRDV();
-				rdvFrame.setVisible(true);
-				
-//				FrameConnexion connexionFrame = new FrameConnexion();
-//				connexionFrame.setVisible(true);
-				
-//				FrameAnimaux animauxFrame = new FrameAnimaux();
-//				animauxFrame.setVisible(false);
-//				
-//				FrameClients clientsFrame = new FrameClients();
-//				clientsFrame.setVisible(false);
-				
-				
-				
-				
+				rdvFrame.setVisible(false);
+
+				FrameConnexion connexionFrame = new FrameConnexion();
+				connexionFrame.setVisible(false);
+
+				FrameAnimaux animauxFrame = new FrameAnimaux();
+				animauxFrame.setVisible(false);
+				FrameClients clientsFrame = new FrameClients();
+				clientsFrame.setVisible(false);
+
 			}
 		});
 
-		
-		
 	}
 
 }

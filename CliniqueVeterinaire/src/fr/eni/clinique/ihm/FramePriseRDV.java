@@ -1,7 +1,12 @@
 package fr.eni.clinique.ihm;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
@@ -13,15 +18,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
@@ -45,41 +55,27 @@ public class FramePriseRDV extends JFrame {
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
 		setTitle("Prise de rendez-vous");
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 950, 660);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setContentPane(getMainPanel());
+		setResizable(false);
 		setVisible(true);
+
+		applyLookAndFeel();
 	}
 
 	///////////////////////////////////
-	// Interface graphique
+	// MAIN PANEL
 	///////////////////////////////////
 	public JPanel getMainPanel() {
 		if (mainPanel == null) {
-			mainPanel = new JPanel(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
+			mainPanel = new JPanel(new BorderLayout());
 
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			mainPanel.add(getPourPanel(), gbc);
-
-			gbc.gridx = 1;
-			mainPanel.add(getParPanel(), gbc);
-
-			gbc.gridx = 2;
-			mainPanel.add(getQuandPanel(), gbc);
-
-			gbc.gridy = 1;
-			gbc.gridx = 0;
-			gbc.gridwidth = 3;
-			mainPanel.add(getTablePanel(), gbc);
-
-			gbc.gridy = 2;
-			gbc.gridx = 1;
-			mainPanel.add(getBtnSupprimer(), gbc);
-
-			gbc.gridx = 2;
-			mainPanel.add(getBtnValider(), gbc);
+			mainPanel.add(getPourPanel(), BorderLayout.WEST);
+			mainPanel.add(getParPanel(), BorderLayout.CENTER);
+			mainPanel.add(getQuandPanel(), BorderLayout.EAST);
+			mainPanel.add(getPanelTableauEtBoutonsBas(), BorderLayout.SOUTH);
+			// mainPanel.add(getPanelBoutonsduBasRDV(),BorderLayout.AFTER_LAST_LINE);
 
 		}
 
@@ -105,33 +101,16 @@ public class FramePriseRDV extends JFrame {
 			border.setTitlePosition(TitledBorder.TOP);
 
 			pourPanel = new JPanel(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-
-			// Options graphiques
+			// pourPanel.setPreferredSize(new Dimension(200, 200));
 			pourPanel.setBorder(border);
-			pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
-			pourPanel.setSize(300, 300);
-			
+			// pourPanel.setFont(new java.awt.Font("Verdana", 3, 18));
 
-			// Oragnisation des éléments
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			pourPanel.add(getLblClient(), gbc);
-			gbc.gridy = 1;
-			gbc.weightx = 0.7;
-			pourPanel.add(getCbbClient(), gbc);
-			gbc.gridx = 1;
-			gbc.weightx = 0.3;
-			pourPanel.add(getBtnAjouterClient(), gbc);
-			gbc.gridx = 0;
-			gbc.gridy = 2;
-			pourPanel.add(getLblAnimal(), gbc);
-			gbc.gridy = 3;
-			gbc.weightx = 0.7;
-			pourPanel.add(getCbbAnimal(), gbc);
-			gbc.gridx = 1;
-			gbc.weightx = 0.3;
-			pourPanel.add(getBtnAjouterAnimal(), gbc);
+			addComponentTo(getLblClient(), pourPanel, 0, 0, 1, 1, 1, true);
+			addComponentTo(getCbbClient(), pourPanel, 0, 1, 1, 1, 1, true);
+			addComponentTo(getBtnAjouterClient(), pourPanel, 2, 1, 1, 1, 1, true);
+			addComponentTo(getLblAnimal(), pourPanel, 0, 2, 1, 1, 1, true);
+			addComponentTo(getCbbAnimal(), pourPanel, 0, 3, 1, 1, 1, true);
+			addComponentTo(getBtnAjouterAnimal(), pourPanel, 2, 3, 1, 1, 1, true);
 		}
 
 		return pourPanel;
@@ -150,6 +129,7 @@ public class FramePriseRDV extends JFrame {
 
 			try {
 				cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
+				// cbbClient.setPreferredSize(new Dimension(100,100 ));
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -179,17 +159,16 @@ public class FramePriseRDV extends JFrame {
 		return cbbClient;
 	}
 
-	
 	public JButton getBtnAjouterClient() {
 		if (btnAjouterClient == null) {
 			btnAjouterClient = new JButton("+");
-			
+
 			btnAjouterClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 		}
@@ -222,7 +201,7 @@ public class FramePriseRDV extends JFrame {
 		if (btnAjouterAnimal == null) {
 			btnAjouterAnimal = new JButton("+");
 			btnAjouterAnimal.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -262,6 +241,8 @@ public class FramePriseRDV extends JFrame {
 			parPanel.setLayout(new BoxLayout(parPanel, BoxLayout.Y_AXIS));
 			parPanel.add(getLblVeterinaire());
 			parPanel.add(getCbbVeterinaire());
+			Component rigidArea = Box.createRigidArea(new Dimension(200, 150));
+			parPanel.add(rigidArea);
 		}
 		return parPanel;
 	}
@@ -269,6 +250,7 @@ public class FramePriseRDV extends JFrame {
 	public JLabel getLblVeterinaire() {
 		if (lblVeterinaire == null) {
 			lblVeterinaire = new JLabel("Vétérinaire");
+			// lblVeterinaire.setPreferredSize(new Dimension(100, 100));
 		}
 		return lblVeterinaire;
 	}
@@ -277,6 +259,7 @@ public class FramePriseRDV extends JFrame {
 		if (cbbVeterinaire == null) {
 			try {
 				cbbVeterinaire = new JComboBox<String>(Clinique.getInstance().getTabNomsVeterinaires());
+				cbbVeterinaire.setPreferredSize(new Dimension(100, 100));
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -321,30 +304,16 @@ public class FramePriseRDV extends JFrame {
 			border.setTitleJustification(TitledBorder.LEFT);
 			border.setTitlePosition(TitledBorder.TOP);
 			quandPanel = new JPanel(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
 
 			quandPanel.setBorder(border);
-			// Groupe date
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			quandPanel.add(getLblDate(), gbc);
-			gbc.gridy = 1;
-			gbc.weightx = 0.8;
-			quandPanel.add(getDatePicker(), gbc);
-
-			// Groupe Heure
-			gbc.weightx = 1;
-			gbc.gridy = 2;
-			quandPanel.add(getLblHeure(), gbc);
-			gbc.gridy = 3;
-			gbc.weightx = 0.2;
-			quandPanel.add(getCbbHeure(), gbc);
-			gbc.gridx = 1;
-			gbc.weightx = 0.2;
-			quandPanel.add(getLblH(), gbc);
-			gbc.gridx = 2;
-			gbc.weightx = 0.2;
-			quandPanel.add(getCbbMinute(), gbc);
+			
+			addComponentTo(getLblDate(), quandPanel, 0, 0, 1, 1, 1, true);
+			addComponentTo(getDatePicker(), quandPanel, 0, 1, 4, 1, 1, true);
+			addComponentTo(getLblHeure(), quandPanel, 0, 2, 1, 1, 1, true);
+			addComponentTo(getCbbHeure(), quandPanel, 0, 3, 1, 1, 1, true);
+			addComponentTo(getLblH(), quandPanel, 1, 3, 1, 1, 2, true);
+			addComponentTo(getCbbMinute(), quandPanel, 1, 3, 1, 1, 1, true);
+			
 		}
 		return quandPanel;
 	}
@@ -427,8 +396,25 @@ public class FramePriseRDV extends JFrame {
 		if (cbbMinute == null) {
 			Integer[] minutes = { 0, 15, 30, 45 };
 			cbbMinute = new JComboBox<Integer>(minutes);
+			//cbbMinute.set
 		}
 		return cbbMinute;
+	}
+
+	/////////////////////////////////
+	// PANEL TABLEAU + BOUTONS
+	/////////////////////////////////
+	private JPanel panelTableauEtBoutonsBas;
+
+	public JPanel getPanelTableauEtBoutonsBas() {
+		if (panelTableauEtBoutonsBas == null) {
+			panelTableauEtBoutonsBas = new JPanel(new BorderLayout());
+
+			panelTableauEtBoutonsBas.add(getTablePanel(), BorderLayout.NORTH);
+			panelTableauEtBoutonsBas.add(getPanelBoutonsduBasRDV(), BorderLayout.SOUTH);
+		}
+
+		return panelTableauEtBoutonsBas;
 	}
 
 	/////////////////////////////////
@@ -459,23 +445,37 @@ public class FramePriseRDV extends JFrame {
 	// BOUTONS BAS DE PAGE
 	/////////////////////////////////
 
-	private JButton btnSupprimer;
-	private JButton btnValider;
+	private JPanel panelBoutonsduBasRDV;
+	private JButton btnSupprimerRDV;
+	private JButton btnValiderRDV;
 
-	public JButton getBtnSupprimer() {
-		if (btnSupprimer == null) {
-			btnSupprimer = new JButton("Supprimer");
+	public JPanel getPanelBoutonsduBasRDV() {
+		if (panelBoutonsduBasRDV == null) {
+			panelBoutonsduBasRDV = new JPanel(new FlowLayout());
 
-			btnSupprimer.addActionListener(new ActionListener() {
+			panelBoutonsduBasRDV.add(getBtnSupprimerRDV());
+			panelBoutonsduBasRDV.add(getBtnValiderRDV());
+			// BOUTON ANNULER ??? panelBoutonsduBasRDV.add(get, constraints);
+		}
+		return panelBoutonsduBasRDV;
+	}
+
+	public JButton getBtnSupprimerRDV() {
+		if (btnSupprimerRDV == null) {
+			btnSupprimerRDV = new JButton("Supprimer");
+
+			btnSupprimerRDV.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						if (getTableRDV().getSelectedRow() >= 0) {
-							JOptionPane.showConfirmDialog(btnSupprimer, "Voulez-vous vraiment supprimer ce rendez-vous ?");
+							JOptionPane.showConfirmDialog(btnSupprimerRDV,
+									"Voulez-vous vraiment supprimer ce rendez-vous ?");
 							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
 							tableModel.fireTableDataChanged();
-							JOptionPane.showMessageDialog(btnSupprimer, "Suppression effectuée ");;
+							JOptionPane.showMessageDialog(btnSupprimerRDV, "Suppression effectuée ");
+							;
 						}
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
@@ -484,67 +484,86 @@ public class FramePriseRDV extends JFrame {
 				}
 			});
 		}
-		return btnSupprimer;
+		return btnSupprimerRDV;
 	}
 
-	public JButton getBtnValider() {
-		if (btnValider == null) {
-			btnValider = new JButton("Valider");
-			btnValider.addActionListener(new  ActionListener() {
-				
+	public JButton getBtnValiderRDV() {
+		if (btnValiderRDV == null) {
+			btnValiderRDV = new JButton("Valider");
+			btnValiderRDV.addActionListener(new ActionListener() {
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-						
-						int indexVeto;
-						LocalDateTime dateRdv;
-						int indexClient;
-						int indexAnimal;
-						
-						indexVeto = getCbbVeterinaire().getSelectedIndex();
-						dateRdv = LocalDateTime.of(
-								getDatePicker().getModel().getYear(), 
-								getDatePicker().getModel().getMonth()+1, 
-								getDatePicker().getModel().getDay(), 
-								(int) getCbbHeure().getSelectedItem(), 
-								(int) getCbbMinute().getSelectedItem());
-						
-						indexAnimal = getCbbAnimal().getSelectedIndex();
-						if( indexAnimal == -1){
-							JOptionPane.showMessageDialog(btnValider, "Vous devez d'abord ajouter un animal au client ");
-						}
-						
-						indexClient = getCbbClient().getSelectedIndex();
-						if( indexClient == -1){
-							JOptionPane.showMessageDialog(btnValider, "Vous devez d'abord ajouter un client ");
-						}
-						
-						try {
-							JOptionPane.showConfirmDialog(btnValider, "Confirmez-vous ce rendez-vous ?");
-							Clinique.getInstance().ajouterRdvCourant(indexClient, indexAnimal, indexVeto, dateRdv);
-							tableModel.fireTableDataChanged();
-							JOptionPane.showMessageDialog(btnValider, "Rendez-vous enregistré ");
 
-						
-						} catch (BLLException e1) {
-							e1.printStackTrace();
-							JOptionPane.showMessageDialog(btnValider, "Rendez-vous refusé ");
-						} catch (CreneauDejaPrisException e1) {
-							JOptionPane.showMessageDialog(btnValider, "Un Rendez vous existe deja à l'heure demandée ");
-							e1.printStackTrace();
-						}
+					int indexVeto;
+					LocalDateTime dateRdv;
+					int indexClient;
+					int indexAnimal;
+
+					indexVeto = getCbbVeterinaire().getSelectedIndex();
+					dateRdv = LocalDateTime.of(getDatePicker().getModel().getYear(),
+							getDatePicker().getModel().getMonth() + 1, getDatePicker().getModel().getDay(),
+							(int) getCbbHeure().getSelectedItem(), (int) getCbbMinute().getSelectedItem());
+
+					indexAnimal = getCbbAnimal().getSelectedIndex();
+					if (indexAnimal == -1) {
+						JOptionPane.showMessageDialog(btnValiderRDV, "Vous devez d'abord ajouter un animal au client ");
+					}
+
+					indexClient = getCbbClient().getSelectedIndex();
+					if (indexClient == -1) {
+						JOptionPane.showMessageDialog(btnValiderRDV, "Vous devez d'abord ajouter un client ");
+					}
+
+					try {
+						JOptionPane.showConfirmDialog(btnValiderRDV, "Confirmez-vous ce rendez-vous ?");
+						Clinique.getInstance().ajouterRdvCourant(indexClient, indexAnimal, indexVeto, dateRdv);
+						tableModel.fireTableDataChanged();
+						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous enregistré ");
+
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous refusé ");
+					} catch (CreneauDejaPrisException e1) {
+						JOptionPane.showMessageDialog(btnValiderRDV, "Un Rendez vous existe deja à l'heure demandée ");
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
-		
-		
-		return btnValider;
+
+		return btnValiderRDV;
 	}
 
-	/////////////////////////////////
+	///////////////////////////////////
 	// METHODES
-	/////////////////////////////////
+	///////////////////////////////////
+	private void applyLookAndFeel() {
+		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-	
+		try {
+			UIManager.setLookAndFeel(look);
+			SwingUtilities.updateComponentTreeUI(this.getContentPane());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
+			boolean fillHorizontal) {
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = x;
+		gbc.gridy = y;
+		gbc.gridwidth = width;
+		gbc.gridheight = height;
+		gbc.weightx = weightX;
+		if (fillHorizontal) {
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+		}
+		gbc.insets = new Insets(7, 10, 5, 10);
+		panel.add(component, gbc);
+	}
 
 	////////////////////////////////
 	// CLASSES

@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -16,13 +18,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.Caret;
 
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {
 
 	public FrameRechercheClient() {
 		setTitle("Résultat de la recherche client");
-		setBounds(100, 100, 400, 400);
+		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
@@ -72,7 +75,9 @@ public class FrameRechercheClient extends JFrame {
 
 	public JTextField getTxtZoneDeRecherche() {
 		if(txtZoneDeRecherche == null){
-			txtZoneDeRecherche = new JTextField(20);
+			txtZoneDeRecherche = new JTextField(40);
+			txtZoneDeRecherche.setText("nom du client");
+			
 		}
 		return txtZoneDeRecherche;
 	}
@@ -95,13 +100,13 @@ public class FrameRechercheClient extends JFrame {
 	////////////////////////////////
 
 	private JTextArea txtResultatsRecherche;
-	
-	
-	
+	private JScrollPane scrTxtAreaResulatsRecherche;
 	
 	public JTextArea getTxtResultatsRecherche() {
 		if(txtResultatsRecherche == null){
-			txtResultatsRecherche = new JTextArea();
+			txtResultatsRecherche = new JTextArea(5,50);
+			txtResultatsRecherche.setEditable(false);
+			scrTxtAreaResulatsRecherche = new JScrollPane(txtResultatsRecherche);
 		}
 		return txtResultatsRecherche;
 	}
