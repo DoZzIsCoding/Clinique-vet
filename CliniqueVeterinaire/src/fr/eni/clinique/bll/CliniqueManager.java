@@ -18,31 +18,30 @@ import fr.eni.clinique.dal.PersonnelDAO;
 import fr.eni.clinique.dal.RDVDAO;
 
 public class CliniqueManager {
-	
-private static CliniqueManager instance;
-	
+
+	private static CliniqueManager instance;
+
 	private AnimalDAO animalDAO;
 	private ClientDAO clientDAO;
 	private PersonnelDAO personnelDAO;
 	private RDVDAO rdvDAO;
 	private EspeceDAO especeDAO;
-	
-	private CliniqueManager() { 
+
+	private CliniqueManager() {
 		animalDAO = DAOFactory.getAnimalDAO();
 		clientDAO = DAOFactory.getClientDAO();
 		personnelDAO = DAOFactory.getPersonnelDAO();
 		rdvDAO = DAOFactory.getRDVDAO();
 		especeDAO = DAOFactory.getEspeceDAO();
 	}
-	
+
 	public static CliniqueManager getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new CliniqueManager();
 		}
 		return instance;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return la liste des animaux (non archivés)
@@ -55,8 +54,7 @@ private static CliniqueManager instance;
 			throw new BLLException("Erreur accès aux animaux.");
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return la liste des clients avec leurs animaux
@@ -69,10 +67,10 @@ private static CliniqueManager instance;
 			throw new BLLException("Erreur accès aux clients (avec animaux).");
 		}
 	}
-	
+
 	/**
 	 * 
-	 * @return la liste des veterinaires (sans les mots de passe) 
+	 * @return la liste des veterinaires (sans les mots de passe)
 	 * @throws BLLException
 	 */
 	public List<Personnel> getVeterinaires() throws BLLException {
@@ -85,9 +83,10 @@ private static CliniqueManager instance;
 
 	/**
 	 * Recupere la liste des RDV prévus a une date donnée avec un veterinaire donné
+	 * 
 	 * @param date
 	 * @return Liste de RDV.
-	 * @throws BLLException 
+	 * @throws BLLException
 	 */
 	public List<RDV> getRDVdu(Date date, Personnel veterinaire) throws BLLException {
 		try {
@@ -99,10 +98,11 @@ private static CliniqueManager instance;
 
 	/**
 	 * Demande a la DAL de supprimer le RDV
+	 * 
 	 * @param rdv
 	 * @throws BLLException
 	 */
-	public void supprimerRdv(RDV rdv) throws BLLException{
+	public void supprimerRdv(RDV rdv) throws BLLException {
 		try {
 			rdvDAO.supprimer(rdv);
 		} catch (DalException e) {
@@ -110,18 +110,18 @@ private static CliniqueManager instance;
 			throw new BLLException("Erreur BLL supression de RDV");
 		}
 	}
-	
-	
+
 	/**
 	 * Demande a la DAL de supprimer le RDV
+	 * 
 	 * @param rdv
 	 * @throws BLLException
 	 * @throws CreneauDejaPrisException
 	 */
-	public void ajouterRdv(RDV rdv) throws BLLException, CreneauDejaPrisException{
+	public void ajouterRdv(RDV rdv) throws BLLException, CreneauDejaPrisException {
 		try {
-			rdvDAO.ajouter(rdv);		
-		}catch (CreneauDejaPrisException e) {
+			rdvDAO.ajouter(rdv);
+		} catch (CreneauDejaPrisException e) {
 			throw new CreneauDejaPrisException("Erreur BLL ajout de RDV");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,19 +131,80 @@ private static CliniqueManager instance;
 
 	/**
 	 * demande a la DAL d'ajouter un Animal (contenant deja un codeClient valide)
+	 * 
 	 * @param animal
 	 * @throws DalException
+	 * @throws AnimalNonValideException 
+	 * @throws BLLException 
 	 */
-	public void ajouterAnimal(Animal animal) throws DalException {
+	public void ajouterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
 		try {
-			
-			//TODO: AJOUTER TOUTES LES VERIFICATION!!
+			validerAnimal(animal);
+
 			animalDAO.ajouter(animal);
+
 		} catch (DalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new DalException("Erreur BLL ajout d'animal");
+			throw new BLLException("Erreur BLL ajout d'animal");
 		}
+	}
+
+	private void validerAnimal(Animal animal) throws AnimalNonValideException {
+		// TODO Auto-generated method stub
+		Boolean animalOK = true;
+		AnimalNonValideException e = new AnimalNonValideException();
+		if (animal.getNomAnimal().length() > 30) {
+			e.ajouterErreur("Le nom de ne doit pas dépasser 30 caractères");
+			animalOK = false;
+		}
+		if (animal.getNomAnimal().trim().length() == 0) {
+			e.ajouterErreur("Le nom est obligatoire");
+			animalOK = false;
+		}
+		if (animal.getCouleur().length() > 20) {
+			e.ajouterErreur("La couleur ne doit pas dépasser 20 caractères");
+			animalOK = false;
+		}
+		if (animal.getTatouage().length() > 10) {
+			e.ajouterErreur("Le tatouage ne doit pas dépasser 10 caractères");
+			animalOK = false;
+		}
+		if(!animalOK) throw e;
+
+	}
+	
+	
+	private void validerClient(Client client) throws ClientNonValideException{
+		// TODO Auto-generated method stub
+		Boolean clientOK = true;
+		ClientNonValideException e = new ClientNonValideException();
+		if (client.getNomClient().length() > 20 ) {
+			e.ajouterErreur("Le nom de ne doit pas dépasser 20 caractères");
+			clientOK = false;
+		}
+		if (client.getPrenomClient().length() > 20) {
+			e.ajouterErreur("Le prénom de ne doit pas dépasser 20 caractères");
+			clientOK = false;
+		}
+		if (client.getAdresse1().length() > 30 || client.getAdresse2().length() > 30) {
+			e.ajouterErreur("La taille de l'adresse ne doit pas dépasser 30 caractères par ligne");
+			clientOK = false;
+		}
+		if (client.getCodePostal().length() > 6) {
+			e.ajouterErreur("Le code postal ne doit pas dépasser 6 caractères");
+			clientOK = false;
+		}
+		if (client.getCodePostal().length() > 6) {
+			e.ajouterErreur("Le numero de telephone ne doit pas dépasser 15 caractères");
+			clientOK = false;
+		}		
+		if (client.getVille().length() > 25) {
+			e.ajouterErreur("La ville ne doit pas dépasser 25 caractères");
+			clientOK = false;
+		}
+		if(!clientOK) throw e;
+
 	}
 
 	public List<Espece> getEspeces() {
@@ -154,22 +215,31 @@ private static CliniqueManager instance;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Connecte l'utilisateur avec son login et son mdp
+	 * 
 	 * @param login
 	 * @param mdp
-	 * @throws DalException 
+	 * @throws DalException
 	 */
 	public Personnel connecter(String login, String mdp) throws DalException {
-		
+
 		return personnelDAO.connecter(login, mdp);
 
 	}
-	
-	
-	
+
+	public List<Personnel> getPersonnel() {
+		try {
+			return personnelDAO.selectionnerTout();
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

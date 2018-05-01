@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
@@ -22,6 +24,7 @@ import fr.eni.clinique.bll.Clinique;
 public class FrameConnexion extends JFrame {
 
 	public FrameConnexion() {
+		applyLookAndFeel();
 		setTitle("Connexion");
 		setBounds(100, 100, 300, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -126,6 +129,20 @@ public class FrameConnexion extends JFrame {
 	protected void fermerFenetre() {
 		this.dispose();
 		
+	}
+	
+	private void applyLookAndFeel() {
+		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+		//look = "javax.swing.plaf.metal.MetalLookAndFeel";
+		
+		try {
+			UIManager.setLookAndFeel(look);
+			SwingUtilities.updateComponentTreeUI(this.getContentPane());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	
 	}
 	
 

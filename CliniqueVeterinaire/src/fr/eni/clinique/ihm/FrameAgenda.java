@@ -47,12 +47,11 @@ public class FrameAgenda extends JFrame {
 
 	public FrameAgenda() {
 		setTitle("Agenda");
-		setBounds(100, 100, 500, 200);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-
+		setBounds(100, 100, 800, 600);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
 		applyLookAndFeel();
+		setVisible(true);
 	}
 
 	private JPanel mainPanel;

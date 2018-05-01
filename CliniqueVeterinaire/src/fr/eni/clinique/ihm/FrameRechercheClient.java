@@ -1,24 +1,28 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.text.Caret;
+
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {
@@ -26,11 +30,10 @@ public class FrameRechercheClient extends JFrame {
 	public FrameRechercheClient() {
 		setTitle("Résultat de la recherche client");
 		setBounds(100, 100, 600, 400);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
 		setContentPane(getMainPanel());
-		applyLookAndFeel();
 
 	}
 
@@ -88,6 +91,14 @@ public class FrameRechercheClient extends JFrame {
 					new ImageIcon(getClass().getResource("./resources/rechercher.png")));
 			btnRechercherClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnRechercherClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					 //TODO rafraichir la JList
+					
+				}
+			});
 		}
 		return btnRechercherClient;
 	}
@@ -99,16 +110,16 @@ public class FrameRechercheClient extends JFrame {
 	// TEXTFIELD PANEL
 	////////////////////////////////
 
-	private JTextArea txtResultatsRecherche;
+	private JList<String> txtResultatsRecherche;
 	private JScrollPane scrTxtAreaResulatsRecherche;
 	
-	public JTextArea getTxtResultatsRecherche() {
+	public JList<String> getTxtResultatsRecherche() {
 		if(txtResultatsRecherche == null){
-			txtResultatsRecherche = new JTextArea(5,50);
-			txtResultatsRecherche.setEditable(false);
+			txtResultatsRecherche = new JList<String>();
 			scrTxtAreaResulatsRecherche = new JScrollPane(txtResultatsRecherche);
 		}
 		return txtResultatsRecherche;
+
 	}
 
 	///////////////////////////////////

@@ -7,11 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -21,17 +21,20 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+
 @SuppressWarnings("serial")
 public class FrameGestionDuPersonnel extends JFrame {
 
 	public FrameGestionDuPersonnel() {
 		setTitle("Gestion du personnel");
-		setBounds(100, 100, 500, 200);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 480);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setContentPane(getMainPanel());
 
-		applyLookAndFeel();
+//		applyLookAndFeel();
 	}
 
 	private JPanel mainPanel;
@@ -113,13 +116,18 @@ public class FrameGestionDuPersonnel extends JFrame {
 	// TEXTFIELD PANEL
 	////////////////////////////////
 
-	private JTextArea txtListePersonnel;
+	private JList<String> txtListePersonnel;
 	private JScrollPane scrTxtAreaListePersonnel;
 
-	public JTextArea getTxtListePersonnel() {
+	public JList<String> getTxtListePersonnel() {
 		if (txtListePersonnel == null) {
-			txtListePersonnel = new JTextArea(5, 50);
-			txtListePersonnel.setEditable(false);
+			try {
+				txtListePersonnel = new JList<String>(Clinique.getInstance().getTabPersonnel());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//txtListePersonnel.setEditable(false);
 			scrTxtAreaListePersonnel = new JScrollPane(txtListePersonnel);
 		}
 		return txtListePersonnel;

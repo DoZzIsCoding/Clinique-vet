@@ -25,6 +25,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import fr.eni.clinique.bll.AnimalNonValideException;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
@@ -109,6 +110,9 @@ public class FrameAnimaux extends JFrame {
 										? new String() : Clinique.getInstance().getAnimalEnCours().getAntecedents()));
 						Clinique.getInstance().ajouterAnimal(animal);
 					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (AnimalNonValideException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

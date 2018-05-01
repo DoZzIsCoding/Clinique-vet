@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class FrameClients extends JFrame {
 	public FrameClients() {
 		setTitle("Clients");
 		setBounds(100, 100, 850, 600);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
 		setContentPane(getMainPanel());
@@ -113,6 +115,15 @@ public class FrameClients extends JFrame {
 					new ImageIcon(getClass().getResource("./resources/rechercher.png")));
 			btnRechercherClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnRechercherClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					new FrameRechercheClient();
+					
+				}
+			});
 		}
 		return btnRechercherClient;
 	}
@@ -218,6 +229,7 @@ public class FrameClients extends JFrame {
 	public JTextField getTxtCodeClient() {
 		if (txtCodeClient == null) {
 			txtCodeClient = new JTextField(20);
+			txtCodeClient.setEnabled(false);
 		}
 		return txtCodeClient;
 	}

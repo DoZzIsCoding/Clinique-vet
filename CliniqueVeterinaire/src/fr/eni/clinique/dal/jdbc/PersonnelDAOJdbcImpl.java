@@ -15,7 +15,7 @@ import fr.eni.clinique.dal.PersonnelDAO;
 
 public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 
-	private static final String SELECT_ALL = "SELECT codeClient, NomClient, prenomClient, adresse1, adresse2, codePostal, ville, numTel, assurance, email, remarque FROM clients where archive=0";
+	private static final String SELECT_ALL = "select codepers, nom, role from personnels where archive=0 ";
 	private static final String SELECT_VETOS = "select codepers, nom, role from personnels where archive=0 and role='Vet'";
 	private static final String LOGIN = "select * from personnels where nom=? and MotPasse=? ";
 	
@@ -112,4 +112,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 		}
 		return null;
 	}
+
+
 }

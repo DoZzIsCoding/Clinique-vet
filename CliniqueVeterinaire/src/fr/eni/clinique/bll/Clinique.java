@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ListModel;
+
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Espece;
@@ -17,10 +19,11 @@ public class Clinique {
 
 	private List<Client> lesClients;
 	private List<Personnel> lesVeterinaires;
+	private List<Personnel> lePersonnel;
 	private List<RDV> lesRdv;
 	private List<Espece> lesEspeces;
 
-	//TODO: repasser l'indexclientencours a -1 apres les test
+	// TODO: repasser l'indexclientencours a -1 apres les test
 	private int indexClientEnCours = 0;
 	private int indexAnimalEnCours = -1;
 
@@ -105,53 +108,52 @@ public class Clinique {
 		return tableau;
 	}
 
-	public void ajouterAnimal(Animal animal) {
-		
-		try {
-			manager.ajouterAnimal(animal);
-			getClientEnCours().ajouterAnimal(animal);
-		} catch (DalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void ajouterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
+
+		manager.ajouterAnimal(animal);
+		getClientEnCours().ajouterAnimal(animal);
 
 	}
-	
-	public Client getClientEnCours(){
-		if(indexClientEnCours == -1){
+
+	public Client getClientEnCours() {
+		if (indexClientEnCours == -1) {
 			return null;
-		}
-		else{
+		} else {
 			return lesClients.get(indexClientEnCours);
 		}
 	}
-	
-	public Animal getAnimalEnCours(){
-		if(indexClientEnCours == -1 || indexAnimalEnCours == -1 ){
+
+	public Animal getAnimalEnCours() {
+		if (indexClientEnCours == -1 || indexAnimalEnCours == -1) {
 			return null;
-		}
-		else{
+		} else {
 			return lesClients.get(indexClientEnCours).getAnimaux().get(indexAnimalEnCours);
 		}
 	}
-	
+
 	/**
-	 * Recherches dans les données locales les clients 
-	 * dont le nom contient le Mot en parametre.
+	 * Recherches dans les données locales les clients dont le nom contient le Mot
+	 * en parametre.
+	 * 
 	 * @param mot
 	 * @return liste de Client
 	 */
-	public List<Client> rechercherClients(String mot){
-		List<Client> resultat = new ArrayList<>();
-		
+	public String[] rechercherClients(String mot) {
+		String[] resultat = new String[getClients().size()];
+		List<Client> resultatList = new ArrayList<>();
 		for (Client c : lesClients) {
-			if (c.getNomClient().indexOf(mot)!= -1){
-				resultat.add(c);
-			}
+			if(c.getNomClient().indexOf(mot)!=-1 || c.getPrenomClient().indexOf(mot)!=-1)
+				resultatList.add(c);
+		}
+		
+		for (int i = 0; i < resultatList.size(); i++) {
+			resultat[i] = resultatList.get(i).getNomClient() 
+					+ " - " + resultatList.get(i).getPrenomClient()
+					+ " - " + resultatList.get(i).getCodePostal()
+					+ " - " + resultatList.get(i).getVille();
 		}
 		return resultat;
 	}
-	
 
 	/////////////////
 	// GESTION DES ANIMAUX
@@ -196,6 +198,26 @@ public class Clinique {
 			}
 		}
 
+	}
+
+	public List<Personnel> getPersonnel() {
+		// TODO Auto-generated method stub
+		lePersonnel = manager.getPersonnel();
+		return lePersonnel;
+	}
+
+	public String[] getTabPersonnel() {
+		// TODO Auto-generated method stub
+		lePersonnel = getPersonnel();
+		String[] tableau = new String[lePersonnel.size()];
+		for (int i = 0; i < tableau.length; i++) {
+			tableau[i] = new String(lePersonnel.get(i).getNom());
+			do {
+				tableau[i] = tableau[i] + " ";
+			} while (tableau[i].length() < 40);
+			tableau[i] = tableau[i] + lePersonnel.get(i).getRole() + "    *************";
+		}
+		return tableau;
 	}
 
 	public void deconnectionUtilisateur() {
