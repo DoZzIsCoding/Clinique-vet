@@ -50,7 +50,7 @@ public class FrameAgenda extends JFrame {
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		//setVisible(true);
+		setVisible(true);
 	}
 
 	private JPanel mainPanel;

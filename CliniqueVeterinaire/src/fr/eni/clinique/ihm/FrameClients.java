@@ -35,16 +35,42 @@ import fr.eni.clinique.bll.ClientNonValideException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Observable;
+import fr.eni.clinique.bo.Observable.ObservableListener;
 
 @SuppressWarnings("serial")
 public class FrameClients extends JFrame {
 
+	private Observable<Integer> clientEnCours;
+	
 	public FrameClients() {
 		setTitle("Clients");
 		setBounds(100, 100, 850, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		//setVisible(true);
+		setVisible(true);
+		try {
+			clientEnCours = Clinique.getInstance().getIndexClientObserve();
+			clientEnCours.registerListener(new ObservableListener() {
+				
+				@Override
+				public void onChanged() {
+					try {
+						setClient(Clinique.getInstance().getClientEnCours());
+						tableModel.updateData();
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		} catch (BLLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+
+
 		
 		try {
 			setClient(Clinique.getInstance().getClientEnCours());
@@ -69,6 +95,7 @@ public class FrameClients extends JFrame {
 			mainPanel.add(getPanelDetailsClient(), BorderLayout.LINE_START);
 			mainPanel.add(getPanelAnimauxClient(), BorderLayout.LINE_END);
 
+			
 			
 		}
 		return mainPanel;
@@ -203,6 +230,7 @@ public class FrameClients extends JFrame {
 											getTxtAssurance().getText(),
 											getTxtEmail().getText(),
 											getTxtRemarque().getText()));
+
 						} catch (ClientNonValideException e1) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());

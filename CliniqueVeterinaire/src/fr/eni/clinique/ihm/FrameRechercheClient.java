@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -14,10 +16,11 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
@@ -26,12 +29,15 @@ import fr.eni.clinique.bo.Client;
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {
 
+	private List<Client> clientsTrouves = new ArrayList<>();
+	
+	
 	public FrameRechercheClient() {
 		setTitle("Résultat de la recherche client");
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		//setVisible(true);
+		setVisible(true);
 
 	}
 
@@ -91,7 +97,8 @@ public class FrameRechercheClient extends JFrame {
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnRechercherClient.addActionListener(new ActionListener() {
 				
-				@Override
+			
+				@Override 
 				public void actionPerformed(ActionEvent e) {
 					try {
 						listModel.clear();
@@ -100,6 +107,7 @@ public class FrameRechercheClient extends JFrame {
 									+ " - " + c.getPrenomClient()
 									+ " - " + c.getCodePostal()
 									+ " - " + c.getVille());
+							clientsTrouves.add(c);
 						}
 						
 					} catch (BLLException e1) {
@@ -128,6 +136,23 @@ public class FrameRechercheClient extends JFrame {
 		if(txtResultatsRecherche == null){
 			txtResultatsRecherche = new JList(listModel);
 			scrTxtAreaResulatsRecherche = new JScrollPane(txtResultatsRecherche);
+			txtResultatsRecherche.addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					int index;
+					try {
+						//index = Clinique.getInstance().getClients().indexOf(clientsTrouves.get(txtResultatsRecherche.getSelectedIndex()));
+						index = txtResultatsRecherche.getSelectedIndex();
+						Clinique.getInstance().selectionnerClient(clientsTrouves.get(index));
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			});
+			
 		}
 		return txtResultatsRecherche;
 

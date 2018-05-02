@@ -30,19 +30,6 @@ public class FrameAccueilClinique extends JFrame {
 
 	}
 
-	///////////////////////////////////
-	// FRAMES SECONDAIRES
-	///////////////////////////////////
-	
-	FrameAgenda frameAgenda = new FrameAgenda();
-	FrameAjouterClient frameAjouterClient = new FrameAjouterClient();
-	FrameAnimaux frameAnimaux = new FrameAnimaux();
-	FrameClients frameClients = new FrameClients();
-	FrameDossierMedical frameDossierMedical = new FrameDossierMedical();
-	FrameGestionDuPersonnel frameGestionDuPersonnel = new FrameGestionDuPersonnel();
-	FramePriseRDV framePriseRDV = new FramePriseRDV();
-	FrameRechercheClient frameRechercheClient = new FrameRechercheClient();
-	
 	
 	
 	///////////////////////////////////
@@ -168,7 +155,7 @@ public class FrameAccueilClinique extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					framePriseRDV.setVisible(true);
+					new FramePriseRDV();
 				}
 			});
 		}
@@ -183,7 +170,7 @@ public class FrameAccueilClinique extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					frameClients.setVisible(true);
+					new FrameClients();
 				}
 			});
 		}
@@ -222,7 +209,7 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					frameAgenda.setVisible(true);
+					new FrameAgenda();
 					
 				}
 			});
@@ -262,7 +249,7 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					frameGestionDuPersonnel.setVisible(true);
+					new FrameGestionDuPersonnel();
 					
 				}
 			});

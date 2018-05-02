@@ -59,7 +59,7 @@ public class FramePriseRDV extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
 		setResizable(false);
-		//setVisible(true);
+		setVisible(true);
 	}
 
 	///////////////////////////////////

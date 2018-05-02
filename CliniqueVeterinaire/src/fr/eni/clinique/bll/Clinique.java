@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 import fr.eni.clinique.bo.Animal;
@@ -23,12 +24,14 @@ public class Clinique {
 	private List<Personnel> lePersonnel;
 	private List<RDV> lesRdv;
 	private List<Espece> lesEspeces;
+	private List<Client> laRecherche;
 
 	// TODO: repasser l'indexclientencours a -1 apres les test
-	private int indexClientEnCours = 0;
-	private int indexAnimalEnCours = -1;
-	private Observable<Integer> clientEnCours;
-	//clientEnCours = new Observable<>(0);
+	private Observable<Integer> indexAnimalEnCours;
+	
+	private Observable<Integer> indexClientEnCours;
+	
+
 	
 	private Personnel utilisateurConnecté = null;
 
@@ -38,7 +41,7 @@ public class Clinique {
 		manager = CliniqueManager.getInstance();
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
-		clientEnCours = new Observable<>(0);
+		indexClientEnCours = new Observable<>(0);
 	}
 
 	// GETTERS SETTERS
@@ -52,19 +55,27 @@ public class Clinique {
 	}
 
 	public int getIndexClientEnCours() {
-		return indexClientEnCours;
+		return indexClientEnCours.getValeur();
 	}
 
-	public void setIndexClientEnCours(int indexClientEnCours) {
-		this.indexClientEnCours = indexClientEnCours;
+	public void setIndexClientEnCours(int index) {
+		indexClientEnCours.setValeur(index);;
 	}
 
 	public int getIndexAnimalEnCours() {
-		return indexAnimalEnCours;
+		return indexAnimalEnCours.getValeur();
 	}
 
-	public void setIndexAnimalEnCours(int indexAnimalEnCours) {
-		this.indexAnimalEnCours = indexAnimalEnCours;
+	public void setIndexAnimalEnCours(int index) {
+		indexAnimalEnCours.setValeur(index);
+	}
+	
+	public Observable<Integer> getIndexClientObserve(){
+		return indexClientEnCours;
+	}
+	
+	public Observable<Integer> getIndexAnimalObserve(){
+		return indexClientEnCours;
 	}
 
 	////////////////////////
@@ -84,6 +95,10 @@ public class Clinique {
 	////////////
 	public List<Client> getClients() {
 		return lesClients;
+	}
+	
+	public void setClientEncours(int index) {
+		setIndexClientEnCours(index);
 	}
 
 	/**
@@ -120,18 +135,18 @@ public class Clinique {
 	}
 
 	public Client getClientEnCours() {
-		if (indexClientEnCours == -1) {
+		if (getIndexClientEnCours() == -1) {
 			return null;
 		} else {
-			return lesClients.get(indexClientEnCours);
+			return lesClients.get(getIndexClientEnCours());
 		}
 	}
 
 	public Animal getAnimalEnCours() {
-		if (indexClientEnCours == -1 || indexAnimalEnCours == -1) {
+		if (getIndexClientEnCours() == -1 || getIndexAnimalEnCours() == -1) {
 			return null;
 		} else {
-			return lesClients.get(indexClientEnCours).getAnimaux().get(indexAnimalEnCours);
+			return lesClients.get(getIndexClientEnCours()).getAnimaux().get(getIndexAnimalEnCours());
 		}
 	}
 
@@ -143,12 +158,23 @@ public class Clinique {
 	 * @return liste de Client
 	 */
 	public List<Client> rechercherClients(String mot) {
-		List<Client> resultatList = new ArrayList<>();
+		laRecherche = new ArrayList<>();
 		for (Client c : lesClients) {
 			if(c.getNomClient().indexOf(mot)!=-1 || c.getPrenomClient().indexOf(mot)!=-1)
-				resultatList.add(c);
+				laRecherche.add(c);
 		}
-		return resultatList;
+		return laRecherche;
+	}
+	
+/**
+ * retourne l'index de l'objet rentré dans lesClients selectionné dans la liste de recherche
+ * @param client
+ * @return
+ */
+	public void selectionnerClient(Client client) {
+
+		setIndexClientEnCours(lesClients.indexOf(client));
+		
 	}
 	
 	public void supprimerClientCourant() throws BLLException {
@@ -183,13 +209,11 @@ public class Clinique {
 
 	public List<Espece> getEspeces() {
 		lesEspeces = manager.getEspeces();
-		System.out.println(lesEspeces);
 		return lesEspeces;
 
 	}
 
 	public String[] getTabEspeces() {
-		System.out.println(getEspeces().size());
 		String[] tableau = new String[getEspeces().size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesEspeces.get(i).getNomEspece();
