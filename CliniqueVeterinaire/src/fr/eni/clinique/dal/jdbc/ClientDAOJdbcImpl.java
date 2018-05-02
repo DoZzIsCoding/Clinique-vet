@@ -23,7 +23,8 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	private static final String UPDATE = "update clients SET nom=?" + "prenomClient=?" + "adresse1=?" + "adresse2=?"
 			+ "codePostal=?" + "ville=?" + "numtel=?" + "assurance=?" + "email=?" + "remarque=?" + "archive=?"
 			+ "where codeclient=?";
-	private static final String DELETE = "delete from clients where codeClient=?";
+	private static final String DELETE = "UPDATE CLIENTS SET archive=1 WHERE codeClient=?;"
+										+ "UPDATE ANIMAUX SET archive=1 WHERE codeClient=?;";
 	
 	private static final String SELECT_WITH_ANIMALS =  "SELECT * FROM clients cli join animaux ani on ani.CodeClient = cli.CodeClient where cli.archive=0 and Ani.Archive=0";
 	
@@ -148,7 +149,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		}
 	}
 
-	public boolean supprimer(Client client) {
+	public boolean supprimer(Client client) throws DalException {
 		boolean suppressionOK = false;
 		if (client == null) {
 			throw new NullPointerException();
@@ -159,11 +160,13 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 			// Ajout du critère de restriction
 			pstmt.setInt(1, client.getCodeClient());
+			pstmt.setInt(2, client.getCodeClient());
 			// Exécution de la requête
 			pstmt.executeUpdate();
 			suppressionOK = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new DalException("Erreur de suppression dans la base de données");
 		}
 		return suppressionOK;
 	}

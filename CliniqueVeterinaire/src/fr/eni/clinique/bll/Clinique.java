@@ -154,7 +154,32 @@ public class Clinique {
 		}
 		return resultat;
 	}
+	
+	public void supprimerClientCourant() throws BLLException {
+		Client clientASupprimer = lesClients.get(getIndexClientEnCours());
+		
+		try {
+			manager.supprimerClient(clientASupprimer);
+			lesClients.remove(getIndexClientEnCours());
+		} catch (BLLException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur : suppression client non effectuée");
+		}
+		
+	}
 
+	public void validerClientCourant(Client client) {
+		try {
+			manager.validerClient(client);
+			lesClients.set(getIndexClientEnCours(), client);
+		} catch (ClientNonValideException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	/////////////////
 	// GESTION DES ANIMAUX
 	/////////////////
@@ -278,5 +303,9 @@ public class Clinique {
 			e.printStackTrace();
 		}
 	}
+
+	
+
+	
 
 }

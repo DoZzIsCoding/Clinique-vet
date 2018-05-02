@@ -112,7 +112,7 @@ public class CliniqueManager {
 	}
 
 	/**
-	 * Demande a la DAL de supprimer le RDV
+	 * Demande a la DAL d'ajouter le RDV
 	 * 
 	 * @param rdv
 	 * @throws BLLException
@@ -174,8 +174,7 @@ public class CliniqueManager {
 
 	}
 	
-	
-	private void validerClient(Client client) throws ClientNonValideException{
+	public void validerClient(Client client) throws ClientNonValideException{
 		// TODO Auto-generated method stub
 		Boolean clientOK = true;
 		ClientNonValideException e = new ClientNonValideException();
@@ -207,6 +206,15 @@ public class CliniqueManager {
 
 	}
 
+	public void supprimerClient(Client clientASupprimer) throws BLLException {
+		try {
+			clientDAO.supprimer(clientASupprimer);
+		} catch (DalException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur de suppression");
+		}
+	}
+	
 	public List<Espece> getEspeces() {
 
 		try {
@@ -241,5 +249,9 @@ public class CliniqueManager {
 		}
 		return null;
 	}
+
+	
+
+	
 
 }

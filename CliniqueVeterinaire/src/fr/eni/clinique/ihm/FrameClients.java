@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -134,6 +135,15 @@ public class FrameClients extends JFrame {
 			btnAjouterClient = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
 			btnAjouterClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			btnAjouterClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new FrameAjouterClient();
+					
+				}
+			});
 
 		}
 		return btnAjouterClient;
@@ -145,6 +155,20 @@ public class FrameClients extends JFrame {
 					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
 			btnSupprimerClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			btnSupprimerClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						Clinique.getInstance().supprimerClientCourant();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+					}
+					
+				}
+			});
 		}
 		return btnSupprimerClient;
 	}
@@ -156,6 +180,15 @@ public class FrameClients extends JFrame {
 			btnValiderClient = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
 			btnValiderClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValiderClient.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			btnValiderClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Clinique.getInstance().validerClientCourant();
+					
+				}
+			});
 		}
 		return btnValiderClient;
 	}
