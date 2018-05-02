@@ -31,10 +31,9 @@ public class FrameAccueilClinique extends JFrame {
 		setTitle("Clinique Vétérinaire");
 		setBounds(100, 100, 500, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		setJMenuBar(getMenuPrincipal());
+		setVisible(true);
 
-		applyLookAndFeel();
 	}
 
 	///////////////////////////////////
@@ -268,18 +267,6 @@ public class FrameAccueilClinique extends JFrame {
 	// METHODES
 	//////////////////////////////////
 
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {

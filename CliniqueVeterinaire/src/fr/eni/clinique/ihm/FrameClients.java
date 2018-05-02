@@ -43,10 +43,8 @@ public class FrameClients extends JFrame {
 		setTitle("Clients");
 		setBounds(100, 100, 850, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
-
 		setContentPane(getMainPanel());
-		applyLookAndFeel();
+		setVisible(true);
 		
 		try {
 			setClient(Clinique.getInstance().getClientEnCours());
@@ -471,19 +469,7 @@ public class FrameClients extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
+	
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();

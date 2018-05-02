@@ -26,11 +26,9 @@ public class FrameDossierMedical extends JFrame {
 	public FrameDossierMedical() {
 		setTitle("Agenda");
 		setBounds(100, 100, 800, 450);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		applyLookAndFeel();
+		setVisible(true);
 	}
 
 	private JPanel mainPanel;
@@ -247,17 +245,6 @@ public class FrameDossierMedical extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {

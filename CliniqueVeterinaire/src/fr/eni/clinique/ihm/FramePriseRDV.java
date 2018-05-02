@@ -60,8 +60,6 @@ public class FramePriseRDV extends JFrame {
 		setContentPane(getMainPanel());
 		setResizable(false);
 		setVisible(true);
-
-		applyLookAndFeel();
 	}
 
 	///////////////////////////////////
@@ -538,17 +536,6 @@ public class FramePriseRDV extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {
