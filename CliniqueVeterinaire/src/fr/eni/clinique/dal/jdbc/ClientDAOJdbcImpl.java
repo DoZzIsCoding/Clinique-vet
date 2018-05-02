@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.ClientDAO;
 import fr.eni.clinique.dal.DalException;
@@ -175,6 +176,13 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	//UTILITAIRES
 	///////////////////////
 	
+	public void ajouterClient(Client c) throws DalException{
+		if(c.getCodeClient()==-1){
+			ajouter(c);
+		}else{
+			modifier(c);
+		}
+	}
 	
 	private void preparerParametres(Client client, PreparedStatement pstmt) throws SQLException {
 

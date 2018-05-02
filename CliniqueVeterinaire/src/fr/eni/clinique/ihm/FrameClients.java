@@ -185,7 +185,25 @@ public class FrameClients extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Clinique.getInstance().validerClientCourant();
+					try {
+						Clinique.getInstance().validerClientCourant(
+								new Client(Integer.valueOf(getTxtCodeClient().getText()), 
+											getTxtNomClient().getText(), 
+											getTxtPrenomClient().getText(), 
+											getTxtAdresseClient().getText(), 
+											getTxtAdresseClient2().getText(), 
+											getTxtCodePostalClient().getText(),
+											getTxtVilleClient().getText(),
+											getTxtNumTel().getText(),
+											getTxtAssurance().getText(),
+											getTxtEmail().getText(),
+											getTxtRemarque().getText()));
+					} catch (NumberFormatException e1) {
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+					}
 					
 				}
 			});

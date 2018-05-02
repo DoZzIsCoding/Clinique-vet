@@ -202,7 +202,22 @@ public class CliniqueManager {
 			e.ajouterErreur("La ville ne doit pas dépasser 25 caractères");
 			clientOK = false;
 		}
+		if (client.getNumTel().length() > 15) {
+			e.ajouterErreur("Le numéro de téléphone ne doit pas dépasser 15 caractères");
+			clientOK = false;
+		}
+		if (client.getAssurance().length() > 30) {
+			e.ajouterErreur("Le numéro de police d'assurance ne doit pas dépasser 30 caractères");
+			clientOK = false;
+		}
+		if (client.getEmail().length() > 20) {
+			e.ajouterErreur("L'adresse email ne doit pas dépasser 20 caractères");
+			clientOK = false;
+		}
+				
 		if(!clientOK) throw e;
+		
+		clientDAO.modifier(client);
 
 	}
 
