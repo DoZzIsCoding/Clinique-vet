@@ -174,7 +174,7 @@ public class CliniqueManager {
 
 	}
 	
-	public void validerClient(Client client) throws ClientNonValideException{
+	public void validerClient(Client client) throws ClientNonValideException, BLLException{
 		// TODO Auto-generated method stub
 		Boolean clientOK = true;
 		ClientNonValideException e = new ClientNonValideException();
@@ -217,7 +217,12 @@ public class CliniqueManager {
 				
 		if(!clientOK) throw e;
 		
-		clientDAO.modifier(client);
+		try {
+			clientDAO.ajouterClient(client);
+		} catch (DalException e1) {
+			e1.printStackTrace();
+			throw new BLLException("Erreur validation de client");
+		}
 
 	}
 
