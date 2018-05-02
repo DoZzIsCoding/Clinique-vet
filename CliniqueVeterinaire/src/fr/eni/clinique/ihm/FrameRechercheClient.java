@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,14 +16,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
-import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {
@@ -94,7 +92,18 @@ public class FrameRechercheClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					 //TODO rafraichir la JList
+					try {
+						listModel.clear();
+						for (Client c : Clinique.getInstance().rechercherClients(getTxtZoneDeRecherche().getText())) {
+							listModel.addElement(c.getNomClient()
+									+ " - " + c.getPrenomClient()
+									+ " - " + c.getCodePostal()
+									+ " - " + c.getVille());
+						}
+						
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
 					
 				}
 			});
@@ -111,10 +120,13 @@ public class FrameRechercheClient extends JFrame {
 
 	private JList<String> txtResultatsRecherche;
 	private JScrollPane scrTxtAreaResulatsRecherche;
+	private DefaultListModel listModel;
 	
 	public JList<String> getTxtResultatsRecherche() {
+		DefaultListModel listModel = new DefaultListModel();
+		
 		if(txtResultatsRecherche == null){
-			txtResultatsRecherche = new JList<String>();
+			txtResultatsRecherche = new JList(listModel);
 			scrTxtAreaResulatsRecherche = new JScrollPane(txtResultatsRecherche);
 		}
 		return txtResultatsRecherche;
