@@ -171,10 +171,7 @@ public class Clinique {
 			e.printStackTrace();
 			throw new BLLException("Erreur accès aux données");
 		}
-		
 	}
-
-	
 	
 	/////////////////
 	// GESTION DES ANIMAUX
@@ -204,6 +201,17 @@ public class Clinique {
 		return tableau;
 	}
 
+	public void supprimerAnimal(int selectedRow) throws BLLException {
+		Animal animal = lesClients.get(getIndexClientEnCours()).getAnimaux().get(selectedRow);
+		try {
+			manager.supprimerAnimal(animal);
+			lesClients.get(getIndexClientEnCours()).getAnimaux().remove(selectedRow);
+		} catch (BLLException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur de suppression");
+		}
+	}	
+	
 	/////////////
 	// GESTION DU PERSONNEL
 	/////////////
@@ -299,6 +307,8 @@ public class Clinique {
 			e.printStackTrace();
 		}
 	}
+
+	
 
 	
 	

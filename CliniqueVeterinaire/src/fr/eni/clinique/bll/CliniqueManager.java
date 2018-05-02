@@ -174,6 +174,16 @@ public class CliniqueManager {
 
 	}
 	
+	public boolean supprimerAnimal(Animal animal) throws BLLException{
+		try {
+			animalDAO.supprimer(animal);
+		} catch (DalException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur de suppression dans la base");
+		}
+		return true;
+	}
+	
 	public void validerClient(Client client) throws ClientNonValideException, BLLException{
 		// TODO Auto-generated method stub
 		Boolean clientOK = true;
