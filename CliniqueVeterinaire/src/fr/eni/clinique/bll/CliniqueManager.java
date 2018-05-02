@@ -235,6 +235,17 @@ public class CliniqueManager {
 		}
 	}
 	
+	public void ajouterClient(Client client) throws BLLException {
+		try {
+			clientDAO.ajouterClient(client);
+		} catch (DalException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur d'ajout ");
+		}
+		
+	}
+
+	
 	public List<Espece> getEspeces() {
 
 		try {
@@ -270,6 +281,7 @@ public class CliniqueManager {
 		return null;
 	}
 
+	
 	
 
 	

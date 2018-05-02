@@ -1,11 +1,12 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,10 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameAjouterClient extends JFrame {
@@ -79,35 +83,33 @@ public class FrameAjouterClient extends JFrame {
 			btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
 
-			// btnValider.addActionListener(new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			// Animal animal;
-			//
-			// try {
-			// animal = new Animal(
-			// (Clinique.getInstance().getIndexAnimalEnCours() == -1 ? -1
-			// : Clinique.getInstance().getAnimalEnCours().getCodeAnimal()),
-			// getTxtNomAnimal().getText(),
-			// getCbbSexeAnimal().getSelectedItem().toString().charAt(0),
-			// getTxtCouleurAnimal().getText(), (String)
-			// getCbbRaceAnimal().getSelectedItem(),
-			// (String) getCbbEspeceAnimal().getSelectedItem(),
-			// (Integer)
-			// Clinique.getInstance().getClientEnCours().getCodeClient(),
-			// getTxtTatouage().getText(),
-			// (Clinique.getInstance().getIndexAnimalEnCours() == -1
-			// ? new String() :
-			// Clinique.getInstance().getAnimalEnCours().getAntecedents()));
-			// Clinique.getInstance().ajouterAnimal(animal);
-			// } catch (BLLException e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
-			//
-			// }
-			// });
+			btnValider.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Client client;
+
+					try {
+						client = new Client(
+								-1,
+								getTxtNomClient().getText(), 
+								getTxtPrenomClient().getText(), 
+								getTxtAdresseClient().getText(), 
+								getTxtAdresseClient2().getText(), 
+								getTxtCodePostalClient().getText(),
+								getTxtVilleClient().getText(),
+								getTxtNumTel().getText(),
+								getTxtAssurance().getText(),
+								getTxtEmail().getText(),
+								getTxtRemarque().getText());
+						Clinique.getInstance().ajouterClient(client);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+			});
 
 		}
 		return btnValider;

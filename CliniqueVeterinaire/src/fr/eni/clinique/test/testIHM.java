@@ -19,10 +19,10 @@ public class testIHM {
 				frame.setVisible(false);
 
 				FramePriseRDV rdvFrame = new FramePriseRDV();
-				rdvFrame.setVisible(true);
+				rdvFrame.setVisible(false);
 
 				FrameConnexion connexionFrame = new FrameConnexion();
-				connexionFrame.setVisible(false);
+				connexionFrame.setVisible(true);
 
 				FrameAnimaux animauxFrame = new FrameAnimaux();
 				animauxFrame.setVisible(false);

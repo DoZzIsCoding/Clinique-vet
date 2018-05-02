@@ -174,6 +174,18 @@ public class Clinique {
 		
 	}
 	
+	public void ajouterClient(Client client) throws BLLException {
+		try {
+			manager.ajouterClient(client);
+			lesClients.add(client);
+		} catch (BLLException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur accès aux données");
+		}
+		
+	}
+
+	
 	
 	/////////////////
 	// GESTION DES ANIMAUX
@@ -299,6 +311,7 @@ public class Clinique {
 		}
 	}
 
+	
 	
 
 	
