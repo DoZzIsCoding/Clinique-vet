@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -26,12 +27,10 @@ public class FrameAjouterClient extends JFrame {
 
 	public FrameAjouterClient() {
 		setTitle("Ajouter clients");
-		setBounds(100, 100, 400, 400);
+		setBounds(100, 100, 400, 650);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-
 		setContentPane(getMainPanel());
-		applyLookAndFeel();
+		setVisible(true);
 
 	}
 
@@ -147,6 +146,18 @@ public class FrameAjouterClient extends JFrame {
 
 	private JLabel lblVilleClient;
 	private JTextField txtVilleClient;
+	
+	private JLabel lblNumTel;
+	private JTextField txtNumTel;
+	
+	private JLabel lblAssurance;
+	private JTextField txtAssurance;
+	
+	private JLabel lblEmail;
+	private JTextField txtEmail;
+	
+	private JLabel lblRemarque;
+	private JTextArea txtRemarque;
 
 	public JPanel getPanelDetailsClient() {
 		if (panelDetailsClient == null) {
@@ -165,6 +176,15 @@ public class FrameAjouterClient extends JFrame {
 			addComponentTo(getTxtCodePostalClient(), panelDetailsClient, 1, 5, 1, 1, 1, true);
 			addComponentTo(getLblVilleClient(), panelDetailsClient, 0, 6, 1, 1, 1, true);
 			addComponentTo(getTxtVilleClient(), panelDetailsClient, 1, 6, 1, 1, 1, true);
+			addComponentTo(getLblNumTel(), panelDetailsClient, 0, 7, 1, 1, 1, true);
+			addComponentTo(getTxtNumTel(), panelDetailsClient, 1, 7, 1, 1, 1, true);
+			addComponentTo(getLblAssurance(), panelDetailsClient, 0, 8, 1, 1, 1, true);
+			addComponentTo(getTxtAssurance(), panelDetailsClient, 1, 8, 1, 1, 1, true);
+			addComponentTo(getLblEmail(), panelDetailsClient, 0, 9, 1, 1, 1, true);
+			addComponentTo(getTxtEmail(), panelDetailsClient, 1, 9, 1, 1, 1, true);
+			addComponentTo(getLblRemarque(), panelDetailsClient, 0, 10, 1, 1, 1, true);
+			addComponentTo(getTxtRemarque(), panelDetailsClient, 1, 10, 1, 1, 1, true);
+			
 
 		}
 		return panelDetailsClient;
@@ -261,21 +281,67 @@ public class FrameAjouterClient extends JFrame {
 		}
 		return txtVilleClient;
 	}
+	
+	public JLabel getLblNumTel() {
+		if (lblNumTel == null) {
+			lblNumTel = new JLabel("Téléphone");
+		}
+		return lblNumTel;
+	}
+
+	public JTextField getTxtNumTel() {
+		if (txtNumTel == null) {
+			txtNumTel = new JTextField(20);
+		}
+		return txtNumTel;
+	}
+
+	public JLabel getLblAssurance() {
+		if (lblAssurance == null) {
+			lblAssurance = new JLabel("Assurance");
+		}
+		return lblAssurance;
+	}
+
+	public JTextField getTxtAssurance() {
+		if (txtAssurance == null) {
+			txtAssurance = new JTextField(20);
+		}
+		return txtAssurance;
+	}
+
+	public JLabel getLblEmail() {
+		if (lblEmail == null) {
+			lblEmail = new JLabel("Email");
+		}
+		return lblEmail;
+	}
+
+	public JTextField getTxtEmail() {
+		if (txtEmail == null) {
+			txtEmail = new JTextField(20);
+		}
+		return txtEmail;
+	}
+
+	public JLabel getLblRemarque() {
+		if (lblRemarque == null) {
+			lblRemarque = new JLabel("Remarques");
+		}
+		return lblRemarque;
+	}
+
+	public JTextArea getTxtRemarque() {
+		if (txtRemarque == null) {
+			txtRemarque = new JTextArea(5,20);
+		}
+		return txtRemarque;
+	}
+
 
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {

@@ -31,9 +31,8 @@ public class FrameRechercheClient extends JFrame {
 		setTitle("Résultat de la recherche client");
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
-
 		setContentPane(getMainPanel());
+		setVisible(true);
 
 	}
 
@@ -125,15 +124,5 @@ public class FrameRechercheClient extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	private void applyLookAndFeel() {
-		String look = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-		// look = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-		try {
-			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(this.getContentPane());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
