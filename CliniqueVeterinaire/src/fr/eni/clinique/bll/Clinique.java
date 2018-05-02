@@ -138,21 +138,13 @@ public class Clinique {
 	 * @param mot
 	 * @return liste de Client
 	 */
-	public String[] rechercherClients(String mot) {
-		String[] resultat = new String[getClients().size()];
+	public List<Client> rechercherClients(String mot) {
 		List<Client> resultatList = new ArrayList<>();
 		for (Client c : lesClients) {
 			if(c.getNomClient().indexOf(mot)!=-1 || c.getPrenomClient().indexOf(mot)!=-1)
 				resultatList.add(c);
 		}
-		
-		for (int i = 0; i < resultatList.size(); i++) {
-			resultat[i] = resultatList.get(i).getNomClient() 
-					+ " - " + resultatList.get(i).getPrenomClient()
-					+ " - " + resultatList.get(i).getCodePostal()
-					+ " - " + resultatList.get(i).getVille();
-		}
-		return resultat;
+		return resultatList;
 	}
 	
 	public void supprimerClientCourant() throws BLLException {

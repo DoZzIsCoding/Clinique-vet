@@ -21,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {
@@ -120,10 +121,9 @@ public class FrameRechercheClient extends JFrame {
 
 	private JList<String> txtResultatsRecherche;
 	private JScrollPane scrTxtAreaResulatsRecherche;
-	private DefaultListModel listModel;
+	private DefaultListModel listModel = new DefaultListModel();;
 	
 	public JList<String> getTxtResultatsRecherche() {
-		DefaultListModel listModel = new DefaultListModel();
 		
 		if(txtResultatsRecherche == null){
 			txtResultatsRecherche = new JList(listModel);
