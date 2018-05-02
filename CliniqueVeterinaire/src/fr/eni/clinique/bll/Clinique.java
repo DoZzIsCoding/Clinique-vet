@@ -10,6 +10,7 @@ import javax.swing.ListModel;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Espece;
+import fr.eni.clinique.bo.Observable;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.CreneauDejaPrisException;
@@ -26,7 +27,9 @@ public class Clinique {
 	// TODO: repasser l'indexclientencours a -1 apres les test
 	private int indexClientEnCours = 0;
 	private int indexAnimalEnCours = -1;
-
+	private Observable<Integer> clientEnCours;
+	//clientEnCours = new Observable<>(0);
+	
 	private Personnel utilisateurConnecté = null;
 
 	private CliniqueManager manager;
@@ -35,6 +38,7 @@ public class Clinique {
 		manager = CliniqueManager.getInstance();
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
+		clientEnCours = new Observable<>(0);
 	}
 
 	// GETTERS SETTERS
