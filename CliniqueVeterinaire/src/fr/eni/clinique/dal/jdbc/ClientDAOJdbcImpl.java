@@ -18,7 +18,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 
 	private static final String SELECT_ALL = "SELECT codeClient, NomClient, prenomClient, adresse1, adresse2, codePostal, ville, numTel, assurance, email, remarque FROM clients where archive=0";
 	private static final String SELECT_BY_ID = SELECT_ALL + "and codeClient=?";
-	private static final String INSERT = "INSERT INTO Clients(codeClient, NomClient, prenomClient, "
+	private static final String INSERT = "INSERT INTO Clients(NomClient, prenomClient, "
 			+ "adresse1, adresse2, codePostal, " + "ville, numTel, assurance, email, archive ) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "update clients SET nom=?" 
