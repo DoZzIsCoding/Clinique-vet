@@ -45,7 +45,7 @@ public class FrameClients extends JFrame {
 		setBounds(100, 100, 850, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		setVisible(true);
+		//setVisible(true);
 		
 		try {
 			setClient(Clinique.getInstance().getClientEnCours());

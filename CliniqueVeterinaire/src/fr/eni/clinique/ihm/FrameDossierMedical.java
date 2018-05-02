@@ -28,7 +28,7 @@ public class FrameDossierMedical extends JFrame {
 		setBounds(100, 100, 800, 450);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	private JPanel mainPanel;

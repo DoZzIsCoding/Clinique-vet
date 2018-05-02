@@ -34,7 +34,7 @@ public class FrameAjouterClient extends JFrame {
 		setBounds(100, 100, 400, 650);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		setVisible(true);
+		//setVisible(true);
 
 	}
 

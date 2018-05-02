@@ -31,7 +31,7 @@ public class FrameRechercheClient extends JFrame {
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
-		setVisible(true);
+		//setVisible(true);
 
 	}
 

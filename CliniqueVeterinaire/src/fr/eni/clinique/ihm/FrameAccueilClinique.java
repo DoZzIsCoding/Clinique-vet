@@ -4,8 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,10 +14,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
@@ -36,6 +30,20 @@ public class FrameAccueilClinique extends JFrame {
 
 	}
 
+	///////////////////////////////////
+	// FRAMES SECONDAIRES
+	///////////////////////////////////
+	
+	FrameAgenda frameAgenda = new FrameAgenda();
+	FrameAjouterClient frameAjouterClient = new FrameAjouterClient();
+	FrameAnimaux frameAnimaux = new FrameAnimaux();
+	FrameClients frameClients = new FrameClients();
+	FrameDossierMedical frameDossierMedical = new FrameDossierMedical();
+	FrameGestionDuPersonnel frameGestionDuPersonnel = new FrameGestionDuPersonnel();
+	FramePriseRDV framePriseRDV = new FramePriseRDV();
+	FrameRechercheClient frameRechercheClient = new FrameRechercheClient();
+	
+	
 	///////////////////////////////////
 	// MENUS
 	///////////////////////////////////
@@ -159,8 +167,7 @@ public class FrameAccueilClinique extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new FramePriseRDV();
-
+					framePriseRDV.setVisible(true);
 				}
 			});
 		}
@@ -175,8 +182,7 @@ public class FrameAccueilClinique extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new FrameClients();
-
+					frameClients.setVisible(true);
 				}
 			});
 		}
@@ -215,7 +221,7 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					new FrameAgenda();
+					frameAgenda.setVisible(true);
 					
 				}
 			});
@@ -255,7 +261,7 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					new FrameGestionDuPersonnel();
+					frameGestionDuPersonnel.setVisible(true);
 					
 				}
 			});
