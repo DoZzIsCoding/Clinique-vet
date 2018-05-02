@@ -52,6 +52,6 @@ public interface ClientDAO extends DAO<Client>{
 	public List<Client> selectionnerAvecAnimaux() throws DalException;
 
 
-	public abstract void ajouterClient(Client client) throws DalException;
+	public abstract void traiterClient(Client client) throws DalException;
 
 }

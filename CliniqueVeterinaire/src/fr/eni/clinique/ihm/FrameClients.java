@@ -187,7 +187,7 @@ public class FrameClients extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						Clinique.getInstance().validerClientCourant(
+						Clinique.getInstance().traiterClient(
 								new Client(Integer.valueOf(getTxtCodeClient().getText()), 
 											getTxtNomClient().getText(), 
 											getTxtPrenomClient().getText(), 

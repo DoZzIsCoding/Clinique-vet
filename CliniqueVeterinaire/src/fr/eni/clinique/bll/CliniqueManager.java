@@ -182,7 +182,7 @@ public class CliniqueManager {
 			e.ajouterErreur("Le nom de ne doit pas dépasser 20 caractères");
 			clientOK = false;
 		}
-		if (client.getNomClient() == null ) {
+		if (client.getNomClient().length() == 0 ) {
 			e.ajouterErreur("Le nom est obligatoire");
 			clientOK = false;
 		}
@@ -190,7 +190,7 @@ public class CliniqueManager {
 			e.ajouterErreur("Le prénom de ne doit pas dépasser 20 caractères");
 			clientOK = false;
 		}
-		if (client.getPrenomClient() == null ) {
+		if (client.getPrenomClient().length() == 0  ) {
 			e.ajouterErreur("Le prénom est obligatoire");
 			clientOK = false;
 		}
@@ -226,7 +226,7 @@ public class CliniqueManager {
 		if(!clientOK) throw e;
 		
 		try {
-			clientDAO.ajouterClient(client);
+			clientDAO.traiterClient(client);
 		} catch (DalException e1) {
 			e1.printStackTrace();
 			throw new BLLException("Erreur validation de client");
@@ -243,10 +243,10 @@ public class CliniqueManager {
 		}
 	}
 	
-	public void ajouterClient(Client client) throws BLLException, ClientNonValideException {
+	public void traiterClient(Client client) throws BLLException, ClientNonValideException {
 		try {
 			validerClient(client);
-			clientDAO.ajouterClient(client);
+			clientDAO.traiterClient(client);
 			
 		} catch (DalException e) {
 			e.printStackTrace();

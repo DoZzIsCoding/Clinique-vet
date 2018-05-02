@@ -7,7 +7,7 @@ public class ClientNonValideException extends Exception {
 	
 	public ClientNonValideException() {
 		super();
-		
+		messageGlobal = new String();
 	}
 	
 	public void ajouterErreur(String msg) {

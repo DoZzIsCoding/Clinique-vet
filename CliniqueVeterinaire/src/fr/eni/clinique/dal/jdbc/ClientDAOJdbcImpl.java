@@ -186,7 +186,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	//UTILITAIRES
 	///////////////////////
 	
-	public void ajouterClient(Client c) throws DalException{
+	public void traiterClient(Client c) throws DalException{
 		if(c.getCodeClient()==-1){
 			ajouter(c);
 		}else{

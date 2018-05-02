@@ -44,6 +44,7 @@ public class FrameAccueilClinique extends JFrame {
 	FrameRechercheClient frameRechercheClient = new FrameRechercheClient();
 	
 	
+	
 	///////////////////////////////////
 	// MENUS
 	///////////////////////////////////

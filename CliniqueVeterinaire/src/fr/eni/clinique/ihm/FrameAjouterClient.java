@@ -89,6 +89,7 @@ public class FrameAjouterClient extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Client client;
+					JOptionPane.showConfirmDialog(btnValider, "voulez-vous vraiment créer ce nouveau client?");
 
 					try {
 						client = new Client(
@@ -103,8 +104,9 @@ public class FrameAjouterClient extends JFrame {
 								getTxtAssurance().getText(),
 								getTxtEmail().getText(),
 								getTxtRemarque().getText());
-						JOptionPane.showConfirmDialog(btnValider, "voulez-vous vraiment créer ce nouveau client?");
-						Clinique.getInstance().ajouterClient(client);
+						
+						Clinique.getInstance().traiterClient(client);
+						
 						JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
 					} catch (BLLException e1) {
 						e1.printStackTrace();
