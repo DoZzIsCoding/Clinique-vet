@@ -33,6 +33,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			+ "remarque=?," 
 			+ "archive=? "
 			+ "where codeclient=?";
+	
 	private static final String DELETE = "UPDATE CLIENTS SET archive=1 WHERE codeClient=?;"
 										+ "UPDATE ANIMAUX SET archive=1 WHERE codeClient=?;";
 	
