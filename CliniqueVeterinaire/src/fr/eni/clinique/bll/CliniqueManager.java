@@ -182,8 +182,16 @@ public class CliniqueManager {
 			e.ajouterErreur("Le nom de ne doit pas dépasser 20 caractères");
 			clientOK = false;
 		}
+		if (client.getNomClient() == null ) {
+			e.ajouterErreur("Le nom est obligatoire");
+			clientOK = false;
+		}
 		if (client.getPrenomClient().length() > 20) {
 			e.ajouterErreur("Le prénom de ne doit pas dépasser 20 caractères");
+			clientOK = false;
+		}
+		if (client.getPrenomClient() == null ) {
+			e.ajouterErreur("Le prénom est obligatoire");
 			clientOK = false;
 		}
 		if (client.getAdresse1().length() > 30 || client.getAdresse2().length() > 30) {
@@ -235,12 +243,17 @@ public class CliniqueManager {
 		}
 	}
 	
-	public void ajouterClient(Client client) throws BLLException {
+	public void ajouterClient(Client client) throws BLLException, ClientNonValideException {
 		try {
+			validerClient(client);
 			clientDAO.ajouterClient(client);
+			
 		} catch (DalException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur d'ajout ");
+		} catch (ClientNonValideException e) {
+			e.printStackTrace();
+			throw e;
 		}
 		
 	}

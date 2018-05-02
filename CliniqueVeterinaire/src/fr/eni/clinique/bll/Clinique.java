@@ -160,13 +160,13 @@ public class Clinique {
 		
 	}
 
-	public void validerClientCourant(Client client) throws BLLException {
+	public void validerClientCourant(Client client) throws BLLException, ClientNonValideException {
 		try {
 			manager.validerClient(client);
 			lesClients.set(getIndexClientEnCours(), client);
 		} catch (ClientNonValideException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ClientNonValideException();
 		} catch (BLLException e) {
 			e.printStackTrace();
 			 throw new BLLException("Erreur accès aux données");
@@ -174,7 +174,7 @@ public class Clinique {
 		
 	}
 	
-	public void ajouterClient(Client client) throws BLLException {
+	public void ajouterClient(Client client) throws BLLException, ClientNonValideException {
 		try {
 			manager.ajouterClient(client);
 			lesClients.add(client);

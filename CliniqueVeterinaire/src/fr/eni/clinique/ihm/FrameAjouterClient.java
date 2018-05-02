@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -22,8 +23,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientNonValideException;
 import fr.eni.clinique.bll.Clinique;
-import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
@@ -102,10 +103,15 @@ public class FrameAjouterClient extends JFrame {
 								getTxtAssurance().getText(),
 								getTxtEmail().getText(),
 								getTxtRemarque().getText());
+						JOptionPane.showConfirmDialog(btnValider, "voulez-vous vraiment créer ce nouveau client?");
 						Clinique.getInstance().ajouterClient(client);
+						JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
+						JOptionPane.showMessageDialog(btnValider, "Erreur de saisie, client non créé \n " + e1.getMessage());
+					} catch (ClientNonValideException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
 					}
 
 				}
@@ -120,6 +126,8 @@ public class FrameAjouterClient extends JFrame {
 			btnAnnuler = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
 			btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			
 		}
 		return btnAnnuler;
 	}
@@ -202,6 +210,7 @@ public class FrameAjouterClient extends JFrame {
 	public JTextField getTxtCodeClient() {
 		if (txtCodeClient == null) {
 			txtCodeClient = new JTextField(20);
+			txtCodeClient.setEditable(false);
 		}
 		return txtCodeClient;
 	}

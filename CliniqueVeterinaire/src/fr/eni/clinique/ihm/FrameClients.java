@@ -33,6 +33,7 @@ import javax.swing.table.AbstractTableModel;
 
 import fr.eni.clinique.bll.AnimalNotFoundException;
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientNonValideException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
@@ -198,12 +199,15 @@ public class FrameClients extends JFrame {
 											getTxtAssurance().getText(),
 											getTxtEmail().getText(),
 											getTxtRemarque().getText()));
+					} catch (ClientNonValideException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());
 					} catch (NumberFormatException e1) {
 						e1.printStackTrace();
 					} catch (BLLException e1) {
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-					}
+						
+					} 
 					
 				}
 			});
