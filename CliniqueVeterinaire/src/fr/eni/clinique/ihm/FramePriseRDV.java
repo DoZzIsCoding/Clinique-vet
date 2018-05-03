@@ -30,6 +30,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -483,6 +485,14 @@ public class FramePriseRDV extends JFrame {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
 
+			tableRDV.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					getBtnSupprimerRDV().setEnabled(true);
+					
+				}
+			});
 		}
 		return tableRDV;
 	}
@@ -499,8 +509,8 @@ public class FramePriseRDV extends JFrame {
 		if (panelBoutonsduBasRDV == null) {
 			panelBoutonsduBasRDV = new JPanel(new FlowLayout());
 
-			panelBoutonsduBasRDV.add(getBtnSupprimerRDV());
 			panelBoutonsduBasRDV.add(getBtnValiderRDV());
+			panelBoutonsduBasRDV.add(getBtnSupprimerRDV());
 			// BOUTON ANNULER ??? panelBoutonsduBasRDV.add(get, constraints);
 		}
 		return panelBoutonsduBasRDV;
@@ -510,12 +520,8 @@ public class FramePriseRDV extends JFrame {
 		if (btnSupprimerRDV == null) {
 			btnSupprimerRDV = new JButton("Supprimer");
 
-			// if(getTableRDV().getSelectedRow() < 0){
-			// btnSupprimerRDV.setEnabled(false);
-			// } else {
-			// btnSupprimerRDV.setEnabled(true);
-			// }
-
+			btnSupprimerRDV.setEnabled(false);
+			
 			btnSupprimerRDV.addActionListener(new ActionListener() {
 
 				@Override

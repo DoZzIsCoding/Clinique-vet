@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 import fr.eni.clinique.bll.AnimalNotFoundException;
@@ -557,6 +563,15 @@ public class FrameClients extends JFrame {
 			tableModel = new AnimalTableModel();
 			tableAnimauxClient = new JTable(tableModel);
 			
+			tableAnimauxClient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					getBtnSupprimerAnimal().setEnabled(true);
+					getBtnModifieranimal().setEnabled(true);
+					
+				}
+			});
 			
 		}
 		return tableAnimauxClient;
@@ -572,10 +587,10 @@ public class FrameClients extends JFrame {
 		if(panelBoutons == null){
 			panelBoutons = new JPanel();
 			panelBoutons.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			panelBoutons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+			//panelBoutons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 			panelBoutons.add(getBtnAjouterAnimal());
-			panelBoutons.add(getBtnSupprimerAnimal());
 			panelBoutons.add(getBtnModifieranimal());
+			panelBoutons.add(getBtnSupprimerAnimal());
 			
 		}
 		return panelBoutons;
@@ -584,7 +599,8 @@ public class FrameClients extends JFrame {
 	public JButton getBtnAjouterAnimal() {
 		if(btnAjouterAnimal == null){
 			btnAjouterAnimal = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
-		
+			btnAjouterAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btnAjouterAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnAjouterAnimal.addActionListener(new ActionListener() {
 				
 				@Override
@@ -593,7 +609,6 @@ public class FrameClients extends JFrame {
 					
 				}
 			});
-		
 		}
 		return btnAjouterAnimal;
 	}
@@ -601,7 +616,9 @@ public class FrameClients extends JFrame {
 	public JButton getBtnSupprimerAnimal() {
 		if(btnSupprimerAnimal == null){
 			btnSupprimerAnimal = new JButton("Supprimer", new ImageIcon(getClass().getResource("./resources/supprimer.png")));
-			
+			btnSupprimerAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btnSupprimerAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnSupprimerAnimal.setEnabled(false);
 			btnSupprimerAnimal.addActionListener(new ActionListener() {
 				
 				@Override
@@ -621,7 +638,9 @@ public class FrameClients extends JFrame {
 	public JButton getBtnModifieranimal() {
 		if(btnModifieranimal == null){
 			btnModifieranimal = new JButton("Modifier", new ImageIcon(getClass().getResource("./resources/modifier.png")));
-		
+			btnModifieranimal.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btnModifieranimal.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnModifieranimal.setEnabled(false);
 			btnModifieranimal.addActionListener(new ActionListener() {
 				
 				@Override
@@ -632,10 +651,6 @@ public class FrameClients extends JFrame {
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					}
-					
-					// idem ajouter animal avec le setANimal
-					// ouvre un frameAnimal
-					//
 				}
 			});		
 		}
