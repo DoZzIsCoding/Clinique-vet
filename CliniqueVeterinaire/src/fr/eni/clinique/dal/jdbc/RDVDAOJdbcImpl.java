@@ -28,6 +28,8 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	private static final String INSERT_RDV = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?);";
 	
+	private static final String VERIF_RDV = "SELECT * from Agendas where (CodeVeto=? and DateRdv=?) or (CodeAnimal = ? and DateRdv=?)";
+	
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
 		// TODO Auto-generated method stub
@@ -42,6 +44,9 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	@Override
 	public void ajouter(RDV value) throws DalException, CreneauDejaPrisException {
+		verifierRDV(value);
+		
+		//Ici on considere que le veterinaire est disponible pour l'horaire demandé
 		try (Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
 			Timestamp ts = Timestamp.valueOf(value.getDate());
@@ -57,6 +62,27 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			throw new DalException("erreur d'insertion de rendez vous");
 		}
 
+	}
+
+	private void verifierRDV(RDV value) throws CreneauDejaPrisException {
+		try (Connection cnx = ConnectionDAO.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(VERIF_RDV);
+			Timestamp ts = Timestamp.valueOf(value.getDate());
+			pstmt.setInt(1, value.getCodeVeto());
+			pstmt.setTimestamp(2, ts);
+			pstmt.setInt(3, value.getCodeAnimal());
+			pstmt.setTimestamp(2, ts);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				throw new CreneauDejaPrisException("Le Veterinaire n'est pas disponible a cette heure");
+			}
+		}catch (SQLServerException e) {
+			e.printStackTrace();
+			throw new CreneauDejaPrisException("un Rdv existe deja a cette heure");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
