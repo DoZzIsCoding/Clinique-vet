@@ -243,7 +243,7 @@ public class FrameAgenda extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//TODO: lier a la frame parent
+					new FrameDossierMedical();
 				}
 			});
 		}

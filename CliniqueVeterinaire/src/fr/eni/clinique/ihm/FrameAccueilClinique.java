@@ -171,6 +171,7 @@ public class FrameAccueilClinique extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					new FrameClients();
+					
 				}
 			});
 		}
@@ -282,8 +283,5 @@ public class FrameAccueilClinique extends JFrame {
 
 	}
 
-	protected void quitterProgramme() {
-
-	}
 
 }

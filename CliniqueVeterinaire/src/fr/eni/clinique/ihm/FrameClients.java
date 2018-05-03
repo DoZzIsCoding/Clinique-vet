@@ -69,11 +69,22 @@ public class FrameClients extends JFrame {
 			e1.printStackTrace();
 		}
 		
-
-
-		
 		try {
-			setClient(Clinique.getInstance().getClientEnCours());
+			if(Clinique.getInstance().getIndexClientEnCours() > -1){
+				setClient(Clinique.getInstance().getClientEnCours());
+			} else {
+				getTxtNomClient().setText("");
+				getTxtPrenomClient().setText("");
+				getTxtAdresseClient().setText("");
+				getTxtAdresseClient2().setText("");
+				getTxtCodePostalClient().setText("");
+				getTxtVilleClient().setText("");
+				getTxtNumTel().setText("");
+				getTxtAssurance().setText("");
+				getTxtEmail().setText("");
+				getTxtRemarque().setText("");
+				
+			}
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -231,7 +242,7 @@ public class FrameClients extends JFrame {
 											getTxtAssurance().getText(),
 											getTxtEmail().getText(),
 											getTxtRemarque().getText()));
-
+							fermerFenetre();
 						} catch (ClientNonValideException e1) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());
