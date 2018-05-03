@@ -188,6 +188,7 @@ public class FrameClients extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						Clinique.getInstance().supprimerClientCourant();
+						setClient(Clinique.getInstance().getClientEnCours());
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage());

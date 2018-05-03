@@ -15,14 +15,15 @@ public class testIHM {
 
 			@Override
 			public void run() {
+				FrameConnexion connexionFrame = new FrameConnexion();
+				connexionFrame.setVisible(true);
+				
 				FrameAnimaux frame = new FrameAnimaux();
 				frame.setVisible(false);
 
 				FramePriseRDV rdvFrame = new FramePriseRDV();
 				rdvFrame.setVisible(false);
 
-				FrameConnexion connexionFrame = new FrameConnexion();
-				connexionFrame.setVisible(true);
 
 				FrameAnimaux animauxFrame = new FrameAnimaux();
 				animauxFrame.setVisible(false);

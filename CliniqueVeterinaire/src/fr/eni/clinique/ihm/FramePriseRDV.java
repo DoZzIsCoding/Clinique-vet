@@ -29,9 +29,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
@@ -303,14 +300,20 @@ public class FramePriseRDV extends JFrame {
 			border.setTitlePosition(TitledBorder.TOP);
 			quandPanel = new JPanel(new GridBagLayout());
 
+			Component rigidArea = Box.createRigidArea(new Dimension(5, 5));
+			
+			
 			quandPanel.setBorder(border);
 			
 			addComponentTo(getLblDate(), quandPanel, 0, 0, 1, 1, 1, true);
-			addComponentTo(getDatePicker(), quandPanel, 0, 1, 4, 1, 1, true);
+			addComponentTo(getDatePicker(), quandPanel, 0, 1, 6, 1, 1, true);
 			addComponentTo(getLblHeure(), quandPanel, 0, 2, 1, 1, 1, true);
 			addComponentTo(getCbbHeure(), quandPanel, 0, 3, 1, 1, 1, true);
 			addComponentTo(getLblH(), quandPanel, 1, 3, 1, 1, 2, true);
-			addComponentTo(getCbbMinute(), quandPanel, 1, 3, 1, 1, 1, true);
+			addComponentTo((JComponent) rigidArea, quandPanel, 2, 3, 1, 1, 1, true);
+			addComponentTo(getCbbMinute(), quandPanel, 3, 3, 1, 1, 1, true);
+			addComponentTo((JComponent) rigidArea, quandPanel, 4, 3, 1, 1, 1, true);
+			addComponentTo((JComponent) rigidArea, quandPanel, 5, 3, 1, 1, 1, true);
 			
 		}
 		return quandPanel;
