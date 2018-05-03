@@ -83,15 +83,12 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_WITH_ANIMALS);
-			//TODO modifier la boucle pour ajouter les animaux a la liste de chaque client
 			int cliEnCours = -1;
-			int indexListeClient = 0;
 			while (rs.next()) {
 				if(rs.getInt("codeclient") != cliEnCours){
 					cliEnCours = rs.getInt("codeclient");
 					clients.add(this.itemBuilder(rs));
 					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
-					indexListeClient++;
 				}
 				else{
 					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
