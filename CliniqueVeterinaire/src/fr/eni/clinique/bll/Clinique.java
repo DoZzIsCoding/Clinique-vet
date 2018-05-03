@@ -125,11 +125,11 @@ public class Clinique {
 		return tableau;
 	}
 
-	public void ajouterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
+	public void traiterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
 
-		manager.ajouterAnimal(animal);
+		manager.traiterAnimal(animal);
 		getClientEnCours().ajouterAnimal(animal);
-
+		setIndexAnimalEnCours(getClientEnCours().getAnimaux().size()-1);
 	}
 
 	public Client getClientEnCours() {

@@ -44,6 +44,9 @@ public interface AnimalDAO extends DAO<Animal>{
 	public abstract boolean supprimer(Animal animal) throws DalException;
 
 
+	public abstract void traiterAnimal(Animal animal) throws DalException;
+
+
 	
 	
 	

@@ -137,11 +137,10 @@ public class CliniqueManager {
 	 * @throws AnimalNonValideException 
 	 * @throws BLLException 
 	 */
-	public void ajouterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
+	public void traiterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
 		try {
 			validerAnimal(animal);
-
-			animalDAO.ajouter(animal);
+			animalDAO.traiterAnimal(animal);
 
 		} catch (DalException e) {
 			// TODO Auto-generated catch block

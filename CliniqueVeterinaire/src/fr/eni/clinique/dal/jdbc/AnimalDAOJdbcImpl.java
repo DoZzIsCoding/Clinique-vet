@@ -131,11 +131,19 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	//////////////////////////
 	// UTILITAIRES
 	//////////////////////////
-	public void ajouterAnimal(Animal a) throws DalException{
+	public void traiterAnimal(Animal a) throws DalException{
 		if(a.getCodeAnimal()==-1){
-			ajouter(a);
+			try {
+				ajouter(a);
+			} catch (DalException e) {
+				throw new DalException("erreur ajout animal dans la base");
+			}
 		}else{
-			modifier(a);
+			try {
+				modifier(a);
+			} catch (DalException e) {
+				throw new DalException("erreur modification animal dans la base");
+			}
 		}
 	}
 	

@@ -37,7 +37,7 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 	private static final String DELETE = "UPDATE CLIENTS SET archive=1 WHERE codeClient=?;"
 										+ "UPDATE ANIMAUX SET archive=1 WHERE codeClient=?;";
 	
-	private static final String SELECT_WITH_ANIMALS =  "SELECT * FROM clients cli join animaux ani on ani.CodeClient = cli.CodeClient where cli.archive=0 and Ani.Archive=0";
+	private static final String SELECT_WITH_ANIMALS =  "SELECT * FROM clients cli join animaux ani on ani.CodeClient = cli.CodeClient  order by cli.CodeClient";
 	
 	/**
 	 * selectionne un client sans ses animaux
@@ -88,10 +88,15 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				if(rs.getInt("codeclient") != cliEnCours){
 					cliEnCours = rs.getInt("codeclient");
 					clients.add(this.itemBuilder(rs));
-					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					
+					if(!rs.getBoolean("Archive")){
+						clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					}
 				}
 				else{
-					clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					if(!rs.getBoolean("Archive")){
+						clients.get(clients.size()-1).ajouterAnimal(AnimalDAOJdbcImpl.itemBuilder(rs));
+					}
 				}
 			}
 		} catch (SQLException e) {
