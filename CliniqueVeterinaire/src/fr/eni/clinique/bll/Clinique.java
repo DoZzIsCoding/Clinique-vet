@@ -99,12 +99,12 @@ public class Clinique {
 	////////////
 	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
+	
 	public List<Client> getClients() {
 		try {
 			lesClients = manager.getClients();
 			return lesClients;
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -156,7 +156,7 @@ public class Clinique {
 		if (getIndexClientEnCours() == -1) {
 			return null;
 		} else {
-			return lesClients.get(getIndexClientEnCours());
+			return getClients().get(getIndexClientEnCours());
 		}
 	}
 
@@ -191,7 +191,12 @@ public class Clinique {
  */
 	public void selectionnerClient(Client client) {
 
-		setIndexClientEnCours(lesClients.indexOf(client));
+		//TODO: Solution de fortune a optimiser
+		for (int i = 0; i < getClients().size(); i++) {
+			if(lesClients.get(i).getCodeClient() == client.getCodeClient()) {
+				setIndexClientEnCours(i);
+			}
+		}
 		
 	}
 	

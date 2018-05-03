@@ -137,9 +137,8 @@ public class Client {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Client [getAnimaux()=");
-		builder.append(getAnimaux());
-		builder.append(", getCodeClient()=");
+		
+		builder.append("getCodeClient()=");
 		builder.append(getCodeClient());
 		builder.append(", getNomClient()=");
 		builder.append(getNomClient());
@@ -163,6 +162,8 @@ public class Client {
 		builder.append(getRemarque());
 		builder.append(", getArchive()=");
 		builder.append(getArchive());
+		builder.append("Client [getAnimaux()=");
+		builder.append(getAnimaux());
 		builder.append("]");
 		return builder.toString();
 	}

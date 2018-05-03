@@ -586,7 +586,7 @@ public class FramePriseRDV extends JFrame {
 
 					try {
 						if(dateRdv.isBefore(LocalDateTime.now())){
-							throw new DateAnterieureException("La date saisie" + dateRdv +" est anterieure a la date du jour "+ LocalDateTime.now());
+							throw new DateAnterieureException("La date saisie est anterieure a la date du jour");
 							
 						};
 						int res = JOptionPane.showConfirmDialog(null, "Confirmez-vous ce rendez-vous ?",

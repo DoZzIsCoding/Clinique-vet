@@ -101,6 +101,7 @@ public class FrameRechercheClient extends JFrame {
 				@Override 
 				public void actionPerformed(ActionEvent e) {
 					try {
+						clientsTrouves = new ArrayList<>();
 						listModel.clear();
 						for (Client c : Clinique.getInstance().rechercherClients(getTxtZoneDeRecherche().getText())) {
 							listModel.addElement(c.getNomClient()
@@ -142,11 +143,9 @@ public class FrameRechercheClient extends JFrame {
 				public void valueChanged(ListSelectionEvent e) {
 					int index;
 					try {
-						//index = Clinique.getInstance().getClients().indexOf(clientsTrouves.get(txtResultatsRecherche.getSelectedIndex()));
 						index = txtResultatsRecherche.getSelectedIndex();
 						Clinique.getInstance().selectionnerClient(clientsTrouves.get(index));
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					

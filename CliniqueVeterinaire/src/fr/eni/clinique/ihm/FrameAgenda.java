@@ -119,25 +119,25 @@ public class FrameAgenda extends JFrame {
 			try {
 				cbbVeterinaire = new JComboBox<String>(Clinique.getInstance().getTabNomsVeterinaires());
 				cbbVeterinaire.setPreferredSize(new Dimension(100, 100));
-				
+
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			// cbbVeterinaire.addActionListener(new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			// try {
-			// tableModel.updateData();
-			// } catch (BLLException e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
-			//
-			// }
-			// });
+			cbbVeterinaire.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						tableModel.updateData();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+			});
 		}
 		return cbbVeterinaire;
 	}
@@ -165,19 +165,19 @@ public class FrameAgenda extends JFrame {
 		if (datePicker == null) {
 			datePicker = new JDatePickerImpl(getDatePanel(), new DateComponentFormatter());
 
-			// datePicker.addActionListener(new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			// try {
-			// tableModel.updateData();
-			// } catch (BLLException e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
-			//
-			// }
-			// });
+			 datePicker.addActionListener(new ActionListener() {
+			
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+			 try {
+			 tableModel.updateData();
+			 } catch (BLLException e1) {
+			 // TODO Auto-generated catch block
+			 e1.printStackTrace();
+			 }
+			
+			 }
+			 });
 		}
 		return datePicker;
 	}
@@ -213,13 +213,13 @@ public class FrameAgenda extends JFrame {
 		if (tableRDV == null) {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
-			
+
 			tableRDV.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				
+
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
 					getBtndossierMedical().setEnabled(true);
-					
+
 				}
 			});
 		}
@@ -246,15 +246,15 @@ public class FrameAgenda extends JFrame {
 		if (btndossierMedical == null) {
 			btndossierMedical = new JButton("Dossier médical",
 					new ImageIcon(getClass().getResource("./resources/dossierMedical.png")));
-			
+
 			btndossierMedical.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-			
+
 			btndossierMedical.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btndossierMedical.setHorizontalTextPosition(SwingConstants.CENTER);
 			btndossierMedical.setEnabled(false);
-			
+
 			btndossierMedical.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					new FrameDossierMedical();
@@ -263,8 +263,6 @@ public class FrameAgenda extends JFrame {
 		}
 		return btndossierMedical;
 	}
-	
-	
 
 	///////////////////////////////////
 	// METHODES

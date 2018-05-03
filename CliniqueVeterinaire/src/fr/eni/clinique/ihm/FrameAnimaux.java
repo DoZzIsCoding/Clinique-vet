@@ -40,6 +40,7 @@ public class FrameAnimaux extends JFrame {
 		setBounds(100, 100, 500, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
+		setResizable(false);
 		setVisible(true);
 	}
 

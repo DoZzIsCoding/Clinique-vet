@@ -720,7 +720,6 @@ public class FrameClients extends JFrame {
 			try {
 				animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -732,8 +731,12 @@ public class FrameClients extends JFrame {
 		 * @throws BLLException
 		 */
 		public void updateData() throws BLLException {
-			animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
-			fireTableDataChanged();
+			
+			if(Clinique.getInstance().getClientEnCours()!=null) {
+				animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
+				fireTableDataChanged();
+				
+			}
 		}
 
 		@Override
@@ -750,11 +753,6 @@ public class FrameClients extends JFrame {
 		public String getColumnName(int column) {
 			return nomsColonne[column];
 		}
-
-		// @Override
-		// public Class<?> getColumnClass(int columnIndex) {
-		// return getValueAt(0, columnIndex).getClass();
-		// }
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
