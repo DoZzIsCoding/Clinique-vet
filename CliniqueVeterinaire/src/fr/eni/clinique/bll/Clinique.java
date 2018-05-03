@@ -178,7 +178,7 @@ public class Clinique {
 	public List<Client> rechercherClients(String mot) {
 		laRecherche = new ArrayList<>();
 		for (Client c : lesClients) {
-			if(c.getNomClient().indexOf(mot)!=-1 || c.getPrenomClient().indexOf(mot)!=-1)
+			if(c.getNomClient().toLowerCase().indexOf(mot.toLowerCase())!=-1 || c.getPrenomClient().toLowerCase().indexOf(mot.toLowerCase())!=-1)
 				laRecherche.add(c);
 		}
 		return laRecherche;

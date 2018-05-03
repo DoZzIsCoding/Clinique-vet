@@ -43,7 +43,8 @@ import fr.eni.clinique.exceptions.ClientNonValideException;
 public class FrameClients extends JFrame {
 
 	private Observable<Integer> clientEnCours;
-	
+	private Observable<Boolean> listeMiseAJour;
+
 	public FrameClients() {
 		setTitle("Clients");
 		setBounds(100, 100, 850, 600);
@@ -53,7 +54,7 @@ public class FrameClients extends JFrame {
 		try {
 			clientEnCours = Clinique.getInstance().getIndexClientObserve();
 			clientEnCours.registerListener(new ObservableListener() {
-				
+
 				@Override
 				public void onChanged() {
 					try {
@@ -69,13 +70,32 @@ public class FrameClients extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		try {
 			setClient(Clinique.getInstance().getClientEnCours());
 		} catch (BLLException e) {
 			e.printStackTrace();
 		}
-		
+
+		try {
+			listeMiseAJour = Clinique.getInstance().getListeMiseAJourObserve();
+			listeMiseAJour.registerListener(new ObservableListener() {
+
+				@Override
+				public void onChanged() {
+					try {
+						tableModel.updateData();
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		} catch (BLLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 	}
 
 	////////////////////////////////
@@ -93,8 +113,6 @@ public class FrameClients extends JFrame {
 			mainPanel.add(getPanelDetailsClient(), BorderLayout.LINE_START);
 			mainPanel.add(getPanelAnimauxClient(), BorderLayout.LINE_END);
 
-			
-			
 		}
 		return mainPanel;
 	}
@@ -113,10 +131,10 @@ public class FrameClients extends JFrame {
 	public JPanel getPanelBoutonsDuHaut() {
 		if (panelBoutonsDuHaut == null) {
 			panelBoutonsDuHaut = new JPanel(new BorderLayout());
-			
+
 			Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 			panelBoutonsDuHaut.setBorder(border);
-			
+
 			Box box = Box.createHorizontalBox();
 
 			box = Box.createHorizontalBox();
@@ -140,12 +158,12 @@ public class FrameClients extends JFrame {
 			btnRechercherClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnRechercherClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+
 					new FrameRechercheClient();
-					
+
 				}
 			});
 		}
@@ -159,13 +177,13 @@ public class FrameClients extends JFrame {
 			btnAjouterClient = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
 			btnAjouterClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterClient.setHorizontalTextPosition(SwingConstants.CENTER);
-			
+
 			btnAjouterClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					new FrameAjouterClient();
-					
+
 				}
 			});
 
@@ -179,9 +197,9 @@ public class FrameClients extends JFrame {
 					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
 			btnSupprimerClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerClient.setHorizontalTextPosition(SwingConstants.CENTER);
-			
+
 			btnSupprimerClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -191,7 +209,7 @@ public class FrameClients extends JFrame {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
-					
+
 				}
 			});
 		}
@@ -205,31 +223,27 @@ public class FrameClients extends JFrame {
 			btnValiderClient = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
 			btnValiderClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValiderClient.setHorizontalTextPosition(SwingConstants.CENTER);
-			
+
 			btnValiderClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
-					int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment valider les modifications du client ?",
-							"Valider les modifications", JOptionPane.OK_CANCEL_OPTION);
+
+					int res = JOptionPane.showConfirmDialog(null,
+							"Voulez-vous vraiment valider les modifications du client ?", "Valider les modifications",
+							JOptionPane.OK_CANCEL_OPTION);
 
 					switch (res) {
 					case JOptionPane.OK_OPTION:
 						try {
-							Clinique.getInstance().traiterClient(
-									new Client(Integer.valueOf(getTxtCodeClient().getText()), 
-											getTxtNomClient().getText(), 
-											getTxtPrenomClient().getText(), 
-											getTxtAdresseClient().getText(), 
-											getTxtAdresseClient2().getText(), 
-											getTxtCodePostalClient().getText(),
-											getTxtVilleClient().getText(),
-											getTxtNumTel().getText(),
-											getTxtAssurance().getText(),
-											getTxtEmail().getText(),
-											getTxtRemarque().getText()));
-						
+							Clinique.getInstance()
+									.traiterClient(new Client(Integer.valueOf(getTxtCodeClient().getText()),
+											getTxtNomClient().getText(), getTxtPrenomClient().getText(),
+											getTxtAdresseClient().getText(), getTxtAdresseClient2().getText(),
+											getTxtCodePostalClient().getText(), getTxtVilleClient().getText(),
+											getTxtNumTel().getText(), getTxtAssurance().getText(),
+											getTxtEmail().getText(), getTxtRemarque().getText()));
+
 						} catch (ClientNonValideException e1) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());
@@ -237,7 +251,7 @@ public class FrameClients extends JFrame {
 							e1.printStackTrace();
 						} catch (BLLException e1) {
 							e1.printStackTrace();
-						} 
+						}
 					case JOptionPane.CANCEL_OPTION:
 						try {
 							setClient(Clinique.getInstance().getClientEnCours());
@@ -259,13 +273,14 @@ public class FrameClients extends JFrame {
 			btnAnnulerClient = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
 			btnAnnulerClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnulerClient.setHorizontalTextPosition(SwingConstants.CENTER);
-			
+
 			btnAnnulerClient.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment annuler les modifications du client ?",
-							"Annuler les modifications", JOptionPane.OK_CANCEL_OPTION);
+					int res = JOptionPane.showConfirmDialog(null,
+							"Voulez-vous vraiment annuler les modifications du client ?", "Annuler les modifications",
+							JOptionPane.OK_CANCEL_OPTION);
 
 					switch (res) {
 					case JOptionPane.OK_OPTION:
@@ -310,24 +325,22 @@ public class FrameClients extends JFrame {
 
 	private JLabel lblVilleClient;
 	private JTextField txtVilleClient;
-	
+
 	private JLabel lblNumTel;
 	private JTextField txtNumTel;
-	
+
 	private JLabel lblAssurance;
 	private JTextField txtAssurance;
-	
+
 	private JLabel lblEmail;
 	private JTextField txtEmail;
-	
+
 	private JLabel lblRemarque;
 	private JTextArea txtRemarque;
 
 	public JPanel getPanelDetailsClient() {
 		if (panelDetailsClient == null) {
 			panelDetailsClient = new JPanel(new GridBagLayout());
-			
-			
 
 			addComponentTo(getLblCodeClient(), panelDetailsClient, 0, 0, 1, 1, 1, true);
 			addComponentTo(getTxtCodeClient(), panelDetailsClient, 1, 0, 1, 1, 1, true);
@@ -350,7 +363,6 @@ public class FrameClients extends JFrame {
 			addComponentTo(getTxtEmail(), panelDetailsClient, 1, 9, 1, 1, 1, true);
 			addComponentTo(getLblRemarque(), panelDetailsClient, 0, 10, 1, 1, 1, true);
 			addComponentTo(getTxtRemarque(), panelDetailsClient, 1, 10, 1, 1, 1, true);
-			
 
 		}
 		return panelDetailsClient;
@@ -448,7 +460,7 @@ public class FrameClients extends JFrame {
 		}
 		return txtVilleClient;
 	}
-	
+
 	public JLabel getLblNumTel() {
 		if (lblNumTel == null) {
 			lblNumTel = new JLabel("Téléphone");
@@ -500,7 +512,7 @@ public class FrameClients extends JFrame {
 
 	public JTextArea getTxtRemarque() {
 		if (txtRemarque == null) {
-			txtRemarque = new JTextArea(5,20);
+			txtRemarque = new JTextArea(5, 20);
 		}
 		return txtRemarque;
 	}
@@ -511,9 +523,9 @@ public class FrameClients extends JFrame {
 	private JPanel panelAnimauxClient;
 
 	public JPanel getPanelAnimauxClient() {
-		if(panelAnimauxClient == null){
+		if (panelAnimauxClient == null) {
 			panelAnimauxClient = new JPanel(new BorderLayout());
-			
+
 			panelAnimauxClient.add(getPanelTableAnimauxClient(), BorderLayout.PAGE_START);
 			panelAnimauxClient.add(getPanelBoutons(), BorderLayout.AFTER_LAST_LINE);
 		}
@@ -524,9 +536,9 @@ public class FrameClients extends JFrame {
 	private JScrollPane panelTableAnimauxClient;
 	private JTable tableAnimauxClient;
 	private AnimalTableModel tableModel;
-	
+
 	public JScrollPane getPanelTableAnimauxClient() {
-		if (panelTableAnimauxClient == null){
+		if (panelTableAnimauxClient == null) {
 			panelTableAnimauxClient = new JScrollPane();
 			panelTableAnimauxClient.setViewportView(getTableAnimauxClient());
 		}
@@ -534,20 +546,19 @@ public class FrameClients extends JFrame {
 	}
 
 	public JTable getTableAnimauxClient() {
-		if(tableAnimauxClient == null){
+		if (tableAnimauxClient == null) {
 			tableModel = new AnimalTableModel();
 			tableAnimauxClient = new JTable(tableModel);
-			
 			tableAnimauxClient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				
+
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
 					getBtnSupprimerAnimal().setEnabled(true);
 					getBtnModifieranimal().setEnabled(true);
-					
+
 				}
 			});
-			
+
 		}
 		return tableAnimauxClient;
 	}
@@ -557,31 +568,37 @@ public class FrameClients extends JFrame {
 	private JButton btnAjouterAnimal;
 	private JButton btnSupprimerAnimal;
 	private JButton btnModifieranimal;
-	
+
 	public JPanel getPanelBoutons() {
-		if(panelBoutons == null){
+		if (panelBoutons == null) {
 			panelBoutons = new JPanel();
 			panelBoutons.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			//panelBoutons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+			// panelBoutons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 			panelBoutons.add(getBtnAjouterAnimal());
 			panelBoutons.add(getBtnModifieranimal());
 			panelBoutons.add(getBtnSupprimerAnimal());
-			
+
 		}
 		return panelBoutons;
 	}
 
 	public JButton getBtnAjouterAnimal() {
-		if(btnAjouterAnimal == null){
+		if (btnAjouterAnimal == null) {
 			btnAjouterAnimal = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
 			btnAjouterAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnAjouterAnimal.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new FrameAnimaux();
-					
+					try {
+						Clinique.getInstance().setIndexAnimalEnCours(-1);
+						new FrameAnimaux();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 				}
 			});
 		}
@@ -589,21 +606,22 @@ public class FrameClients extends JFrame {
 	}
 
 	public JButton getBtnSupprimerAnimal() {
-		if(btnSupprimerAnimal == null){
-			btnSupprimerAnimal = new JButton("Supprimer", new ImageIcon(getClass().getResource("./resources/supprimer.png")));
+		if (btnSupprimerAnimal == null) {
+			btnSupprimerAnimal = new JButton("Supprimer",
+					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
 			btnSupprimerAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnSupprimerAnimal.setEnabled(false);
 			btnSupprimerAnimal.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				try {
-					Clinique.getInstance().supprimerAnimal(getTableAnimauxClient().getSelectedRow());
-					tableModel.fireTableDataChanged();
-				} catch (BLLException e1) {
-					e1.printStackTrace();
-				}
+					try {
+						Clinique.getInstance().supprimerAnimal(getTableAnimauxClient().getSelectedRow());
+						tableModel.fireTableDataChanged();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -611,13 +629,14 @@ public class FrameClients extends JFrame {
 	}
 
 	public JButton getBtnModifieranimal() {
-		if(btnModifieranimal == null){
-			btnModifieranimal = new JButton("Modifier", new ImageIcon(getClass().getResource("./resources/modifier.png")));
+		if (btnModifieranimal == null) {
+			btnModifieranimal = new JButton("Modifier",
+					new ImageIcon(getClass().getResource("./resources/modifier.png")));
 			btnModifieranimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnModifieranimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnModifieranimal.setEnabled(false);
 			btnModifieranimal.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -627,7 +646,7 @@ public class FrameClients extends JFrame {
 						e1.printStackTrace();
 					}
 				}
-			});		
+			});
 		}
 		return btnModifieranimal;
 	}
@@ -635,7 +654,7 @@ public class FrameClients extends JFrame {
 	///////////////////////////////////
 	// METHODES
 	///////////////////////////////////
-	
+
 	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -650,10 +669,10 @@ public class FrameClients extends JFrame {
 		gbc.insets = new Insets(7, 10, 5, 10);
 		panel.add(component, gbc);
 	}
-	
-	private void setClient(Client client){
+
+	private void setClient(Client client) {
 		try {
-			if(Clinique.getInstance().getIndexClientEnCours() != -1){
+			if (Clinique.getInstance().getIndexClientEnCours() != -1) {
 				client = Clinique.getInstance().getClientEnCours();
 				getTxtCodeClient().setText(String.valueOf(client.getCodeClient()));
 				getTxtNomClient().setText(client.getNomClient());
@@ -682,12 +701,12 @@ public class FrameClients extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void fermerFenetre() {
 		this.dispose();
-		
+
 	}
-	
+
 	////////////////////////////////
 	// CLASSES
 	////////////////////////////////
@@ -732,10 +751,10 @@ public class FrameClients extends JFrame {
 			return nomsColonne[column];
 		}
 
-//		@Override
-//		public Class<?> getColumnClass(int columnIndex) {
-//			return getValueAt(0, columnIndex).getClass();
-//		}
+		// @Override
+		// public Class<?> getColumnClass(int columnIndex) {
+		// return getValueAt(0, columnIndex).getClass();
+		// }
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
@@ -756,7 +775,7 @@ public class FrameClients extends JFrame {
 					return animalAAfficher.getEspece();
 				case 6:
 					return animalAAfficher.getTatouage();
-				
+
 				}
 			}
 			return null;
