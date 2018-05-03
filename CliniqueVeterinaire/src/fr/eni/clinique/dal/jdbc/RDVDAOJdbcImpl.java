@@ -28,7 +28,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 
 	private static final String INSERT_RDV = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?);";
 	
-	private static final String VERIF_RDV = "SELECT * from Agendas where (CodeVeto=? and DateRdv=?) or (CodeAnimal = ? and DateRdv=?)";
+	private static final String VERIF_RDV = "SELECT * from Agendas where (CodeVeto=? and DATEDIFF(minute, ? , DateRdv ) = 0) or (CodeAnimal = ? and DATEDIFF(minute, ? , DateRdv ) = 0)";
 	
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
