@@ -16,10 +16,10 @@ public class testIHM {
 			@Override
 			public void run() {
 				FrameConnexion connexionFrame = new FrameConnexion();
-				connexionFrame.setVisible(false);
+				connexionFrame.setVisible(true);
 				
 				FrameAnimaux frame = new FrameAnimaux();
-				frame.setVisible(true);
+				frame.setVisible(false);
 
 				FramePriseRDV rdvFrame = new FramePriseRDV();
 				rdvFrame.setVisible(false);

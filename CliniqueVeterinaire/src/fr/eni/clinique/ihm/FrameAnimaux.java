@@ -120,7 +120,7 @@ public class FrameAnimaux extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (AnimalNonValideException e1) {
-							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
 							e1.printStackTrace();
 						}
 						fermerFenetre();

@@ -162,8 +162,12 @@ public class FramePriseRDV extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-
+					try {
+						Clinique.getInstance().setIndexClientEnCours(-1);
+						new FrameAjouterClient();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -204,7 +208,6 @@ public class FramePriseRDV extends JFrame {
 						Clinique.getInstance().setIndexAnimalEnCours(-1);
 						new FrameAnimaux();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -465,18 +468,32 @@ public class FramePriseRDV extends JFrame {
 		if (btnSupprimerRDV == null) {
 			btnSupprimerRDV = new JButton("Supprimer");
 
+			if(getTableRDV().getSelectedRow() < 0){
+				btnSupprimerRDV.setEnabled(false);
+			} else {
+				btnSupprimerRDV.setEnabled(true);
+			}
+			
+			
 			btnSupprimerRDV.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						if (getTableRDV().getSelectedRow() >= 0) {
-							JOptionPane.showConfirmDialog(btnSupprimerRDV,
-									"Voulez-vous vraiment supprimer ce rendez-vous ?");
-							Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
-							tableModel.fireTableDataChanged();
-							JOptionPane.showMessageDialog(btnSupprimerRDV, "Suppression effectuée ");
-							;
+							int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ce rendez-vous ?",
+									"Supprimer un rendez-vous", JOptionPane.OK_CANCEL_OPTION);
+
+							switch (res) {
+							case JOptionPane.OK_OPTION:
+								Clinique.getInstance().supprimerRdvCourant(getTableRDV().getSelectedRow());
+								tableModel.fireTableDataChanged();
+								JOptionPane.showMessageDialog(btnSupprimerRDV, "Suppression effectuée ");
+							case JOptionPane.CANCEL_OPTION:
+								break;
+							case JOptionPane.CLOSED_OPTION:
+								break;
+							};
 						}
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
@@ -517,11 +534,19 @@ public class FramePriseRDV extends JFrame {
 					}
 
 					try {
-						JOptionPane.showConfirmDialog(btnValiderRDV, "Confirmez-vous ce rendez-vous ?");
-						Clinique.getInstance().ajouterRdvCourant(indexClient, indexAnimal, indexVeto, dateRdv);
-						tableModel.fireTableDataChanged();
-						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous enregistré ");
+						int res = JOptionPane.showConfirmDialog(null, "Confirmez-vous ce rendez-vous ?",
+								"Valider un rendez-vous", JOptionPane.OK_CANCEL_OPTION);
 
+						switch (res) {
+						case JOptionPane.OK_OPTION:
+							Clinique.getInstance().ajouterRdvCourant(indexClient, indexAnimal, indexVeto, dateRdv);
+							tableModel.fireTableDataChanged();
+							JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous enregistré ");
+						case JOptionPane.CANCEL_OPTION:
+							break;
+						case JOptionPane.CLOSED_OPTION:
+							break;
+						}
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous refusé ");
