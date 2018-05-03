@@ -146,8 +146,10 @@ public class Clinique {
 	public void traiterAnimal(Animal animal) throws AnimalNonValideException, BLLException {
 
 		manager.traiterAnimal(animal);
-		getClientEnCours().ajouterAnimal(animal);
+		getClients();
 		setIndexAnimalEnCours(getClientEnCours().getAnimaux().size()-1);
+
+		listeMiseAJour.setValeur(true);
 	}
 
 	public Client getClientEnCours() {

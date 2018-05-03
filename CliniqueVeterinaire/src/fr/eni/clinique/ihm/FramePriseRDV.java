@@ -69,27 +69,24 @@ public class FramePriseRDV extends JFrame {
 				@Override
 				public void onChanged() {
 					
-//					try {
-//						// cbbClient = new
-//						// JComboBox<String>(Clinique.getInstance().getTabNomsClients());
-//						// cbbClient.setSelectedItem(Clinique.getInstance().getTabNomsClients().length
-//						// - 1);
-//						getCbbClient().removeAllItems();
-//						for (int i = 0; i < Clinique.getInstance().getClients().size(); i++) {
-//							getCbbClient().addItem(Clinique.getInstance().getClients().get(i).getNomClient() + " "
-//									+ Clinique.getInstance().getClients().get(i).getPrenomClient());
-//						}
-//						getCbbClient().setSelectedIndex(Clinique.getInstance().getClients().size()-1);
-//						cbbAnimal.removeAllItems();
-//						for (int i = 0; i < Clinique.getInstance()
-//								.getAnimauxDeClient(getCbbClient().getSelectedIndex()).length; i++) {
-//							getCbbAnimal().addItem(
-//									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
-//						}
-//					} catch (BLLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+					try {
+						
+						getCbbClient().removeAllItems();
+						for (int i = 0; i < Clinique.getInstance().getClients().size(); i++) {
+							getCbbClient().addItem(Clinique.getInstance().getClients().get(i).getNomClient() + " "
+									+ Clinique.getInstance().getClients().get(i).getPrenomClient());
+						}
+						getCbbClient().setSelectedIndex(Clinique.getInstance().getClients().size()-1);
+						cbbAnimal.removeAllItems();
+						for (int i = 0; i < Clinique.getInstance()
+								.getAnimauxDeClient(getCbbClient().getSelectedIndex()).length; i++) {
+							getCbbAnimal().addItem(
+									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
+						}
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 		} catch (BLLException e1) {
