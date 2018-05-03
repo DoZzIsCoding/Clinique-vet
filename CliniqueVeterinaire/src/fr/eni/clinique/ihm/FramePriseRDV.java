@@ -442,7 +442,6 @@ public class FramePriseRDV extends JFrame {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
 
-			//tableModel.add
 		}
 		return tableRDV;
 	}
@@ -470,11 +469,11 @@ public class FramePriseRDV extends JFrame {
 		if (btnSupprimerRDV == null) {
 			btnSupprimerRDV = new JButton("Supprimer");
 
-			if(getTableRDV().getSelectedRow() < 0){
-				btnSupprimerRDV.setEnabled(false);
-			} else {
-				btnSupprimerRDV.setEnabled(true);
-			}
+//			if(getTableRDV().getSelectedRow() < 0){
+//				btnSupprimerRDV.setEnabled(false);
+//			} else {
+//				btnSupprimerRDV.setEnabled(true);
+//			}
 			
 			
 			btnSupprimerRDV.addActionListener(new ActionListener() {
