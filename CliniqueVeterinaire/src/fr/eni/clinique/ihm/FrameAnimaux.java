@@ -416,6 +416,7 @@ public class FrameAnimaux extends JFrame {
 		try {
 			if(Clinique.getInstance().getIndexAnimalEnCours() != -1){
 			a = Clinique.getInstance().getAnimalEnCours();
+			getTxtCode().setText(String.valueOf(a.getCodeAnimal()));
 			getTxtNomAnimal().setText(a.getNomAnimal());
 			getTxtCouleurAnimal().setText(a.getCouleur());
 			getTxtTatouage().setText(a.getTatouage());
