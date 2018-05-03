@@ -108,6 +108,7 @@ public class FrameAjouterClient extends JFrame {
 						Clinique.getInstance().traiterClient(client);
 						
 						JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
+						fermerFenetre();
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(btnValider, "Erreur de saisie, client non créé \n " + e1.getMessage());
@@ -212,7 +213,7 @@ public class FrameAjouterClient extends JFrame {
 	public JTextField getTxtCodeClient() {
 		if (txtCodeClient == null) {
 			txtCodeClient = new JTextField(20);
-			txtCodeClient.setEditable(false);
+			txtCodeClient.setEnabled(false);
 		}
 		return txtCodeClient;
 	}
@@ -356,7 +357,11 @@ public class FrameAjouterClient extends JFrame {
 	// METHODES
 	///////////////////////////////////
 
-	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
+	private void fermerFenetre(){
+		this.dispose();
+	}
+		private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
+	
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;

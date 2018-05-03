@@ -267,6 +267,7 @@ public class FrameAnimaux extends JFrame {
 	public JTextField getTxtCode() {
 		if (txtCode == null) {
 			txtCode = new JTextField(30);
+			txtCode.setEnabled(false);
 			try {
 				if (Clinique.getInstance().getIndexAnimalEnCours() == -1) {
 					chargerNouvelAnimal();
