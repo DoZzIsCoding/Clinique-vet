@@ -1,15 +1,12 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +28,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 import fr.eni.clinique.bll.Clinique;
@@ -81,26 +76,6 @@ public class FrameClients extends JFrame {
 			e.printStackTrace();
 		}
 		
-//		try {
-//			if(Clinique.getInstance().getIndexClientEnCours() > -1){
-//				setClient(Clinique.getInstance().getClientEnCours());
-//			} else {
-//				getTxtNomClient().setText("");
-//				getTxtPrenomClient().setText("");
-//				getTxtAdresseClient().setText("");
-//				getTxtAdresseClient2().setText("");
-//				getTxtCodePostalClient().setText("");
-//				getTxtVilleClient().setText("");
-//				getTxtNumTel().setText("");
-//				getTxtAssurance().setText("");
-//				getTxtEmail().setText("");
-//				getTxtRemarque().setText("");
-//				
-//			}
-//		} catch (BLLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	////////////////////////////////

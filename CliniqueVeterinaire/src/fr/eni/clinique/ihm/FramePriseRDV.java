@@ -585,6 +585,10 @@ public class FramePriseRDV extends JFrame {
 					}
 
 					try {
+						if(dateRdv.isBefore(LocalDateTime.now())){
+							throw new DateAnterieureException("La date saisie est anterieure a la date du jour");
+							
+						};
 						int res = JOptionPane.showConfirmDialog(null, "Confirmez-vous ce rendez-vous ?",
 								"Valider un rendez-vous", JOptionPane.OK_CANCEL_OPTION);
 
@@ -606,8 +610,7 @@ public class FramePriseRDV extends JFrame {
 								"Un rendez-vous existe deja à l'heure demandée pour cet animal ou ce vétérinaire ");
 						e1.printStackTrace();
 					} catch (DateAnterieureException e2) {
-						JOptionPane.showMessageDialog(btnValiderRDV,
-								e2.getMessage());
+						JOptionPane.showMessageDialog(btnValiderRDV,e2.getMessage());
 						e2.printStackTrace();
 					}
 				}

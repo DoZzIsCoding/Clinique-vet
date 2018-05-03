@@ -1,7 +1,6 @@
 package fr.eni.clinique.bll;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -339,9 +338,7 @@ public class Clinique {
 
 	public void ajouterRdvCourant(int indexClient, int indexAnimal, int indexVeto, LocalDateTime dateRdv)
 			throws BLLException, CreneauDejaPrisException, DateAnterieureException {
-		if(dateRdv.isBefore(LocalDateTime.now())){
-			throw new DateAnterieureException("La date saisie est anterieure a la date du jour");
-		};
+		
 		RDV nouveauRdv = new RDV(dateRdv, lesClients.get(indexClient).getNomClient(),
 				lesClients.get(indexClient).getAnimaux().get(indexAnimal).getNomAnimal(),
 				lesClients.get(indexClient).getAnimaux().get(indexAnimal).getEspece(),
