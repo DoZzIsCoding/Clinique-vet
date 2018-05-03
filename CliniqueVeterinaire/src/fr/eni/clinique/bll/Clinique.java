@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.ListModel;
-
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Espece;
@@ -42,6 +39,7 @@ public class Clinique {
 		lesClients = manager.getClients();
 		lesVeterinaires = manager.getVeterinaires();
 		indexClientEnCours = new Observable<>(0);
+		indexAnimalEnCours = new Observable<>(0);
 	}
 
 	// GETTERS SETTERS
