@@ -441,6 +441,8 @@ public class FramePriseRDV extends JFrame {
 		if (tableRDV == null) {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
+
+			//tableModel.add
 		}
 		return tableRDV;
 	}
@@ -551,7 +553,7 @@ public class FramePriseRDV extends JFrame {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous refusé ");
 					} catch (CreneauDejaPrisException e1) {
-						JOptionPane.showMessageDialog(btnValiderRDV, "Un Rendez vous existe deja à l'heure demandée ");
+						JOptionPane.showMessageDialog(btnValiderRDV, "Un rendez-vous existe deja à l'heure demandée pour cet animal ou ce vétérinaire ");
 						e1.printStackTrace();
 					}
 				}
