@@ -24,7 +24,7 @@ import javax.swing.border.TitledBorder;
 public class FrameDossierMedical extends JFrame {
 
 	public FrameDossierMedical() {
-		setTitle("Agenda");
+		setTitle("Dossier médical");
 		setBounds(100, 100, 800, 450);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(getMainPanel());
@@ -62,8 +62,8 @@ public class FrameDossierMedical extends JFrame {
 
 			boutonsPanel.setBorder(border);
 
-			boutonsPanel.add(getBtnAnnuler());
 			boutonsPanel.add(getBtnValider());
+			boutonsPanel.add(getBtnAnnuler());
 		}
 		return boutonsPanel;
 	}
@@ -73,36 +73,6 @@ public class FrameDossierMedical extends JFrame {
 			btnValider = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
 			btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
-
-			// btnValider.addActionListener(new ActionListener() {
-			//
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			// Animal animal;
-			//
-			// try {
-			// animal = new Animal(
-			// (Clinique.getInstance().getIndexAnimalEnCours() == -1 ? -1
-			// : Clinique.getInstance().getAnimalEnCours().getCodeAnimal()),
-			// getTxtNomAnimal().getText(),
-			// getCbbSexeAnimal().getSelectedItem().toString().charAt(0),
-			// getTxtCouleurAnimal().getText(), (String)
-			// getCbbRaceAnimal().getSelectedItem(),
-			// (String) getCbbEspeceAnimal().getSelectedItem(),
-			// (Integer)
-			// Clinique.getInstance().getClientEnCours().getCodeClient(),
-			// getTxtTatouage().getText(),
-			// (Clinique.getInstance().getIndexAnimalEnCours() == -1
-			// ? new String() :
-			// Clinique.getInstance().getAnimalEnCours().getAntecedents()));
-			// Clinique.getInstance().ajouterAnimal(animal);
-			// } catch (BLLException e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
-			//
-			// }
-			// });
 
 		}
 		return btnValider;

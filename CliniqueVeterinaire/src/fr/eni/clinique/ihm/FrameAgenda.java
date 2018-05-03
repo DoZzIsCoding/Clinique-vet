@@ -30,6 +30,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -90,6 +92,7 @@ public class FrameAgenda extends JFrame {
 
 			// options graphiques
 			dePanel.setBorder(border);
+			dePanel.setPreferredSize(new Dimension(800, 60));
 
 			// ajout modules
 			dePanel.setLayout(new BoxLayout(dePanel, BoxLayout.X_AXIS));
@@ -116,6 +119,7 @@ public class FrameAgenda extends JFrame {
 			try {
 				cbbVeterinaire = new JComboBox<String>(Clinique.getInstance().getTabNomsVeterinaires());
 				cbbVeterinaire.setPreferredSize(new Dimension(100, 100));
+				
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -209,6 +213,15 @@ public class FrameAgenda extends JFrame {
 		if (tableRDV == null) {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
+			
+			tableRDV.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					getBtndossierMedical().setEnabled(true);
+					
+				}
+			});
 		}
 		return tableRDV;
 	}
@@ -238,6 +251,7 @@ public class FrameAgenda extends JFrame {
 			
 			btndossierMedical.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btndossierMedical.setHorizontalTextPosition(SwingConstants.CENTER);
+			btndossierMedical.setEnabled(false);
 			
 			btndossierMedical.addActionListener(new ActionListener() {
 				
