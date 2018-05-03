@@ -72,8 +72,8 @@ public class FrameAjouterClient extends JFrame {
 
 			boutonsPanel.setBorder(border);
 
-			boutonsPanel.add(getBtnAnnuler());
 			boutonsPanel.add(getBtnValider());
+			boutonsPanel.add(getBtnAnnuler());
 		}
 		return boutonsPanel;
 	}
@@ -89,37 +89,46 @@ public class FrameAjouterClient extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Client client;
-					JOptionPane.showConfirmDialog(btnValider, "voulez-vous vraiment créer ce nouveau client?");
+					
+					int res = JOptionPane.showConfirmDialog(btnValider, "Voulez-vous vraiment créer ce nouveau client?",
+							"Création d'un nouveau client", JOptionPane.OK_CANCEL_OPTION);
 
-					try {
-						client = new Client(
-								-1,
-								getTxtNomClient().getText(), 
-								getTxtPrenomClient().getText(), 
-								getTxtAdresseClient().getText(), 
-								getTxtAdresseClient2().getText(), 
-								getTxtCodePostalClient().getText(),
-								getTxtVilleClient().getText(),
-								getTxtNumTel().getText(),
-								getTxtAssurance().getText(),
-								getTxtEmail().getText(),
-								getTxtRemarque().getText());
+					switch (res) {
+					case JOptionPane.OK_OPTION:
 						
-						Clinique.getInstance().traiterClient(client);
+						try {
+							client = new Client(
+									-1,
+									getTxtNomClient().getText(), 
+									getTxtPrenomClient().getText(), 
+									getTxtAdresseClient().getText(), 
+									getTxtAdresseClient2().getText(), 
+									getTxtCodePostalClient().getText(),
+									getTxtVilleClient().getText(),
+									getTxtNumTel().getText(),
+									getTxtAssurance().getText(),
+									getTxtEmail().getText(),
+									getTxtRemarque().getText());
+							
+							Clinique.getInstance().traiterClient(client);
+							
+							JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
+							fermerFenetre();
+						} catch (BLLException e1) {
+							e1.printStackTrace();
+							JOptionPane.showMessageDialog(btnValider, "Erreur de saisie, client non créé \n " + e1.getMessage());
+						} catch (ClientNonValideException e1) {
+							e1.printStackTrace();
+							JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
+						}
 						
-						JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
-						fermerFenetre();
-					} catch (BLLException e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(btnValider, "Erreur de saisie, client non créé \n " + e1.getMessage());
-					} catch (ClientNonValideException e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
-					}
-
+					case JOptionPane.CANCEL_OPTION:
+						break;
+					case JOptionPane.CLOSED_OPTION:
+						break;
+						}
 				}
 			});
-
 		}
 		return btnValider;
 	}
@@ -130,6 +139,23 @@ public class FrameAjouterClient extends JFrame {
 			btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
 			
+			btnAnnuler.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getTxtCodeClient().setText("");
+					getTxtNomClient().setText("");
+					getTxtPrenomClient().setText("");
+					getTxtAdresseClient().setText("");
+					getTxtAdresseClient2().setText("");
+					getTxtCodePostalClient().setText("");
+					getTxtVilleClient().setText("");
+					getTxtNumTel().setText("");
+					getTxtAssurance().setText("");
+					getTxtEmail().setText("");
+					getTxtRemarque().setText("");
+				}
+			});
 			
 		}
 		return btnAnnuler;
@@ -360,7 +386,7 @@ public class FrameAjouterClient extends JFrame {
 	private void fermerFenetre(){
 		this.dispose();
 	}
-		private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
+	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
 	
 			boolean fillHorizontal) {
 		GridBagConstraints gbc = new GridBagConstraints();

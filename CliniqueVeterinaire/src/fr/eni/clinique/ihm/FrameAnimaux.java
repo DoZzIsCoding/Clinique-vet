@@ -116,6 +116,7 @@ public class FrameAnimaux extends JFrame {
 									getTxtTatouage().getText(), (Clinique.getInstance().getIndexAnimalEnCours() == -1
 									? new String() : Clinique.getInstance().getAnimalEnCours().getAntecedents()));
 							Clinique.getInstance().traiterAnimal(animal);
+							fermerFenetre();
 						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -123,7 +124,6 @@ public class FrameAnimaux extends JFrame {
 							JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
 							e1.printStackTrace();
 						}
-						fermerFenetre();
 					case JOptionPane.CANCEL_OPTION:
 						break;
 					case JOptionPane.CLOSED_OPTION:
@@ -191,7 +191,7 @@ public class FrameAnimaux extends JFrame {
 	public JTextField getTxtNomClient() {
 		if (txtNomClient == null) {
 			txtNomClient = new JTextField(30);
-			txtNomClient.setEditable(false);
+			txtNomClient.setEnabled(false);
 
 			try {
 				String nomComplet = new String(Clinique.getInstance().getClientEnCours().getNomClient() + " "

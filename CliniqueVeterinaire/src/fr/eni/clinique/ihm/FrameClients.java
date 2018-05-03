@@ -70,25 +70,31 @@ public class FrameClients extends JFrame {
 		}
 		
 		try {
-			if(Clinique.getInstance().getIndexClientEnCours() > -1){
-				setClient(Clinique.getInstance().getClientEnCours());
-			} else {
-				getTxtNomClient().setText("");
-				getTxtPrenomClient().setText("");
-				getTxtAdresseClient().setText("");
-				getTxtAdresseClient2().setText("");
-				getTxtCodePostalClient().setText("");
-				getTxtVilleClient().setText("");
-				getTxtNumTel().setText("");
-				getTxtAssurance().setText("");
-				getTxtEmail().setText("");
-				getTxtRemarque().setText("");
-				
-			}
+			setClient(Clinique.getInstance().getClientEnCours());
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		try {
+//			if(Clinique.getInstance().getIndexClientEnCours() > -1){
+//				setClient(Clinique.getInstance().getClientEnCours());
+//			} else {
+//				getTxtNomClient().setText("");
+//				getTxtPrenomClient().setText("");
+//				getTxtAdresseClient().setText("");
+//				getTxtAdresseClient2().setText("");
+//				getTxtCodePostalClient().setText("");
+//				getTxtVilleClient().setText("");
+//				getTxtNumTel().setText("");
+//				getTxtAssurance().setText("");
+//				getTxtEmail().setText("");
+//				getTxtRemarque().setText("");
+//				
+//			}
+//		} catch (BLLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	////////////////////////////////
@@ -242,7 +248,7 @@ public class FrameClients extends JFrame {
 											getTxtAssurance().getText(),
 											getTxtEmail().getText(),
 											getTxtRemarque().getText()));
-							fermerFenetre();
+						
 						} catch (ClientNonValideException e1) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());
@@ -656,13 +662,35 @@ public class FrameClients extends JFrame {
 	}
 	
 	private void setClient(Client client){
-		getTxtCodeClient().setText(String.valueOf(client.getCodeClient()));
-		getTxtNomClient().setText(client.getNomClient());
-		getTxtPrenomClient().setText(client.getPrenomClient());
-		getTxtAdresseClient().setText(client.getAdresse1());
-		getTxtAdresseClient2().setText(client.getAdresse2());
-		getTxtCodePostalClient().setText(client.getCodePostal());
-		getTxtVilleClient().setText(client.getVille());
+		try {
+			if(Clinique.getInstance().getIndexClientEnCours() != -1){
+				client = Clinique.getInstance().getClientEnCours();
+				getTxtCodeClient().setText(String.valueOf(client.getCodeClient()));
+				getTxtNomClient().setText(client.getNomClient());
+				getTxtPrenomClient().setText(client.getPrenomClient());
+				getTxtAdresseClient().setText(client.getAdresse1());
+				getTxtAdresseClient2().setText(client.getAdresse2());
+				getTxtCodePostalClient().setText(client.getCodePostal());
+				getTxtVilleClient().setText(client.getVille());
+				getTxtNumTel().setText(client.getNumTel());
+				getTxtAssurance().setText(client.getAssurance());
+				getTxtEmail().setText(client.getEmail());
+				getTxtRemarque().setText(client.getRemarque());
+			} else {
+				getTxtNomClient().setText("");
+				getTxtPrenomClient().setText("");
+				getTxtAdresseClient().setText("");
+				getTxtAdresseClient2().setText("");
+				getTxtCodePostalClient().setText("");
+				getTxtVilleClient().setText("");
+				getTxtNumTel().setText("");
+				getTxtAssurance().setText("");
+				getTxtEmail().setText("");
+				getTxtRemarque().setText("");
+			}
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void fermerFenetre() {
