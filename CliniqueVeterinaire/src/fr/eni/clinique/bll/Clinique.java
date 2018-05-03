@@ -212,9 +212,9 @@ public class Clinique {
 		try {
 			manager.traiterClient(client);
 			if(client.getCodeClient()==-1){
-				getClients();
 				setClientEncours(lesClients.size()-1);
 			}
+			getClients();
 			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
 			e.printStackTrace();
