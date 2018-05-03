@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.exceptions.DalException;
 
 public interface RDVDAO extends DAO<RDV>{
 

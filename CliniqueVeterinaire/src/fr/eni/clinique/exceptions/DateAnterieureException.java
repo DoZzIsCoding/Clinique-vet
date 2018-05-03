@@ -1,4 +1,4 @@
-package fr.eni.clinique.bll;
+package fr.eni.clinique.exceptions;
 
 @SuppressWarnings("serial")
 public class DateAnterieureException extends Exception {

@@ -3,6 +3,7 @@ package fr.eni.clinique.dal;
 import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.exceptions.DalException;
 
 public interface PersonnelDAO extends DAO<Personnel>{
 

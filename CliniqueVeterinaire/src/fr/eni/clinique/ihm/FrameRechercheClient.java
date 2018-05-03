@@ -22,9 +22,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.exceptions.BLLException;
 
 @SuppressWarnings("serial")
 public class FrameRechercheClient extends JFrame {

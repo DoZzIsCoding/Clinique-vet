@@ -2,6 +2,9 @@ package fr.eni.clinique.dal;
 
 import java.util.List;
 
+import fr.eni.clinique.exceptions.CreneauDejaPrisException;
+import fr.eni.clinique.exceptions.DalException;
+
 
 public interface DAO<T> {
 

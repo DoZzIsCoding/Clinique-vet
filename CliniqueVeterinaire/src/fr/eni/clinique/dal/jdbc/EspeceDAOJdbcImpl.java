@@ -9,9 +9,9 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Espece;
 import fr.eni.clinique.bo.RDV;
-import fr.eni.clinique.dal.CreneauDejaPrisException;
-import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.EspeceDAO;
+import fr.eni.clinique.exceptions.CreneauDejaPrisException;
+import fr.eni.clinique.exceptions.DalException;
 
 public class EspeceDAOJdbcImpl implements EspeceDAO {
 

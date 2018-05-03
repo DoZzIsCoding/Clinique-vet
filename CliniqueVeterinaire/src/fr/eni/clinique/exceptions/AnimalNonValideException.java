@@ -1,13 +1,13 @@
-package fr.eni.clinique.bll;
+package fr.eni.clinique.exceptions;
 
 @SuppressWarnings("serial")
-public class ClientNonValideException extends Exception {
+public class AnimalNonValideException extends Exception {
 
 	private String messageGlobal;
 	
-	public ClientNonValideException() {
+	public AnimalNonValideException() {
 		super();
-		messageGlobal = new String();
+		
 	}
 	
 	public void ajouterErreur(String msg) {

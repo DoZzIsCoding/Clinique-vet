@@ -1,4 +1,4 @@
-package fr.eni.clinique.dal;
+package fr.eni.clinique.exceptions;
 
 @SuppressWarnings("serial")
 public class CreneauDejaPrisException extends Exception {

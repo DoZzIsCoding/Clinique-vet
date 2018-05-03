@@ -22,10 +22,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.ClientNonValideException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.exceptions.BLLException;
+import fr.eni.clinique.exceptions.ClientNonValideException;
 
 @SuppressWarnings("serial")
 public class FrameAjouterClient extends JFrame {

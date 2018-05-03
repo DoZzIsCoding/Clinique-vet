@@ -1,4 +1,4 @@
-package fr.eni.clinique.bll;
+package fr.eni.clinique.exceptions;
 
 public class RdvNotFoundException extends Exception {
 

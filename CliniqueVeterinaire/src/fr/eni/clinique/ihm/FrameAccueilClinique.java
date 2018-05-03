@@ -15,8 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.exceptions.BLLException;
 
 @SuppressWarnings("serial")
 public class FrameAccueilClinique extends JFrame {

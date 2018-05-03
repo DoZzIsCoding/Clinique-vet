@@ -10,8 +10,8 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
-import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.PersonnelDAO;
+import fr.eni.clinique.exceptions.DalException;
 
 public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 

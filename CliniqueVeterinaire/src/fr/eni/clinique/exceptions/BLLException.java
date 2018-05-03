@@ -1,4 +1,4 @@
-package fr.eni.clinique.bll;
+package fr.eni.clinique.exceptions;
 
 import java.util.ArrayList;
 

@@ -13,9 +13,9 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.bo.RDV;
-import fr.eni.clinique.dal.CreneauDejaPrisException;
-import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.RDVDAO;
+import fr.eni.clinique.exceptions.CreneauDejaPrisException;
+import fr.eni.clinique.exceptions.DalException;
 
 public class RDVDAOJdbcImpl implements RDVDAO {
 

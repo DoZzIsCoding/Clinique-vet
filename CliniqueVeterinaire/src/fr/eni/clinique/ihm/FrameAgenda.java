@@ -37,10 +37,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
-import fr.eni.clinique.bll.RdvNotFoundException;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.exceptions.BLLException;
+import fr.eni.clinique.exceptions.RdvNotFoundException;
 
 @SuppressWarnings("serial")
 public class FrameAgenda extends JFrame {

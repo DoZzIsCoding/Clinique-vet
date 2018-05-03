@@ -26,11 +26,11 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import fr.eni.clinique.bll.AnimalNonValideException;
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.exceptions.AnimalNonValideException;
+import fr.eni.clinique.exceptions.BLLException;
 
 @SuppressWarnings("serial")
 public class FrameAnimaux extends JFrame {

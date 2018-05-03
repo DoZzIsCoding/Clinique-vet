@@ -39,13 +39,14 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
-import fr.eni.clinique.bll.RdvNotFoundException;
 import fr.eni.clinique.bo.Observable;
 import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.bo.Observable.ObservableListener;
-import fr.eni.clinique.dal.CreneauDejaPrisException;
+import fr.eni.clinique.exceptions.BLLException;
+import fr.eni.clinique.exceptions.CreneauDejaPrisException;
+import fr.eni.clinique.exceptions.DateAnterieureException;
+import fr.eni.clinique.exceptions.RdvNotFoundException;
 
 @SuppressWarnings("serial")
 public class FramePriseRDV extends JFrame {
@@ -263,6 +264,7 @@ public class FramePriseRDV extends JFrame {
 	////////////////////////////////////
 	// PANEL PAR
 	////////////////////////////////////
+
 
 	private JPanel parPanel;
 	private JLabel lblVeterinaire;
@@ -603,6 +605,10 @@ public class FramePriseRDV extends JFrame {
 						JOptionPane.showMessageDialog(btnValiderRDV,
 								"Un rendez-vous existe deja à l'heure demandée pour cet animal ou ce vétérinaire ");
 						e1.printStackTrace();
+					} catch (DateAnterieureException e2) {
+						JOptionPane.showMessageDialog(btnValiderRDV,
+								e2.getMessage());
+						e2.printStackTrace();
 					}
 				}
 			});

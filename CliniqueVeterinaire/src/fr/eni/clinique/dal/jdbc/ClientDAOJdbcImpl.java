@@ -11,8 +11,8 @@ import java.util.List;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.ClientDAO;
-import fr.eni.clinique.dal.DalException;
 import fr.eni.clinique.dal.jdbc.ConnectionDAO;
+import fr.eni.clinique.exceptions.DalException;
 
 public class ClientDAOJdbcImpl implements ClientDAO {
 

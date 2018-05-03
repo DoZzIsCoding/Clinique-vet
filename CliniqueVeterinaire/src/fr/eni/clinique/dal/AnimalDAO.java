@@ -3,6 +3,7 @@ package fr.eni.clinique.dal;
 import java.util.List;
 
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.exceptions.DalException;
 
 public interface AnimalDAO extends DAO<Animal>{
 

@@ -35,14 +35,14 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
-import fr.eni.clinique.bll.AnimalNotFoundException;
-import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.ClientNonValideException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Observable;
 import fr.eni.clinique.bo.Observable.ObservableListener;
+import fr.eni.clinique.exceptions.AnimalNotFoundException;
+import fr.eni.clinique.exceptions.BLLException;
+import fr.eni.clinique.exceptions.ClientNonValideException;
 
 @SuppressWarnings("serial")
 public class FrameClients extends JFrame {

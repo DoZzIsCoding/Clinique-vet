@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
+import fr.eni.clinique.exceptions.BLLException;
 
 @SuppressWarnings("serial")
 public class FrameConnexion extends JFrame {
