@@ -62,8 +62,8 @@ public class FrameAccueilClinique extends JFrame {
 					break;
 				case "adm":
 					menuPrincipal.add(getMenuFichier());
-					menuPrincipal.add(getMenuAgenda());
 					menuPrincipal.add(getMenuGestionRdv());
+					menuPrincipal.add(getMenuAgenda());
 					menuPrincipal.add(menuBtnGestionPersonnel());
 					break;
 				}

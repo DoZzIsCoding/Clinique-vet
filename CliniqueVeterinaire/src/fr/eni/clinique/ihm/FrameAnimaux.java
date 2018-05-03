@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -29,6 +30,7 @@ import fr.eni.clinique.bll.AnimalNonValideException;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
 
 @SuppressWarnings("serial")
 public class FrameAnimaux extends JFrame {
@@ -97,23 +99,35 @@ public class FrameAnimaux extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					Animal animal;
 
-					try {
-						animal = new Animal(
-								(Clinique.getInstance().getIndexAnimalEnCours() == -1 ? -1
-										: Clinique.getInstance().getAnimalEnCours().getCodeAnimal()),
-								getTxtNomAnimal().getText(), getCbbSexeAnimal().getSelectedItem().toString().charAt(0),
-								getTxtCouleurAnimal().getText(), (String) getCbbRaceAnimal().getSelectedItem(),
-								(String) getCbbEspeceAnimal().getSelectedItem(),
-								(Integer) Clinique.getInstance().getClientEnCours().getCodeClient(),
-								getTxtTatouage().getText(), (Clinique.getInstance().getIndexAnimalEnCours() == -1
-										? new String() : Clinique.getInstance().getAnimalEnCours().getAntecedents()));
-						Clinique.getInstance().ajouterAnimal(animal);
-					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (AnimalNonValideException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment valider les modifications de l'animal ?",
+							"Ajouter/Modifier un animal", JOptionPane.OK_CANCEL_OPTION);
+
+					switch (res) {
+					case JOptionPane.OK_OPTION:
+						
+						try {
+							animal = new Animal(
+									(Clinique.getInstance().getIndexAnimalEnCours() == -1 ? -1
+											: Clinique.getInstance().getAnimalEnCours().getCodeAnimal()),
+									getTxtNomAnimal().getText(), getCbbSexeAnimal().getSelectedItem().toString().charAt(0),
+									getTxtCouleurAnimal().getText(), (String) getCbbRaceAnimal().getSelectedItem(),
+									(String) getCbbEspeceAnimal().getSelectedItem(),
+									(Integer) Clinique.getInstance().getClientEnCours().getCodeClient(),
+									getTxtTatouage().getText(), (Clinique.getInstance().getIndexAnimalEnCours() == -1
+									? new String() : Clinique.getInstance().getAnimalEnCours().getAntecedents()));
+							Clinique.getInstance().traiterAnimal(animal);
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (AnimalNonValideException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						fermerFenetre();
+					case JOptionPane.CANCEL_OPTION:
+						break;
+					case JOptionPane.CLOSED_OPTION:
+						break;
 					}
 
 				}
@@ -128,6 +142,25 @@ public class FrameAnimaux extends JFrame {
 			btnAnnuler = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
 			btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			btnAnnuler.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment annuler les modifications de l'animal ?",
+							"Annuler les modifications", JOptionPane.OK_CANCEL_OPTION);
+
+					switch (res) {
+					case JOptionPane.OK_OPTION:
+							chargerAnimal();
+					case JOptionPane.CANCEL_OPTION:
+						break;
+					case JOptionPane.CLOSED_OPTION:
+						break;
+					}
+					
+				}
+			});
 		}
 		return btnAnnuler;
 	}
@@ -158,6 +191,7 @@ public class FrameAnimaux extends JFrame {
 	public JTextField getTxtNomClient() {
 		if (txtNomClient == null) {
 			txtNomClient = new JTextField(30);
+			txtNomClient.setEditable(false);
 
 			try {
 				String nomComplet = new String(Clinique.getInstance().getClientEnCours().getNomClient() + " "
@@ -379,6 +413,7 @@ public class FrameAnimaux extends JFrame {
 	private void chargerAnimal() {
 		Animal a;
 		try {
+			if(Clinique.getInstance().getIndexAnimalEnCours() != -1){
 			a = Clinique.getInstance().getAnimalEnCours();
 			getTxtNomAnimal().setText(a.getNomAnimal());
 			getTxtCouleurAnimal().setText(a.getCouleur());
@@ -386,7 +421,14 @@ public class FrameAnimaux extends JFrame {
 			getCbbEspeceAnimal().setSelectedItem(a.getEspece());
 			getCbbRaceAnimal().setSelectedItem(a.getRace());
 			getCbbSexeAnimal().setSelectedItem(a.getSexe());
-
+			} else {
+				getTxtNomAnimal().setText("");
+				getTxtCouleurAnimal().setText("");
+				getTxtTatouage().setText("");
+				getCbbEspeceAnimal().setSelectedItem(0);
+				getCbbRaceAnimal().setSelectedItem(0);
+				getCbbSexeAnimal().setSelectedItem(0);
+			}
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -398,4 +440,7 @@ public class FrameAnimaux extends JFrame {
 		getTxtCode().setEditable(false);
 	}
 
+	private void fermerFenetre(){
+		this.dispose();
+	}
 }
