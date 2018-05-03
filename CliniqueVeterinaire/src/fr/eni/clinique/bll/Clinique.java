@@ -194,6 +194,7 @@ public class Clinique {
 			manager.traiterClient(client);
 			if(client.getCodeClient()==-1){
 				getClients();
+				setClientEncours(lesClients.size()-1);
 			}
 		} catch (BLLException e) {
 			e.printStackTrace();
