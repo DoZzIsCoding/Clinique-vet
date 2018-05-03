@@ -40,14 +40,18 @@ import org.jdatepicker.impl.UtilDateModel;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.bll.RdvNotFoundException;
+import fr.eni.clinique.bo.Observable;
 import fr.eni.clinique.bo.RDV;
+import fr.eni.clinique.bo.Observable.ObservableListener;
 import fr.eni.clinique.dal.CreneauDejaPrisException;
 
 @SuppressWarnings("serial")
 public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
-	// private Clinique clinique = Clinique.getInstance();
+	
+
+	private Observable<Integer> clientEnCours;
 
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
@@ -57,6 +61,26 @@ public class FramePriseRDV extends JFrame {
 		setContentPane(getMainPanel());
 		setResizable(false);
 		setVisible(true);
+		
+		try {
+			clientEnCours = Clinique.getInstance().getIndexClientObserve();
+			clientEnCours.registerListener(new ObservableListener() {
+				
+				@Override
+				public void onChanged() {
+					try {
+						cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
+						cbbClient.setSelectedItem(Clinique.getInstance().getTabNomsClients().length-1); 
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		} catch (BLLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	///////////////////////////////////
@@ -120,6 +144,7 @@ public class FramePriseRDV extends JFrame {
 	}
 
 	public JComboBox<String> getCbbClient() {
+		
 		if (cbbClient == null) {
 
 			try {
