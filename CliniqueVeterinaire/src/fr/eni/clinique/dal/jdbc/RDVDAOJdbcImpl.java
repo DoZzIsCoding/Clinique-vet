@@ -71,7 +71,7 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			pstmt.setInt(1, value.getCodeVeto());
 			pstmt.setTimestamp(2, ts);
 			pstmt.setInt(3, value.getCodeAnimal());
-			pstmt.setTimestamp(2, ts);
+			pstmt.setTimestamp(4, ts);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){
 				throw new CreneauDejaPrisException("Le Veterinaire n'est pas disponible a cette heure");
