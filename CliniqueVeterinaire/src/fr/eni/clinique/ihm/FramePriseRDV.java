@@ -49,9 +49,9 @@ import fr.eni.clinique.dal.CreneauDejaPrisException;
 public class FramePriseRDV extends JFrame {
 
 	private JPanel mainPanel;
-	
 
 	private Observable<Integer> clientEnCours;
+	private Observable<Boolean> listeMiseAJour;
 
 	// CONSTRUCTEUR
 	public FramePriseRDV() {
@@ -61,20 +61,35 @@ public class FramePriseRDV extends JFrame {
 		setContentPane(getMainPanel());
 		setResizable(false);
 		setVisible(true);
-		
+
 		try {
-			clientEnCours = Clinique.getInstance().getIndexClientObserve();
-			clientEnCours.registerListener(new ObservableListener() {
-				
+			listeMiseAJour = Clinique.getInstance().getListeMiseAJourObserve();
+			listeMiseAJour.registerListener(new ObservableListener() {
+
 				@Override
 				public void onChanged() {
-					try {
-						cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
-						cbbClient.setSelectedItem(Clinique.getInstance().getTabNomsClients().length-1); 
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
+//					try {
+//						// cbbClient = new
+//						// JComboBox<String>(Clinique.getInstance().getTabNomsClients());
+//						// cbbClient.setSelectedItem(Clinique.getInstance().getTabNomsClients().length
+//						// - 1);
+//						getCbbClient().removeAllItems();
+//						for (int i = 0; i < Clinique.getInstance().getClients().size(); i++) {
+//							getCbbClient().addItem(Clinique.getInstance().getClients().get(i).getNomClient() + " "
+//									+ Clinique.getInstance().getClients().get(i).getPrenomClient());
+//						}
+//						getCbbClient().setSelectedIndex(Clinique.getInstance().getClients().size()-1);
+//						cbbAnimal.removeAllItems();
+//						for (int i = 0; i < Clinique.getInstance()
+//								.getAnimauxDeClient(getCbbClient().getSelectedIndex()).length; i++) {
+//							getCbbAnimal().addItem(
+//									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
+//						}
+//					} catch (BLLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 				}
 			});
 		} catch (BLLException e1) {
@@ -144,7 +159,7 @@ public class FramePriseRDV extends JFrame {
 	}
 
 	public JComboBox<String> getCbbClient() {
-		
+
 		if (cbbClient == null) {
 
 			try {
@@ -155,11 +170,16 @@ public class FramePriseRDV extends JFrame {
 				e.printStackTrace();
 			}
 			cbbClient.setAlignmentX(CENTER_ALIGNMENT);
-
 			cbbClient.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					try {
+						Clinique.getInstance().setClientEncours(getCbbClient().getSelectedIndex());
+					} catch (BLLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 					getCbbAnimal().removeAllItems();
 					try {
 						for (int i = 0; i < Clinique.getInstance()
@@ -329,10 +349,9 @@ public class FramePriseRDV extends JFrame {
 			quandPanel = new JPanel(new GridBagLayout());
 
 			Component rigidArea = Box.createRigidArea(new Dimension(5, 5));
-			
-			
+
 			quandPanel.setBorder(border);
-			
+
 			addComponentTo(getLblDate(), quandPanel, 0, 0, 1, 1, 1, true);
 			addComponentTo(getDatePicker(), quandPanel, 0, 1, 6, 1, 1, true);
 			addComponentTo(getLblHeure(), quandPanel, 0, 2, 1, 1, 1, true);
@@ -342,7 +361,7 @@ public class FramePriseRDV extends JFrame {
 			addComponentTo(getCbbMinute(), quandPanel, 3, 3, 1, 1, 1, true);
 			addComponentTo((JComponent) rigidArea, quandPanel, 4, 3, 1, 1, 1, true);
 			addComponentTo((JComponent) rigidArea, quandPanel, 5, 3, 1, 1, 1, true);
-			
+
 		}
 		return quandPanel;
 	}
@@ -425,7 +444,7 @@ public class FramePriseRDV extends JFrame {
 		if (cbbMinute == null) {
 			Integer[] minutes = { 0, 15, 30, 45 };
 			cbbMinute = new JComboBox<Integer>(minutes);
-			//cbbMinute.set
+			// cbbMinute.set
 		}
 		return cbbMinute;
 	}
@@ -494,21 +513,21 @@ public class FramePriseRDV extends JFrame {
 		if (btnSupprimerRDV == null) {
 			btnSupprimerRDV = new JButton("Supprimer");
 
-//			if(getTableRDV().getSelectedRow() < 0){
-//				btnSupprimerRDV.setEnabled(false);
-//			} else {
-//				btnSupprimerRDV.setEnabled(true);
-//			}
-			
-			
+			// if(getTableRDV().getSelectedRow() < 0){
+			// btnSupprimerRDV.setEnabled(false);
+			// } else {
+			// btnSupprimerRDV.setEnabled(true);
+			// }
+
 			btnSupprimerRDV.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						if (getTableRDV().getSelectedRow() >= 0) {
-							int res = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ce rendez-vous ?",
-									"Supprimer un rendez-vous", JOptionPane.OK_CANCEL_OPTION);
+							int res = JOptionPane.showConfirmDialog(null,
+									"Voulez-vous vraiment supprimer ce rendez-vous ?", "Supprimer un rendez-vous",
+									JOptionPane.OK_CANCEL_OPTION);
 
 							switch (res) {
 							case JOptionPane.OK_OPTION:
@@ -519,7 +538,8 @@ public class FramePriseRDV extends JFrame {
 								break;
 							case JOptionPane.CLOSED_OPTION:
 								break;
-							};
+							}
+							;
 						}
 					} catch (BLLException e) {
 						// TODO Auto-generated catch block
@@ -577,7 +597,8 @@ public class FramePriseRDV extends JFrame {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(btnValiderRDV, "Rendez-vous refusé ");
 					} catch (CreneauDejaPrisException e1) {
-						JOptionPane.showMessageDialog(btnValiderRDV, "Un rendez-vous existe deja à l'heure demandée pour cet animal ou ce vétérinaire ");
+						JOptionPane.showMessageDialog(btnValiderRDV,
+								"Un rendez-vous existe deja à l'heure demandée pour cet animal ou ce vétérinaire ");
 						e1.printStackTrace();
 					}
 				}

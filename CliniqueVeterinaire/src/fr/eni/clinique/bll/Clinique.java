@@ -27,7 +27,8 @@ public class Clinique {
 	private Observable<Integer> indexAnimalEnCours;
 	
 	private Observable<Integer> indexClientEnCours;
-	
+
+	private Observable<Boolean> listeMiseAJour;
 
 	
 	private Personnel utilisateurConnecté = null;
@@ -40,9 +41,12 @@ public class Clinique {
 		lesVeterinaires = manager.getVeterinaires();
 		indexClientEnCours = new Observable<>(0);
 		indexAnimalEnCours = new Observable<>(0);
+		listeMiseAJour = new Observable<>(false);
 	}
 
 	// GETTERS SETTERS
+	
+	
 
 	public Personnel getUtilisateurConnecté() {
 		return utilisateurConnecté;
@@ -75,6 +79,10 @@ public class Clinique {
 	public Observable<Integer> getIndexAnimalObserve(){
 		return indexClientEnCours;
 	}
+	
+	public Observable<Boolean> getListeMiseAJourObserve(){
+		return listeMiseAJour;
+	}
 
 	////////////////////////
 	// SINGLETON
@@ -92,7 +100,14 @@ public class Clinique {
 	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
 	public List<Client> getClients() {
-		return lesClients;
+		try {
+			lesClients = manager.getClients();
+			return lesClients;
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void setClientEncours(int index) {
@@ -118,6 +133,9 @@ public class Clinique {
 	 * @return un tableau de String contenant les noms des animaux du client.
 	 */
 	public String[] getAnimauxDeClient(int index) {
+		if(index == -1){
+			index=0;
+		}
 		String[] tableau = new String[lesClients.get(index).getAnimaux().size()];
 		for (int i = 0; i < tableau.length; i++) {
 			tableau[i] = lesClients.get(index).getAnimaux().get(i).getNomAnimal();
@@ -181,6 +199,7 @@ public class Clinique {
 		try {
 			manager.supprimerClient(clientASupprimer);
 			lesClients.remove(getIndexClientEnCours());
+			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur : suppression client non effectuée");
@@ -196,6 +215,7 @@ public class Clinique {
 				getClients();
 				setClientEncours(lesClients.size()-1);
 			}
+			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur accès aux données");
@@ -233,6 +253,8 @@ public class Clinique {
 		try {
 			manager.supprimerAnimal(animal);
 			lesClients.get(getIndexClientEnCours()).getAnimaux().remove(selectedRow);
+
+			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur de suppression");
