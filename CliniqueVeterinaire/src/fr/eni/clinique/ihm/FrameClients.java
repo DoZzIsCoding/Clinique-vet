@@ -61,20 +61,15 @@ public class FrameClients extends JFrame {
 						setClient(Clinique.getInstance().getClientEnCours());
 						tableModel.updateData();
 					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 			});
 		} catch (BLLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 
 		try {
 			setClient(Clinique.getInstance().getClientEnCours());
 		} catch (BLLException e) {
-			e.printStackTrace();
 		}
 
 		try {
@@ -86,14 +81,10 @@ public class FrameClients extends JFrame {
 					try {
 						tableModel.updateData();
 					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 			});
 		} catch (BLLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 
 	}
@@ -595,8 +586,6 @@ public class FrameClients extends JFrame {
 						Clinique.getInstance().setIndexAnimalEnCours(-1);
 						new FrameAnimaux();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}

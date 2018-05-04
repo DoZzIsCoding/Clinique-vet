@@ -123,10 +123,8 @@ public class FrameGestionDuPersonnel extends JFrame {
 			try {
 				txtListePersonnel = new JList<String>(Clinique.getInstance().getTabPersonnel());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			//txtListePersonnel.setEditable(false);
+			
 			scrTxtAreaListePersonnel = new JScrollPane(txtListePersonnel);
 		}
 		return txtListePersonnel;

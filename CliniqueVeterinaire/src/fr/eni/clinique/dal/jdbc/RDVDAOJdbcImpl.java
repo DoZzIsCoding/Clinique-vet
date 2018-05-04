@@ -95,19 +95,14 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	public boolean supprimer(RDV value) throws DalException {
 
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			// On considère qu'on a une connexion opérationnelle
+			
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RDV);
 
-			// TODO: faire la conversion de LocalDateTime vers Sql.date sans
-			// perdre les heures et minutes
-			System.out.println("avant parametres");
 			Timestamp ts = Timestamp.valueOf(value.getDate());
-			System.out.println(ts);
 			pstmt.setTimestamp(1, ts);
 			pstmt.setTimestamp(2, ts);
 			pstmt.setTimestamp(3, ts);
 			pstmt.setInt(4, value.getCodeVeto());
-			System.out.println(pstmt.executeUpdate() + " Enregistrement supprimé");
 			
 			return true;
 		} catch (Exception e) {

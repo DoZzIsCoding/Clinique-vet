@@ -87,14 +87,10 @@ public class FramePriseRDV extends JFrame {
 									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
 						}
 					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 			});
 		} catch (BLLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 	}
 
@@ -109,8 +105,6 @@ public class FramePriseRDV extends JFrame {
 			mainPanel.add(getParPanel(), BorderLayout.CENTER);
 			mainPanel.add(getQuandPanel(), BorderLayout.EAST);
 			mainPanel.add(getPanelTableauEtBoutonsBas(), BorderLayout.SOUTH);
-			// mainPanel.add(getPanelBoutonsduBasRDV(),BorderLayout.AFTER_LAST_LINE);
-
 		}
 
 		return mainPanel;
@@ -164,10 +158,8 @@ public class FramePriseRDV extends JFrame {
 
 			try {
 				cbbClient = new JComboBox<String>(Clinique.getInstance().getTabNomsClients());
-				// cbbClient.setPreferredSize(new Dimension(100,100 ));
+				
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			cbbClient.setAlignmentX(CENTER_ALIGNMENT);
 			cbbClient.addActionListener(new ActionListener() {
@@ -177,8 +169,6 @@ public class FramePriseRDV extends JFrame {
 					try {
 						Clinique.getInstance().setClientEncours(getCbbClient().getSelectedIndex());
 					} catch (BLLException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
 					}
 					getCbbAnimal().removeAllItems();
 					try {
@@ -188,10 +178,7 @@ public class FramePriseRDV extends JFrame {
 									Clinique.getInstance().getAnimauxDeClient(getCbbClient().getSelectedIndex())[i]);
 						}
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-
 				}
 			});
 			;
@@ -211,7 +198,6 @@ public class FramePriseRDV extends JFrame {
 						Clinique.getInstance().setIndexClientEnCours(-1);
 						new FrameAjouterClient();
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 					}
 				}
 			});
@@ -232,10 +218,7 @@ public class FramePriseRDV extends JFrame {
 			try {
 				cbbAnimal = new JComboBox<String>(Clinique.getInstance().getAnimauxDeClient(0));
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
 			cbbAnimal.setAlignmentX(CENTER_ALIGNMENT);
 		}
 		return cbbAnimal;
@@ -305,8 +288,6 @@ public class FramePriseRDV extends JFrame {
 				cbbVeterinaire = new JComboBox<String>(Clinique.getInstance().getTabNomsVeterinaires());
 				cbbVeterinaire.setPreferredSize(new Dimension(100, 100));
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
 			cbbVeterinaire.addActionListener(new ActionListener() {
@@ -316,8 +297,6 @@ public class FramePriseRDV extends JFrame {
 					try {
 						tableModel.updateData();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}
@@ -397,8 +376,6 @@ public class FramePriseRDV extends JFrame {
 					try {
 						tableModel.updateData();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}
@@ -413,7 +390,6 @@ public class FramePriseRDV extends JFrame {
 			model.setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1,
 					LocalDate.now().getDayOfMonth());
 			model.setSelected(true);
-			// TODO: revoir les parametres de dates null
 		}
 		return model;
 	}
@@ -428,7 +404,6 @@ public class FramePriseRDV extends JFrame {
 	public JComboBox<Integer> getCbbHeure() {
 		if (cbbHeure == null) {
 			Integer[] heures = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
-			// TODO: connecter au Mangaer
 			cbbHeure = new JComboBox<Integer>(heures);
 		}
 		return cbbHeure;
@@ -445,7 +420,6 @@ public class FramePriseRDV extends JFrame {
 		if (cbbMinute == null) {
 			Integer[] minutes = { 0, 15, 30, 45 };
 			cbbMinute = new JComboBox<Integer>(minutes);
-			// cbbMinute.set
 		}
 		return cbbMinute;
 	}
@@ -547,8 +521,6 @@ public class FramePriseRDV extends JFrame {
 							;
 						}
 					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 			});
@@ -653,8 +625,6 @@ public class FramePriseRDV extends JFrame {
 				rendezVous = Clinique.getInstance().getRDVJour(Date.from(Instant.now()),
 						getCbbVeterinaire().getSelectedIndex());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 

@@ -121,8 +121,6 @@ public class FrameAgenda extends JFrame {
 				cbbVeterinaire.setPreferredSize(new Dimension(100, 100));
 
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
 			cbbVeterinaire.addActionListener(new ActionListener() {
@@ -132,8 +130,6 @@ public class FrameAgenda extends JFrame {
 					try {
 						tableModel.updateData();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}
@@ -172,8 +168,6 @@ public class FrameAgenda extends JFrame {
 			 try {
 			 tableModel.updateData();
 			 } catch (BLLException e1) {
-			 // TODO Auto-generated catch block
-			 e1.printStackTrace();
 			 }
 			
 			 }
@@ -188,7 +182,6 @@ public class FrameAgenda extends JFrame {
 			model.setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1,
 					LocalDate.now().getDayOfMonth());
 			model.setSelected(true);
-			// TODO: revoir les parametres de dates null
 		}
 		return model;
 	}
@@ -214,14 +207,14 @@ public class FrameAgenda extends JFrame {
 			tableModel = new RDVTableModel();
 			tableRDV = new JTable(tableModel);
 
-			tableRDV.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-				@Override
-				public void valueChanged(ListSelectionEvent e) {
-					getBtndossierMedical().setEnabled(true);
-
-				}
-			});
+//			tableRDV.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//
+//				@Override
+//				public void valueChanged(ListSelectionEvent e) {
+//					getBtndossierMedical().setEnabled(true);
+//
+//				}
+//			});
 		}
 		return tableRDV;
 	}
@@ -297,8 +290,6 @@ public class FrameAgenda extends JFrame {
 				rendezVous = Clinique.getInstance().getRDVJour(Date.from(Instant.now()),
 						getCbbVeterinaire().getSelectedIndex());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 

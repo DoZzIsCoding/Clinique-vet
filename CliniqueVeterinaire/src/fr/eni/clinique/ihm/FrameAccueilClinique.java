@@ -68,8 +68,6 @@ public class FrameAccueilClinique extends JFrame {
 					break;
 				}
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		return menuPrincipal;
@@ -186,26 +184,18 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
@@ -226,26 +216,18 @@ public class FrameAccueilClinique extends JFrame {
 				
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override

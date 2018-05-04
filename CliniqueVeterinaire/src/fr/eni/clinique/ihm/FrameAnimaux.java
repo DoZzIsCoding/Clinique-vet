@@ -119,11 +119,8 @@ public class FrameAnimaux extends JFrame {
 							Clinique.getInstance().traiterAnimal(animal);
 							fermerFenetre();
 						} catch (BLLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						} catch (AnimalNonValideException e1) {
 							JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
-							e1.printStackTrace();
 						}
 					case JOptionPane.CANCEL_OPTION:
 						break;
@@ -199,8 +196,6 @@ public class FrameAnimaux extends JFrame {
 						+ Clinique.getInstance().getClientEnCours().getPrenomClient());
 				txtNomClient.setText(nomComplet);
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			txtNomClient.setEditable(false);
 		}
@@ -275,10 +270,7 @@ public class FrameAnimaux extends JFrame {
 				} else {
 					chargerAnimal();
 				}
-
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		return txtCode;
@@ -332,8 +324,6 @@ public class FrameAnimaux extends JFrame {
 			try {
 				cbbEspeceAnimal = new JComboBox<>(Clinique.getInstance().getTabEspeces());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			cbbEspeceAnimal.addActionListener(new ActionListener() {
 
@@ -347,8 +337,6 @@ public class FrameAnimaux extends JFrame {
 									.getTabRaceFromEspece(getCbbEspeceAnimal().getSelectedIndex())[i]);
 						}
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 
 				}
@@ -371,8 +359,6 @@ public class FrameAnimaux extends JFrame {
 			try {
 				cbbRaceAnimal = new JComboBox<>(Clinique.getInstance().getTabRaceFromEspece(0));
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		return cbbRaceAnimal;
@@ -433,8 +419,6 @@ public class FrameAnimaux extends JFrame {
 				getCbbSexeAnimal().setSelectedItem(0);
 			}
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
