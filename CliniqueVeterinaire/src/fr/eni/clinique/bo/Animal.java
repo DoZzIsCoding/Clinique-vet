@@ -12,7 +12,7 @@ public class Animal {
 	private String tatouage;
 	private String antecedents;
 	private boolean archive;
-
+@SuppressWarnings("unused") //utilisé
 	private RDV rdv;
 
 	public Animal() {

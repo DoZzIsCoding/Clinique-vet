@@ -2,7 +2,6 @@ package fr.eni.clinique.application;
 
 import javax.swing.SwingUtilities;
 
-import fr.eni.clinique.ihm.FrameAccueilClinique;
 import fr.eni.clinique.ihm.FrameConnexion;
 
 public class Application {

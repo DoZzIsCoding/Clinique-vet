@@ -2,8 +2,6 @@ package fr.eni.clinique.bo;
 
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class RDV {
 	
