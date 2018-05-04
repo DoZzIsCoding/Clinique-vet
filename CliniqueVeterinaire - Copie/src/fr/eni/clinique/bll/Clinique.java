@@ -99,12 +99,12 @@ public class Clinique {
 	////////////
 	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
-	
 	public List<Client> getClients() {
 		try {
 			lesClients = manager.getClients();
 			return lesClients;
 		} catch (BLLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -156,7 +156,7 @@ public class Clinique {
 		if (getIndexClientEnCours() == -1) {
 			return null;
 		} else {
-			return getClients().get(getIndexClientEnCours());
+			return lesClients.get(getIndexClientEnCours());
 		}
 	}
 
@@ -191,12 +191,7 @@ public class Clinique {
  */
 	public void selectionnerClient(Client client) {
 
-		//TODO: Solution de fortune a optimiser
-		for (int i = 0; i < getClients().size(); i++) {
-			if(lesClients.get(i).getCodeClient() == client.getCodeClient()) {
-				setIndexClientEnCours(i);
-			}
-		}
+		setIndexClientEnCours(lesClients.indexOf(client));
 		
 	}
 	
@@ -234,10 +229,7 @@ public class Clinique {
 	/////////////////
 
 	public List<Espece> getEspeces() {
-		try {
-			lesEspeces = manager.getEspeces();
-		} catch (DalException e) {
-		}
+		lesEspeces = manager.getEspeces();
 		return lesEspeces;
 
 	}
@@ -281,6 +273,7 @@ public class Clinique {
 			try {
 				setUtilisateurConnecté(manager.connecter(login, mdp));
 			} catch (DalException e) {
+				e.printStackTrace();
 				throw new BLLException("Erreur dans le Login ou dans le Mot De Passe");
 			}
 		}
@@ -288,14 +281,13 @@ public class Clinique {
 	}
 
 	public List<Personnel> getPersonnel() {
-		try {
-			lePersonnel = manager.getPersonnel();
-		} catch (DalException e) {
-		}
+		// TODO Auto-generated method stub
+		lePersonnel = manager.getPersonnel();
 		return lePersonnel;
 	}
 
 	public String[] getTabPersonnel() {
+		// TODO Auto-generated method stub
 		lePersonnel = getPersonnel();
 		String[] tableau = new String[lePersonnel.size()];
 		for (int i = 0; i < tableau.length; i++) {
@@ -340,6 +332,7 @@ public class Clinique {
 			manager.supprimerRdv(rdvASupprimer);
 			lesRdv.remove(index);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -357,10 +350,13 @@ public class Clinique {
 
 			lesRdv.add(nouveauRdv);
 		} catch (CreneauDejaPrisException e) {
+			e.printStackTrace();
 			throw new CreneauDejaPrisException("RDV deja existant");
 		} catch (BLLException e) {
+			e.printStackTrace();
 			throw new BLLException("erreur clinique");
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

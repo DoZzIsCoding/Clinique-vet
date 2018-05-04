@@ -109,6 +109,7 @@ public class CliniqueManager {
 		try {
 			rdvDAO.supprimer(rdv);
 		} catch (DalException e) {
+			e.printStackTrace();
 			throw new BLLException("Erreur BLL supression de RDV");
 		}
 	}
@@ -126,6 +127,7 @@ public class CliniqueManager {
 		} catch (CreneauDejaPrisException e) {
 			throw new CreneauDejaPrisException("Erreur BLL ajout de RDV");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BLLException("Erreur BLL ajout de RDV");
 		}
 	}
@@ -142,12 +144,16 @@ public class CliniqueManager {
 		try {
 			validerAnimal(animal);
 			animalDAO.traiterAnimal(animal);
+
 		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new BLLException("Erreur BLL ajout d'animal");
 		}
 	}
 
 	private void validerAnimal(Animal animal) throws AnimalNonValideException {
+		// TODO Auto-generated method stub
 		Boolean animalOK = true;
 		AnimalNonValideException e = new AnimalNonValideException();
 		if (animal.getNomAnimal().length() > 30) {
@@ -174,12 +180,14 @@ public class CliniqueManager {
 		try {
 			animalDAO.supprimer(animal);
 		} catch (DalException e) {
+			e.printStackTrace();
 			throw new BLLException("Erreur de suppression dans la base");
 		}
 		return true;
 	}
 	
 	public void validerClient(Client client) throws ClientNonValideException, BLLException{
+		// TODO Auto-generated method stub
 		Boolean clientOK = true;
 		ClientNonValideException e = new ClientNonValideException();
 		if (client.getNomClient().length() > 20 ) {
@@ -232,6 +240,7 @@ public class CliniqueManager {
 		try {
 			clientDAO.traiterClient(client);
 		} catch (DalException e1) {
+			e1.printStackTrace();
 			throw new BLLException("Erreur validation de client");
 		}
 
@@ -241,6 +250,7 @@ public class CliniqueManager {
 		try {
 			clientDAO.supprimer(clientASupprimer);
 		} catch (DalException e) {
+			e.printStackTrace();
 			throw new BLLException("Erreur de suppression");
 		}
 	}
@@ -251,14 +261,26 @@ public class CliniqueManager {
 			clientDAO.traiterClient(client);
 			
 		} catch (DalException e) {
-			throw new BLLException("Erreur traitement client ");
+			e.printStackTrace();
+			throw new BLLException("Erreur d'ajout ");
+		} catch (ClientNonValideException e) {
+			e.printStackTrace();
+			throw e;
 		}
 		
 	}
 
 	
-	public List<Espece> getEspeces() throws DalException {
+	public List<Espece> getEspeces() {
+
+		try {
 			return especeDAO.selectionnerTout();
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**
@@ -274,8 +296,14 @@ public class CliniqueManager {
 
 	}
 
-	public List<Personnel> getPersonnel() throws DalException {
+	public List<Personnel> getPersonnel() {
+		try {
 			return personnelDAO.selectionnerTout();
+		} catch (DalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	
