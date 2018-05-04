@@ -100,12 +100,15 @@ public class Clinique {
 	// GESTION DES CLIENTS (AVEC LEURS ANIMAUX)
 	////////////
 	
+	/**
+	 * 
+	 * @return la liste des client (animaux inclus)
+	 */
 	public List<Client> getClients() {
 		try {
 			lesClients = manager.getClients();
 			return lesClients;
 		} catch (BLLException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
@@ -191,13 +194,13 @@ public class Clinique {
  */
 	public void selectionnerClient(Client client) {
 
-		//TODO: Solution de fortune a optimiser
-		for (int i = 0; i < getClients().size(); i++) {
+		int i = 0;
+		Boolean codeTrouve = false;
+		do {
 			if(lesClients.get(i).getCodeClient() == client.getCodeClient()) {
 				setIndexClientEnCours(i);
 			}
-		}
-		
+		} while (!codeTrouve && i < lesClients.size());
 	}
 	
 	public void supprimerClientCourant() throws BLLException {
@@ -208,7 +211,6 @@ public class Clinique {
 			lesClients.remove(getIndexClientEnCours());
 			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
-			e.printStackTrace();
 			throw new BLLException("Erreur : suppression client non effectuée");
 		}
 		
@@ -224,7 +226,6 @@ public class Clinique {
 			getClients();
 			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
-			e.printStackTrace();
 			throw new BLLException("Erreur accès aux données");
 		}
 	}
@@ -266,7 +267,6 @@ public class Clinique {
 
 			listeMiseAJour.setValeur(true);
 		} catch (BLLException e) {
-			e.printStackTrace();
 			throw new BLLException("Erreur de suppression");
 		}
 	}	
@@ -340,6 +340,7 @@ public class Clinique {
 			manager.supprimerRdv(rdvASupprimer);
 			lesRdv.remove(index);
 		} catch (Exception e) {
+			throw new BLLException("Erreur lors de la suppression du RDV");
 		}
 	}
 
@@ -360,7 +361,6 @@ public class Clinique {
 			throw new CreneauDejaPrisException("RDV deja existant");
 		} catch (BLLException e) {
 			throw new BLLException("erreur clinique");
-		} catch (Exception e) {
 		}
 	}
 
