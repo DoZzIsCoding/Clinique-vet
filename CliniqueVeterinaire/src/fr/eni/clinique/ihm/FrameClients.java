@@ -145,7 +145,7 @@ public class FrameClients extends JFrame {
 	public JButton getBtnRechercherClient() {
 		if (btnRechercherClient == null) {
 			btnRechercherClient = new JButton("Rechercher",
-					new ImageIcon(getClass().getResource("./resources/rechercher.png")));
+					new ImageIcon(getClass().getResource("resources/rechercher.png")));
 			btnRechercherClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnRechercherClient.addActionListener(new ActionListener() {
@@ -165,7 +165,7 @@ public class FrameClients extends JFrame {
 
 	public JButton getBtnAjouterClient() {
 		if (btnAjouterClient == null) {
-			btnAjouterClient = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
+			btnAjouterClient = new JButton("Ajouter", new ImageIcon(getClass().getResource("resources/ajouter.png")));
 			btnAjouterClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterClient.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -185,7 +185,7 @@ public class FrameClients extends JFrame {
 	public JButton getBtnSupprimerClient() {
 		if (btnSupprimerClient == null) {
 			btnSupprimerClient = new JButton("Supprimer",
-					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
+					new ImageIcon(getClass().getResource("resources/supprimer.png")));
 			btnSupprimerClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerClient.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -210,7 +210,7 @@ public class FrameClients extends JFrame {
 
 	public JButton getBtnValiderClient() {
 		if (btnValiderClient == null) {
-			btnValiderClient = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
+			btnValiderClient = new JButton("Valider", new ImageIcon(getClass().getResource("resources/valider.png")));
 			btnValiderClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValiderClient.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -256,7 +256,7 @@ public class FrameClients extends JFrame {
 
 	public JButton getBtnAnnulerClient() {
 		if (btnAnnulerClient == null) {
-			btnAnnulerClient = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
+			btnAnnulerClient = new JButton("Annuler", new ImageIcon(getClass().getResource("resources/annuler.png")));
 			btnAnnulerClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnulerClient.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -569,7 +569,7 @@ public class FrameClients extends JFrame {
 
 	public JButton getBtnAjouterAnimal() {
 		if (btnAjouterAnimal == null) {
-			btnAjouterAnimal = new JButton("Ajouter", new ImageIcon(getClass().getResource("./resources/ajouter.png")));
+			btnAjouterAnimal = new JButton("Ajouter", new ImageIcon(getClass().getResource("resources/ajouter.png")));
 			btnAjouterAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnAjouterAnimal.addActionListener(new ActionListener() {
@@ -591,7 +591,7 @@ public class FrameClients extends JFrame {
 	public JButton getBtnSupprimerAnimal() {
 		if (btnSupprimerAnimal == null) {
 			btnSupprimerAnimal = new JButton("Supprimer",
-					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
+					new ImageIcon(getClass().getResource("resources/supprimer.png")));
 			btnSupprimerAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnSupprimerAnimal.setEnabled(false);
@@ -613,7 +613,7 @@ public class FrameClients extends JFrame {
 	public JButton getBtnModifieranimal() {
 		if (btnModifieranimal == null) {
 			btnModifieranimal = new JButton("Modifier",
-					new ImageIcon(getClass().getResource("./resources/modifier.png")));
+					new ImageIcon(getClass().getResource("resources/modifier.png")));
 			btnModifieranimal.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnModifieranimal.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnModifieranimal.setEnabled(false);

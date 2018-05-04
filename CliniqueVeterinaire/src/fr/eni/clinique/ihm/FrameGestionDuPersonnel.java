@@ -77,7 +77,7 @@ public class FrameGestionDuPersonnel extends JFrame {
 	public JButton getBtnAjouterPersonnel() {
 		if (btnAjouterPersonnel == null) {
 			btnAjouterPersonnel = new JButton("Ajouter",
-					new ImageIcon(getClass().getResource("./resources/ajouter.png")));
+					new ImageIcon(getClass().getResource("resources/ajouter.png")));
 			btnAjouterPersonnel.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAjouterPersonnel.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -88,7 +88,7 @@ public class FrameGestionDuPersonnel extends JFrame {
 	public JButton getBtnSupprimerPersonnel() {
 		if (btnSupprimerPersonnel == null) {
 			btnSupprimerPersonnel = new JButton("Supprimer",
-					new ImageIcon(getClass().getResource("./resources/supprimer.png")));
+					new ImageIcon(getClass().getResource("resources/supprimer.png")));
 			btnSupprimerPersonnel.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnSupprimerPersonnel.setHorizontalTextPosition(SwingConstants.CENTER);
 		}
@@ -98,7 +98,7 @@ public class FrameGestionDuPersonnel extends JFrame {
 	public JButton getBtnReinitialiserPersonnel() {
 		if (btnReinitialiserPersonnel == null) {
 			btnReinitialiserPersonnel = new JButton("Réinitialiser",
-					new ImageIcon(getClass().getResource("./resources/reinitialiser.png")));
+					new ImageIcon(getClass().getResource("resources/reinitialiser.png")));
 			btnReinitialiserPersonnel.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnReinitialiserPersonnel.setHorizontalTextPosition(SwingConstants.CENTER);
 		}

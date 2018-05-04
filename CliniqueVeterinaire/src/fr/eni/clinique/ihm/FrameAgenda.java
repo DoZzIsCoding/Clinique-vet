@@ -231,7 +231,7 @@ public class FrameAgenda extends JFrame {
 	public JButton getBtndossierMedical() {
 		if (btndossierMedical == null) {
 			btndossierMedical = new JButton("Dossier médical",
-					new ImageIcon(getClass().getResource("./resources/dossierMedical.png")));
+					new ImageIcon(getClass().getResource("resources/dossierMedical.png")));
 
 			btndossierMedical.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 

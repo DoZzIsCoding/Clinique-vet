@@ -87,7 +87,7 @@ public class FrameAnimaux extends JFrame {
 
 	public JButton getBtnValider() {
 		if (btnValider == null) {
-			btnValider = new JButton("Valider", new ImageIcon(getClass().getResource("./resources/valider.png")));
+			btnValider = new JButton("Valider", new ImageIcon(getClass().getResource("resources/valider.png")));
 			btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -134,7 +134,7 @@ public class FrameAnimaux extends JFrame {
 
 	public JButton getBtnAnnuler() {
 		if (btnAnnuler == null) {
-			btnAnnuler = new JButton("Annuler", new ImageIcon(getClass().getResource("./resources/annuler.png")));
+			btnAnnuler = new JButton("Annuler", new ImageIcon(getClass().getResource("resources/annuler.png")));
 			btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
 			

@@ -92,7 +92,7 @@ public class FrameRechercheClient extends JFrame {
 	public JButton getBtnRechercherClient() {
 		if (btnRechercherClient == null) {
 			btnRechercherClient = new JButton("Rechercher",
-					new ImageIcon(getClass().getResource("./resources/rechercher.png")));
+					new ImageIcon(getClass().getResource("resources/rechercher.png")));
 			btnRechercherClient.setVerticalTextPosition(SwingConstants.BOTTOM);
 			btnRechercherClient.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnRechercherClient.addActionListener(new ActionListener() {
