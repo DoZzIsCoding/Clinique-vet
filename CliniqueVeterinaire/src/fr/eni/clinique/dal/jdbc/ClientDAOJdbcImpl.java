@@ -8,10 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.ClientDAO;
-import fr.eni.clinique.dal.jdbc.ConnectionDAO;
 import fr.eni.clinique.exceptions.DalException;
 
 public class ClientDAOJdbcImpl implements ClientDAO {
@@ -56,23 +54,12 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		} catch (SQLException e) {
 			throw new DalException("selectById");
 		}
-
 		return client;
 	}
 
-	public List<Client> selectionnerTout() throws DalException {
-		List<Client> clients = new ArrayList<>();
-
-		try (Connection cnx = ConnectionDAO.getConnection()) {
-			Statement stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ALL);
-
-			while (rs.next()) {
-				clients.add(this.itemBuilder(rs));
-			}
-		} catch (SQLException e) {
-		}
-		return clients;
+	public List<Client> selectionnerTout(){
+		//non utilisé
+		return null;
 	}
 	
 	public List<Client> selectionnerAvecAnimaux() throws DalException {
@@ -82,6 +69,8 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_WITH_ANIMALS);
 			int cliEnCours = -1;
+			
+			@SuppressWarnings("unused")// utilisé dans la boucle while
 			int testNull;
 			while (rs.next()) {
 				if(rs.getInt("codeclient") != cliEnCours){
@@ -117,15 +106,10 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		if (client == null) {
 			throw new NullPointerException();
 		}
-		// ici, j'ai un article forcément non null
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-			// Ajout des paramètres à la requête
 			preparerParametres(client, pstmt);
-			// Exécution de la requête
 			pstmt.executeUpdate();
-			// Récupération de l'id généré
 			ResultSet rsId = pstmt.getGeneratedKeys();
 			if (rsId.next()) {
 				client.setCodeClient(rsId.getInt(1));
@@ -142,15 +126,10 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		if (client == null) {
 			throw new NullPointerException();
 		}
-		// ici, j'ai un client forcément non null
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
-			// Ajout des paramètres à modifier en base à la requête
 			preparerParametres(client, pstmt);
-			// Ajout du critère de restriction
 			pstmt.setInt(12, client.getCodeClient());
-			// Exécution de la requête
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DalException("update");
@@ -162,14 +141,11 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 		if (client == null) {
 			throw new NullPointerException();
 		}
-		// ici, j'ai un client forcément non null
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			// On considère qu'on a une connexion opérationnelle
+			
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
-			// Ajout du critère de restriction
 			pstmt.setInt(1, client.getCodeClient());
 			pstmt.setInt(2, client.getCodeClient());
-			// Exécution de la requête
 			pstmt.executeUpdate();
 			suppressionOK = true;
 		} catch (SQLException e) {

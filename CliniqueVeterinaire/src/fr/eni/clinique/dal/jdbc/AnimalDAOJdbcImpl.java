@@ -16,40 +16,18 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 
 	private static final String SELECT_ALL = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux WHERE archive = 0;";
 
-	private static final String SELECT_BY_ID = "SELECT codeAnimal, nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive FROM animaux WHERE codeAnimal =?";
-
 	private static final String INSERT = "INSERT INTO ANIMAUX(nomAnimal, sexe, couleur, race, espece, codeClient, tatouage, antecedents, archive ) "
-											+ "VALUES(?,?,?,?,?,?,?,?,?)";
-	
-	private static final String UPDATE = "UPDATE ANIMAUX SET "
-			+ "nomAnimal=?, "
-			+ "sexe=?, "
-			+ "couleur=?, "
-			+ "race=?, "
-			+ "espece=?, "
-			+ "codeClient=?, "
-			+ "tatouage=?, "
-			+ "antecedents=?, "
-			+ "archive=? "
-			+ "WHERE codeAnimal=? ;";		
-	
+			+ "VALUES(?,?,?,?,?,?,?,?,?)";
+
+	private static final String UPDATE = "UPDATE ANIMAUX SET " + "nomAnimal=?, " + "sexe=?, " + "couleur=?, "
+			+ "race=?, " + "espece=?, " + "codeClient=?, " + "tatouage=?, " + "antecedents=?, " + "archive=? "
+			+ "WHERE codeAnimal=? ;";
+
 	private static final String DELETE = "UPDATE ANIMAUX SET archive=1 WHERE codeAnimal=? ;";
-										
-		
+
 	@Override
 	public Animal selectionnerUn(int id) {
-		Animal animal = null;
-
-		try (Connection cnx = ConnectionDAO.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
-			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				animal = this.itemBuilder(rs);
-			}
-			return animal;
-		} catch (SQLException e) {
-		}
+		// non utilisé
 		return null;
 	}
 
@@ -65,7 +43,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
 			while (rs.next()) {
-				animaux.add(this.itemBuilder(rs));
+				animaux.add(itemBuilder(rs));
 			}
 		} catch (SQLException e) {
 
@@ -74,11 +52,11 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	}
 
 	@Override
-	public void ajouter(Animal animal) throws DalException  {
-		 if(animal == null){ 
-			 throw new NullPointerException(); 
-			 }
-		 
+	public void ajouter(Animal animal) throws DalException {
+		if (animal == null) {
+			throw new NullPointerException();
+		}
+
 		try (Connection cnx = ConnectionDAO.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			preparerStatement(animal, pstmt);
@@ -89,18 +67,18 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			}
 		} catch (SQLException e) {
 			throw new DalException("insert");
-			} 
+		}
 	}
 
 	@Override
 	public void modifier(Animal animal) throws DalException {
-		try(Connection cnx = ConnectionDAO.getConnection()){
+		try (Connection cnx = ConnectionDAO.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
 			preparerStatement(animal, pstmt);
-			
-			pstmt.setInt(10,animal.getCodeAnimal());
+
+			pstmt.setInt(10, animal.getCodeAnimal());
 			pstmt.executeUpdate();
-						
+
 		} catch (SQLException e) {
 			throw new DalException("update");
 		}
@@ -112,7 +90,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 	 * change le status de l'animal à archiver
 	 */
 	public boolean supprimer(Animal animal) throws DalException {
-		try(Connection cnx = ConnectionDAO.getConnection()){
+		try (Connection cnx = ConnectionDAO.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 			pstmt.setInt(1, animal.getCodeAnimal());
 			pstmt.executeUpdate();
@@ -122,19 +100,17 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		}
 	}
 
-	
-	
 	//////////////////////////
 	// UTILITAIRES
 	//////////////////////////
-	public void traiterAnimal(Animal a) throws DalException{
-		if(a.getCodeAnimal()==-1){
+	public void traiterAnimal(Animal a) throws DalException {
+		if (a.getCodeAnimal() == -1) {
 			try {
 				ajouter(a);
 			} catch (DalException e) {
 				throw new DalException("erreur ajout animal dans la base");
 			}
-		}else{
+		} else {
 			try {
 				modifier(a);
 			} catch (DalException e) {
@@ -142,7 +118,7 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			}
 		}
 	}
-	
+
 	public static Animal itemBuilder(ResultSet rs) throws SQLException {
 		Animal animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe").charAt(0),
 				rs.getString("Couleur"), rs.getString("Race"), rs.getString("Espece"), rs.getInt("CodeClient"),
@@ -150,7 +126,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 
 		return animal;
 	}
-	
 
 	private void preparerStatement(Animal animal, PreparedStatement pstmt) throws SQLException {
 		pstmt.setString(1, animal.getNomAnimal());
@@ -163,7 +138,5 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 		pstmt.setString(8, animal.getAntecedents());
 		pstmt.setBoolean(9, animal.isArchive());
 	}
-
-
 
 }

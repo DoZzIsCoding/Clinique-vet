@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.clinique.bo.Espece;
-import fr.eni.clinique.bo.RDV;
 import fr.eni.clinique.dal.EspeceDAO;
 import fr.eni.clinique.exceptions.CreneauDejaPrisException;
 import fr.eni.clinique.exceptions.DalException;
@@ -62,20 +61,6 @@ public class EspeceDAOJdbcImpl implements EspeceDAO {
 	@Override
 	public boolean supprimer(Espece value) throws DalException {
 		return false;
-	}
-
-
-	
-	private RDV itemBuilder(ResultSet rs) throws SQLException {
-		RDV rdv = new RDV(rs.getTimestamp("DateRDV").toLocalDateTime(),
-				rs.getString("Nomclient") + " " + rs.getString("prenomClient"), rs.getString("NomAnimal"),
-				rs.getString("Espece"), rs.getInt("CodeVeto"), rs.getInt("CodeAnimal"));
-
-		return rdv;
-	}
-
-	private java.sql.Date utilToSqlDate(java.util.Date date) {
-		return new java.sql.Date(date.getTime());
 	}
 
 

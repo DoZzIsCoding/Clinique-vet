@@ -335,7 +335,8 @@ public class Clinique {
 
 	public void supprimerRdvCourant(int index) throws BLLException {
 		RDV rdvASupprimer = lesRdv.get(index);
-
+		
+		
 		try {
 			manager.supprimerRdv(rdvASupprimer);
 			lesRdv.remove(index);
