@@ -98,6 +98,7 @@ public class FrameRechercheClient extends JFrame {
 			btnRechercherClient.addActionListener(new ActionListener() {
 				
 			
+				@SuppressWarnings("unchecked")
 				@Override 
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -110,11 +111,8 @@ public class FrameRechercheClient extends JFrame {
 									+ " - " + c.getVille());
 							clientsTrouves.add(c);
 						}
-						
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 					}
-					
 				}
 			});
 		}
@@ -129,13 +127,16 @@ public class FrameRechercheClient extends JFrame {
 	////////////////////////////////
 
 	private JList<String> txtResultatsRecherche;
+	@SuppressWarnings("unused")
 	private JScrollPane scrTxtAreaResulatsRecherche;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel listModel = new DefaultListModel();;
 	
+	@SuppressWarnings({ "unchecked"})
 	public JList<String> getTxtResultatsRecherche() {
 		
 		if(txtResultatsRecherche == null){
-			txtResultatsRecherche = new JList(listModel);
+			txtResultatsRecherche = new JList<String>(listModel);
 			scrTxtAreaResulatsRecherche = new JScrollPane(txtResultatsRecherche);
 			txtResultatsRecherche.addListSelectionListener(new ListSelectionListener() {
 				
@@ -146,15 +147,11 @@ public class FrameRechercheClient extends JFrame {
 						index = txtResultatsRecherche.getSelectedIndex();
 						Clinique.getInstance().selectionnerClient(clientsTrouves.get(index));
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 					}
-					
 				}
 			});
-			
 		}
 		return txtResultatsRecherche;
-
 	}
 
 	///////////////////////////////////

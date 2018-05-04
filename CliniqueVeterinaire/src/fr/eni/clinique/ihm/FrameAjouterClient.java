@@ -115,10 +115,8 @@ public class FrameAjouterClient extends JFrame {
 							JOptionPane.showMessageDialog(btnValider, "Client créé avec succès");
 							fermerFenetre();
 						} catch (BLLException e1) {
-							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValider, "Erreur de saisie, client non créé \n " + e1.getMessage());
 						} catch (ClientNonValideException e1) {
-							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValider, e1.getMessageGlobal());
 						}
 						

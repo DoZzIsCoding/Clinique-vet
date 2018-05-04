@@ -197,7 +197,6 @@ public class FrameClients extends JFrame {
 						Clinique.getInstance().supprimerClientCourant();
 						setClient(Clinique.getInstance().getClientEnCours());
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 
@@ -236,18 +235,14 @@ public class FrameClients extends JFrame {
 											getTxtEmail().getText(), getTxtRemarque().getText()));
 
 						} catch (ClientNonValideException e1) {
-							e1.printStackTrace();
 							JOptionPane.showMessageDialog(btnValiderClient, e1.getMessageGlobal());
 						} catch (NumberFormatException e1) {
-							e1.printStackTrace();
 						} catch (BLLException e1) {
-							e1.printStackTrace();
 						}
 					case JOptionPane.CANCEL_OPTION:
 						try {
 							setClient(Clinique.getInstance().getClientEnCours());
 						} catch (BLLException e1) {
-							e1.printStackTrace();
 						}
 						break;
 					case JOptionPane.CLOSED_OPTION:
@@ -278,7 +273,6 @@ public class FrameClients extends JFrame {
 						try {
 							setClient(Clinique.getInstance().getClientEnCours());
 						} catch (BLLException e) {
-							e.printStackTrace();
 						}
 						break;
 					case JOptionPane.CANCEL_OPTION:
@@ -609,7 +603,6 @@ public class FrameClients extends JFrame {
 						Clinique.getInstance().supprimerAnimal(getTableAnimauxClient().getSelectedRow());
 						tableModel.fireTableDataChanged();
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 					}
 				}
 			});
@@ -632,7 +625,6 @@ public class FrameClients extends JFrame {
 						Clinique.getInstance().setIndexAnimalEnCours(getTableAnimauxClient().getSelectedRow());
 						new FrameAnimaux();
 					} catch (BLLException e1) {
-						e1.printStackTrace();
 					}
 				}
 			});
@@ -687,15 +679,10 @@ public class FrameClients extends JFrame {
 				getTxtRemarque().setText("");
 			}
 		} catch (BLLException e) {
-			e.printStackTrace();
 		}
 	}
 
-	private void fermerFenetre() {
-		this.dispose();
-
-	}
-
+	
 	////////////////////////////////
 	// CLASSES
 	////////////////////////////////
@@ -709,7 +696,6 @@ public class FrameClients extends JFrame {
 			try {
 				animaux = Clinique.getInstance().getClientEnCours().getAnimaux();
 			} catch (BLLException e) {
-				e.printStackTrace();
 			}
 		}
 

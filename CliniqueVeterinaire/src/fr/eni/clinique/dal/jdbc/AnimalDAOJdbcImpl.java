@@ -49,7 +49,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			}
 			return animal;
 		} catch (SQLException e) {
-			// TODO: handle exception
 		}
 		return null;
 	}
@@ -89,7 +88,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 				animal.setCodeAnimal(rsId.getInt(1));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("insert");
 			} 
 	}
@@ -104,7 +102,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			pstmt.executeUpdate();
 						
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("update");
 		}
 
@@ -121,7 +118,6 @@ public class AnimalDAOJdbcImpl implements AnimalDAO {
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("delete");
 		}
 	}

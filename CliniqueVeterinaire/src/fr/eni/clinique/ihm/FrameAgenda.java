@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
@@ -20,18 +18,13 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -261,20 +254,7 @@ public class FrameAgenda extends JFrame {
 	// METHODES
 	///////////////////////////////////
 
-	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
-			boolean fillHorizontal) {
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = width;
-		gbc.gridheight = height;
-		gbc.weightx = weightX;
-		if (fillHorizontal) {
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-		}
-		gbc.insets = new Insets(7, 10, 5, 10);
-		panel.add(component, gbc);
-	}
+	
 
 	////////////////////////////////
 	// CLASSES

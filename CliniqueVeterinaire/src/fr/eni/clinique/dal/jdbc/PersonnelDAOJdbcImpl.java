@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.PersonnelDAO;
 import fr.eni.clinique.exceptions.DalException;
@@ -22,7 +21,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 	
 	@Override
 	public Personnel selectionnerUn(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -38,8 +36,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 				personnel.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-
-			e.printStackTrace();
 			throw new DalException("select all");
 		}
 		return personnel;
@@ -47,19 +43,16 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 
 	@Override
 	public void ajouter(Personnel personnel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void modifier(Personnel personnel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean supprimer(Personnel personnel) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -82,8 +75,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 				personnel.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-
-			e.printStackTrace();
 			throw new DalException("select vetos");
 		}
 		return personnel;
@@ -108,7 +99,6 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

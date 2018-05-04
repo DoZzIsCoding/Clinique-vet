@@ -98,7 +98,6 @@ public class FrameConnexion extends JFrame {
 						}
 					} catch (BLLException e1) {
 						JOptionPane.showMessageDialog(btnValider, e1.getMessage());
-						e1.printStackTrace();
 					}
 				}
 		});
@@ -139,7 +138,6 @@ public class FrameConnexion extends JFrame {
 			UIManager.setLookAndFeel(look);
 			SwingUtilities.updateComponentTreeUI(this.getContentPane());
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	
 	

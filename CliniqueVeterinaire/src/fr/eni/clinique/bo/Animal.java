@@ -16,7 +16,6 @@ public class Animal {
 	private RDV rdv;
 
 	public Animal() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Animal(int codeAnimal, String nomAnimal, char sexe, String couleur, String race, String espece,

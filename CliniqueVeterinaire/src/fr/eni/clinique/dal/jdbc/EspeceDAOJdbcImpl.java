@@ -20,7 +20,6 @@ public class EspeceDAOJdbcImpl implements EspeceDAO {
 
 	@Override
 	public Espece selectionnerUn(int id) throws DalException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,27 +45,22 @@ public class EspeceDAOJdbcImpl implements EspeceDAO {
 
 			}
 		} catch (SQLException e) {
-
-			e.printStackTrace();
 		}
 		return especes;
 	}
 
 	@Override
 	public void ajouter(Espece value) throws DalException, CreneauDejaPrisException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void modifier(Espece value) throws DalException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean supprimer(Espece value) throws DalException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -22,7 +22,6 @@ public class RDV {
 
 	//CONSTRUCTEUR
 	public RDV() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public RDV(LocalDateTime date, String nomClient, String nomAnimal, String especeAnimal, int codeVeto,

@@ -3,21 +3,15 @@ package fr.eni.clinique.ihm;
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
@@ -116,6 +110,7 @@ public class FrameGestionDuPersonnel extends JFrame {
 	////////////////////////////////
 
 	private JList<String> txtListePersonnel;
+	@SuppressWarnings("unused")
 	private JScrollPane scrTxtAreaListePersonnel;
 
 	public JList<String> getTxtListePersonnel() {
@@ -134,19 +129,4 @@ public class FrameGestionDuPersonnel extends JFrame {
 	// METHODES
 	///////////////////////////////////
 	
-	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
-			boolean fillHorizontal) {
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = width;
-		gbc.gridheight = height;
-		gbc.weightx = weightX;
-		if (fillHorizontal) {
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-		}
-		gbc.insets = new Insets(7, 10, 5, 10);
-		panel.add(component, gbc);
-	}
-
 }

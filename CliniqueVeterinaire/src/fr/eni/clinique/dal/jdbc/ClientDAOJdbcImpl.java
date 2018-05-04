@@ -54,7 +54,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				client = this.itemBuilder(rs);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("selectById");
 		}
 
@@ -72,7 +71,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				clients.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return clients;
 	}
@@ -101,8 +99,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				}
 			}
 		} catch (SQLException e) {
-
-			e.printStackTrace();
 		}
 		return clients;
 	}
@@ -135,7 +131,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 				client.setCodeClient(rsId.getInt(1));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("insert");
 		}
 	}
@@ -158,7 +153,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			// Exécution de la requête
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("update");
 		}
 	}
@@ -179,7 +173,6 @@ public class ClientDAOJdbcImpl implements ClientDAO {
 			pstmt.executeUpdate();
 			suppressionOK = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("Erreur de suppression dans la base de données");
 		}
 		return suppressionOK;

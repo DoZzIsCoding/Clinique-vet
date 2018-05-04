@@ -1,19 +1,15 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import fr.eni.clinique.bll.Clinique;
 import fr.eni.clinique.exceptions.BLLException;
@@ -244,26 +240,8 @@ public class FrameAccueilClinique extends JFrame {
 	// METHODES
 	//////////////////////////////////
 
-
-	private void addComponentTo(JComponent component, JPanel panel, int x, int y, int width, int height, double weightX,
-			boolean fillHorizontal) {
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = width;
-		gbc.gridheight = height;
-		gbc.weightx = weightX;
-		if (fillHorizontal) {
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-		}
-		gbc.insets = new Insets(7, 10, 5, 10);
-		panel.add(component, gbc);
-	}
-
 	protected void fermerFenetre() {
 		this.dispose();
-
 	}
-
 
 }

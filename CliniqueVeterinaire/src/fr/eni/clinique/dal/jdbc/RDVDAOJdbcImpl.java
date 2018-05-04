@@ -32,13 +32,11 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	
 	@Override
 	public RDV selectionnerUn(int id) throws DalException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<RDV> selectionnerTout() throws DalException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,7 +44,6 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 	public void ajouter(RDV value) throws DalException, CreneauDejaPrisException {
 		verifierRDV(value);
 		
-		//Ici on considere que le veterinaire est disponible pour l'horaire demandé
 		try (Connection cnx = ConnectionDAO.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RDV);
 			Timestamp ts = Timestamp.valueOf(value.getDate());
@@ -55,10 +52,8 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			pstmt.setInt(3, value.getCodeAnimal());
 			pstmt.executeUpdate();
 		}catch (SQLServerException e) {
-			e.printStackTrace();
 			throw new CreneauDejaPrisException("un Rdv existe deja a cette heure");
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new DalException("erreur d'insertion de rendez vous");
 		}
 
@@ -77,18 +72,13 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 				throw new CreneauDejaPrisException("Le Veterinaire n'est pas disponible a cette heure");
 			}
 		}catch (SQLServerException e) {
-			e.printStackTrace();
 			throw new CreneauDejaPrisException("un Rdv existe deja a cette heure");
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 	}
 
 	@Override
 	public void modifier(RDV value) throws DalException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -106,7 +96,6 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 			
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
@@ -116,7 +105,6 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 		List<RDV> agenda = new ArrayList<>();
 
 		try (Connection cnx = ConnectionDAO.getConnection()) {
-			// On considère qu'on a une connexion opérationnelle
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_AGENDA_JOUR);
 			pstmt.setInt(1, veterinaire.getCodePers());
 			pstmt.setDate(2, utilToSqlDate(date));
@@ -125,7 +113,6 @@ public class RDVDAOJdbcImpl implements RDVDAO {
 				agenda.add(this.itemBuilder(rs));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DalException("selectById");
 		}
 

@@ -14,7 +14,6 @@ public class Personnel {
 	private List<RDV> planning;
 	
 	public Personnel() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Personnel(int codePers, String nom, String motDePasse, String role) {
